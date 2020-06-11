@@ -42,7 +42,7 @@ class App extends React.Component {
     console.log("submit")
 
     axios({
-      url: 'http://localhost:8080/api/save',
+      url: '/api/save',
       method: 'POST',
       data : payload
     })
