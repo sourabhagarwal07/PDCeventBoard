@@ -10,10 +10,12 @@ const PORT= process.env.PORT || 8080;  //Step 1
 const routes = require('./routes/api');
 
 //connect with mongo
-//const MONGOdb_URI = 'mongodb+srv://yiyinzhang:602390489stop@youtubedb.1pt6s.mongodb.net/YoutubeDB?retryWrites=true&w=majority';
+//const MONGOdb_URI = 'mongodb+srv://yiyinzhang:602390489stop@youtubedb.1pt6s.mongodb.net/<dbname>?retryWrites=true&w=majority';
+
 //mongodb+srv://yiyinzhang:602390489stop@youtubedb.1pt6s.mongodb.net/YoutubeDB?retryWrites=true&w=majority
 //Step 2
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/mern_youtube', {   
+//process.env.MONGODB_URI
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mern_youtube', {   
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
