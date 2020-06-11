@@ -78,6 +78,7 @@ class App extends React.Component {
     console.log("state:", this.state);
     return (
       <div className="App">
+        <h2>Welcome to the best app ever</h2>
         <form className="form-input">
           <div>
             <input type="text" name="title" value={this.state.title} placeholder="Title" onChange={this.handleChange}/>
