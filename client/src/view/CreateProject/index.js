@@ -10,16 +10,16 @@ const CreateProject = () => {
     project: "",
   });
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setInfo({
       ...info,
       [event.target.name]: event.target.value,
     });
-  }
+  };
 
   const handleSubmit = (event) => {
     console.log(info);
-    
+
     axios({
       url: "http://localhost:8080/api/save",
       method: "POST",
