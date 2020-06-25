@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Router from "./Router";
+import Router from "../../Router";
 
 class Test extends React.Component {
     state = {
