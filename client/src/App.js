@@ -18,9 +18,9 @@ const App = () => {
             <Button as="a" inverted>
               Log in
             </Button>
-            <Button as="a" inverted style={{ marginLeft: "0.5em" }}>
+            {/* <Button as="a" inverted style={{ marginLeft: "0.5em" }}>
               Sign Up
-            </Button>
+            </Button> */}
           </Menu.Item>
         </Container>
       </Menu>
