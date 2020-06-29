@@ -21,20 +21,4 @@ const Routers = () => {
   )
 };
 
-export default Routers
-
-// const history = createBrowserHistory();
-//
-// const Routers = () => {
-//   return (
-//     <Router history={history}>
-//       <Switch>
-//         <Route exact path="/" component={Home}/>
-//         <Route exact path="/test" component={Test}/>
-//         <Route exact path="/createproject" component={CreateProject}/>
-//       </Switch>
-//     </Router>
-//   );
-// };
-//
-// export default Routers;
+export default Routers;
