@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, {useState} from "react";
+import {useForm} from "react-hook-form";
 import axios from "axios";
-import { Button, Form, Input, TextArea } from "semantic-ui-react";
+import {Button, Form, Input, TextArea} from "semantic-ui-react";
 
 const CreateProject = () => {
   const [info, setInfo] = useState({
