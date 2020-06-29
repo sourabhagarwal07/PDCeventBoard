@@ -40,13 +40,13 @@ passport.use(new GoogleStrategy({
             .then((currentUser) => {
                 // if it has, don't save
                 if (currentUser) {
-                    console.log("The user is: " + currentUser);
+                    // console.log("The user is: " + currentUser);
                     done(null, currentUser);
                 } else {
                     // if it does not, save the new user
                     newUser.save()
                         .then((newUser) => {
-                            console.log("Created a new user:" + newUser);
+                            // console.log("Created a new user:" + newUser);
                             done(null, newUser);
                         })
                 }

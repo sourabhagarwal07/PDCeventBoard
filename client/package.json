@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
     "history": "^5.0.0",
+    "http-proxy-middleware": "^1.0.4",
     "less": "^3.11.3",
     "less-loader": "^6.1.2",
     "react": "^16.13.1",
@@ -40,7 +41,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3000",
   "devDependencies": {
     "customize-cra": "^1.0.0",
     "react-router-dom": "^5.2.0"

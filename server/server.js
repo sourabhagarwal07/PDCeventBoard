@@ -5,8 +5,9 @@ const cors = require('cors');
 const cookieSession = require("cookie-session");
 const passportSetup = require("./config/Passport");
 const passport = require("passport");
-const authRoutes = require("./routes/Auth");
 const keys = require("./config/Keys");
+const authRoutes = require("./routes/Auth");
+const mainRoutes = require("./routes/MainRoute");
 
 
 
@@ -27,12 +28,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use(
-    cors({
-        origin: "http://localhost:3000", // allow to server to accept request from different origin
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        credentials: true // allow session cookie from browser to pass through
-    })
+app.use(cors()
+    // cors({
+    //     origin: "http://localhost:3000", // allow to server to accept request from different origin
+    //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    //     credentials: true // allow session cookie from browser to pass through
+    // })
 );
 
 // log output
@@ -40,6 +41,7 @@ app.use(morgan('tiny'));
 
 // auth router
 app.use('/auth', authRoutes);
+app.use('/', mainRoutes);
 
 
 if (process.env.NODE_ENV === 'production') {
