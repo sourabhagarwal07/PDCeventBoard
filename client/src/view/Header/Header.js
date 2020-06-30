@@ -6,7 +6,7 @@ import axios from 'axios';
 import {Link, NavLink, withRouter} from 'react-router-dom'
 
 const Header = (props) => {
-  const {history, location ,match} = useReactRouter();
+  const {history, location, match} = useReactRouter();
 
   const [userInfo, setUserInfo] = useState({
     user: {},
@@ -22,6 +22,10 @@ const Header = (props) => {
   const handleLogout = () => {
     window.open("http://localhost:8080/auth/logout", "_self")
 
+  };
+
+  const handleHome = () => {
+    history.push('/');
   };
 
   const handleProjectList = () => {
@@ -54,6 +58,13 @@ const Header = (props) => {
       })
   }, []);
 
+  let button;
+  if(userInfo.authenticated) {
+    button = <Button onClick={handleLogout} as="a" inverted>Log out</Button>;
+  } else {
+    button = <Button onClick={handleLogin} as="a" inverted>Log in</Button>;
+  }
+
 
   return (
     <div>
@@ -62,15 +73,16 @@ const Header = (props) => {
           <Menu.Item as="a" header>
             Professional Development Club
           </Menu.Item>
-          <Menu.Item as="a">Home</Menu.Item>
+          <Menu.Item as="a" onClick={handleHome}>Home</Menu.Item>
           <Menu.Item as="a" onClick={handleProjectList}>Project</Menu.Item>
           <Menu.Item position="right">
-            <Button onClick={handleLogin} as="a" inverted>
-              Log in
-            </Button>
-            <Button onClick={handleLogout} as="a" inverted>
-              Log out
-            </Button>
+            {/*<Button onClick={handleLogin} as="a" inverted>*/}
+            {/*  Log in*/}
+            {/*</Button>*/}
+            {/*<Button onClick={handleLogout} as="a" inverted>*/}
+            {/*  Log out*/}
+            {/*</Button>*/}
+            {button}
           </Menu.Item>
         </Container>
       </Menu>
