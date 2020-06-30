@@ -5,9 +5,9 @@ import useReactRouter from "use-react-router";
 import axios from 'axios';
 import {Link, NavLink, withRouter} from 'react-router-dom'
 
-const Header = () => {
+const Header = (props) => {
+  const {history, location ,match} = useReactRouter();
 
-  const {history, location, match} = useReactRouter();
   const [userInfo, setUserInfo] = useState({
     user: {},
     error: null,
@@ -25,10 +25,11 @@ const Header = () => {
   };
 
   const handleProjectList = () => {
-    history.push('/createproject');
-    // if (userInfo.authenticated) {
-    //   history.push('/createproject');
-    // }
+    if (userInfo.authenticated) {
+      history.push('/create-project');
+    } else {
+      console.log("you haven't logged in");
+    }
   };
 
 
@@ -56,14 +57,13 @@ const Header = () => {
 
   return (
     <div>
-      {/* Header */}
       <Menu fixed="top" inverted>
         <Container>
           <Menu.Item as="a" header>
             Professional Development Club
           </Menu.Item>
           <Menu.Item as="a">Home</Menu.Item>
-          <Menu.Item as={NavLink} to="/createproject">Project</Menu.Item>
+          <Menu.Item as="a" onClick={handleProjectList}>Project</Menu.Item>
           <Menu.Item position="right">
             <Button onClick={handleLogin} as="a" inverted>
               Log in

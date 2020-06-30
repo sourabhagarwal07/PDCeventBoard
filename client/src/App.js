@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Router from "./Router";
+import Routers from "./Router";
 import "semantic-ui-css/semantic.min.css";
 import {Menu, Container, Button} from "semantic-ui-react";
 import CreateProject from "./view/CreateProject";
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <React.Fragment>
       <Container text style={{marginTop: "7em"}}>
-        <Router/>
+        <Routers/>
       </Container>
     </React.Fragment>
   );
