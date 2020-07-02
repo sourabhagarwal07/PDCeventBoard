@@ -14,9 +14,8 @@ router.get('/login/callback',
     console.log("callback " + req.user );
     user = {...req.user};
     console.log("user!!! " + user);
-  //   user = req.user;
-  //   // Successful authentication, redirect home.
 
+  //   // Successful authentication, redirect home.
     res.redirect('http://localhost:3000/');
   }
   );
