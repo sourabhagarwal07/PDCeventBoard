@@ -26,7 +26,7 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: "https://pdc-bin.herokuapp.com/auth/login/callback"
+    callbackURL: "http://pdc-bin.herokuapp.com/auth/login"
   },
   (accessToken, refreshToken, profile, done) => {
     const {sub: googleId, name, email} = profile._json;
