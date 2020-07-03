@@ -13,7 +13,7 @@ const Header = (props) => {
   });
 
   const handleLogin = () => {
-    window.open("http://localhost:8080/auth/login", "_self");
+    window.open("/auth/login", "_self");
   };
 
   const handleLogout = () => {
@@ -34,7 +34,7 @@ const Header = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auth/login/success", {
+      .get("/auth/login/success", {
         withCredentials: true,
       })
       .then((res) => {

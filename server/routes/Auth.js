@@ -16,7 +16,7 @@ router.get('/login/callback',
     console.log("user!!! " + user);
 
   //   // Successful authentication, redirect home.
-    res.redirect('http://localhost:3000/');
+    res.redirect('/');
   }
   );
 
