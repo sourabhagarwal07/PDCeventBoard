@@ -13,6 +13,13 @@ const http = require("http");
 const app = express();
 const PORT = process.env.PORT || 8080; //Step 1
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header("Access-Control-Allow-Credentials", "true");
