@@ -50,7 +50,7 @@ router.get("/login/success", (req, res) => {
 router.get("/logout", (req, res) => {
   req.session = null;
   req.logout();
-  res.redirect("http://localhost:3000/");
+  res.redirect("/");
 });
 
 module.exports = router;
