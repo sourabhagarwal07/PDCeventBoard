@@ -3,6 +3,7 @@ import { Grid, Button } from "semantic-ui-react";
 import CreateProject from "../CreateProject/CreateProject";
 import ProjectList from "./ProjectList";
 
+// data from server
 const projectsFromServer = [
   {
     id: "1",
@@ -53,6 +54,15 @@ const ProjectListInterface = () => {
     setIsOpen((isOpen) => !isOpen);
   };
 
+  const handleCreateProject = (newProject) => {
+    // we will get these info from server
+    newProject.id = 9;
+    newProject.hostPhotoURL =
+      "https://img.icons8.com/carbon-copy/2x/company.png";
+    setProjectsInfo([...projectsInfo, newProject]);
+    setIsOpen(false);
+  };
+
   return (
     <Fragment>
       <Grid>
@@ -65,7 +75,12 @@ const ProjectListInterface = () => {
             positive
             content="Create New Project"
           />
-          {isOpen && <CreateProject cancelCreateOpen={handleIsOpenToggle} />}
+          {isOpen && (
+            <CreateProject
+              createProject={handleCreateProject}
+              cancelCreateOpen={handleIsOpenToggle}
+            />
+          )}
         </Grid.Column>
       </Grid>
     </Fragment>

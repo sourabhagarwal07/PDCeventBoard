@@ -35,9 +35,8 @@ const ProjectListItem = (props) => {
         </Segment>
         <Segment secondary>
           <List horizontal>
-            {user.map((user) => (
-              <ProjectListUser key={user.id} user={user} />
-            ))}
+            {user &&
+              user.map((user) => <ProjectListUser key={user.id} user={user} />)}
           </List>
         </Segment>
         <Segment clearing>

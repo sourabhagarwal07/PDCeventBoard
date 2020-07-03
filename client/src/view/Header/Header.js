@@ -28,7 +28,7 @@ const Header = (props) => {
     if (userInfo.authenticated) {
       history.push("/project-list");
     } else {
-      console.log("you haven't logged in");
+      alert("You need to login!");
     }
   };
 
@@ -83,13 +83,11 @@ const Header = (props) => {
             Project List
           </Menu.Item>
           <Menu.Item position="right">{button}</Menu.Item>
+          <Menu.Item>
+            {userInfo.authenticated ? "Welcome " + userInfo.user.name : ""}
+          </Menu.Item>
         </Container>
       </Menu>
-      {/* <h1>
-        {userInfo.authenticated
-          ? "Welcome " + userInfo.user.name
-          : "Please log in"}
-      </h1> */}
     </Fragment>
   );
 };
