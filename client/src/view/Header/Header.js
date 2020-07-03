@@ -13,7 +13,7 @@ const Header = (props) => {
   });
 
   const handleLogin = () => {
-    window.open("/auth/login", "_self");
+    window.open("https://pdc-bin.herokuapp.com/auth/login", "_self");
   };
 
   const handleLogout = () => {
