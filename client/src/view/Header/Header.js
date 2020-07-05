@@ -13,11 +13,15 @@ const Header = (props) => {
   });
 
   const handleLogin = () => {
-    window.open("auth/login", "_self");
+    // for deploy
+    // window.open("auth/login", "_self");
+    window.open("http://localhost:8080/auth/login", "_self");
   };
 
   const handleLogout = () => {
-    window.open("/auth/logout", "_self");
+    // for deploy
+    // window.open("/auth/logout", "_self");
+    window.open("http://localhost:8080/auth/logout", "_self");
   };
 
   const handleHome = () => {
@@ -34,7 +38,9 @@ const Header = (props) => {
 
   useEffect(() => {
     axios
-      .get("/auth/login/success", {
+      // for deploy
+      // .get("/auth/login/success", {
+      .get("http://localhost:8080/auth/login/success", {
         withCredentials: true,
       })
       .then((res) => {
