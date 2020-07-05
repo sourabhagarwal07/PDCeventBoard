@@ -9,9 +9,12 @@ const keys = require("./config/Keys");
 const authRoutes = require("./routes/Auth");
 const mainRoutes = require("./routes/MainRoute");
 const http = require("http");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 8080; //Step 1
+
+app.use("/", express.static(path.join(__dirname, "build")));
 
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");

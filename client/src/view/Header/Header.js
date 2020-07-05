@@ -13,10 +13,14 @@ const Header = (props) => {
   });
 
   const handleLogin = () => {
+    // for deploy
+    // window.open("auth/login", "_self");
     window.open("http://localhost:8080/auth/login", "_self");
   };
 
   const handleLogout = () => {
+    // for deploy
+    // window.open("/auth/logout", "_self");
     window.open("http://localhost:8080/auth/logout", "_self");
   };
 
@@ -34,6 +38,8 @@ const Header = (props) => {
 
   useEffect(() => {
     axios
+      // for deploy
+      // .get("/auth/login/success", {
       .get("http://localhost:8080/auth/login/success", {
         withCredentials: true,
       })
