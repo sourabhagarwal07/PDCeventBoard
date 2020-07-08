@@ -16,7 +16,7 @@ router.get(
     failureRedirect: "/auth/failed",
     // for deploy
     // successRedirect: '/'
-    successRedirect: 'http://localhost:3000/'
+      successRedirect: '/'
   })
 );
 
@@ -46,7 +46,7 @@ router.get("/logout", (req, res) => {
   req.logout();
   // for deploy
   // res.redirect("/");
-  res.redirect("http://localhost:3000");
+  res.redirect("/");
 });
 
 module.exports = router;

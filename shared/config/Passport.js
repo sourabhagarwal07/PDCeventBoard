@@ -27,7 +27,7 @@ passport.use(
       clientSecret: keys.googleClientSecret,
       // for deploy
       // callbackURL: "/auth/login/callback"
-      callbackURL: "http://localhost:8080/auth/login/callback",
+      callbackURL: "/auth/login/callback",
     },
     (accessToken, refreshToken, profile, done) => {
       const { sub: googleId, name, email, hd } = profile._json;
