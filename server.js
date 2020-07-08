@@ -52,7 +52,7 @@ app.use(passport.session());
 // log output
 app.use(morgan("tiny"));
 
-// auth router
+// auth router  
 app.use("/auth", authRoutes);
 app.use("/", mainRoutes);
 
