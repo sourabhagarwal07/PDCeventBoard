@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import ProjectListItem from "./ProjectListItem";
 
+//git test
 const ProjectList = (props) => {
   const { projectsInfo } = props;
   return (
