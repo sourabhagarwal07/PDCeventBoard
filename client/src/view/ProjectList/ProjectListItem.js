@@ -2,15 +2,12 @@ import React, { Fragment } from "react";
 import { Segment, Item, Icon, List, Button } from "semantic-ui-react";
 import ProjectListUser from "./ProjectListUser";
 
-const ProjectListItem = (props) => {
-  const {
-    hostPhotoURL,
-    title,
-    date,
-    description,
-    hostedBy,
-    user,
-  } = props.project;
+/**
+ * @author @binjiasata
+ * @description This is project list item. Get project info from ProjectList.js
+ */
+const ProjectListItem = ({ project }) => {
+  const { hostPhotoURL, title, date, description, hostedBy, user } = project;
 
   return (
     <Fragment>

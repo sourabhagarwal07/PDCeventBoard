@@ -3,7 +3,7 @@ import { Grid, Button } from "semantic-ui-react";
 import CreateProject from "../CreateProject/CreateProject";
 import ProjectList from "./ProjectList";
 
-// data from server
+// This data should be got from server
 const projectsFromServer = [
   {
     id: "1",
@@ -46,6 +46,12 @@ const projectsFromServer = [
   },
 ];
 
+/**
+ * @author @binjiasata
+ * @description This page shows a project list and a create new project button.
+ *              Todo: Project list data should be got from server.
+ *              Todo: Create new project should be saved in server.
+ */
 const ProjectListInterface = () => {
   const [projectsInfo, setProjectsInfo] = useState(projectsFromServer);
   const [isOpen, setIsOpen] = useState(false);
@@ -67,6 +73,7 @@ const ProjectListInterface = () => {
     <Fragment>
       <Grid>
         <Grid.Column width={10}>
+          {/* Pass project info to project list and children component */}
           <ProjectList projectsInfo={projectsInfo} />
         </Grid.Column>
         <Grid.Column width={6}>

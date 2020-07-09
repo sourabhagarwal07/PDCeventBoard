@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   googleId: String,
   name: String,
-  email: String
+  email: String,
+  picture: String,
 });
 
 const User = mongoose.model("pdc-user", userSchema);

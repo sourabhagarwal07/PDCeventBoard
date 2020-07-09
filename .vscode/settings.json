@@ -1,0 +1,8 @@
+{
+    "docthis.includeDescriptionTag": true,
+    "docthis.includeDateTag": true,
+    "docthis.includeAuthorTag": true,
+    "docthis.includeTypes": false,
+    "docthis.includeMemberOfOnInterfaceMembers": false,
+    "docthis.includeMemberOfOnClassMembers": false
+}

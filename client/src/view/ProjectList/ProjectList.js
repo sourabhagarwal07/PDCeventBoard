@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
 import ProjectListItem from "./ProjectListItem";
 
-//git test
-const ProjectList = (props) => {
-  const { projectsInfo } = props;
+/**
+ * @author @binjiasata
+ * @description This is project list component.
+ */
+const ProjectList = ({ projectsInfo }) => {
   return (
     <Fragment>
       {projectsInfo.map((project) => (
