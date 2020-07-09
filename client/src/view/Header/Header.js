@@ -4,7 +4,7 @@ import useReactRouter from "use-react-router";
 import axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
-import { NavLink } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 /**
  * @author @binjiasata
@@ -41,7 +41,6 @@ const Header = (props) => {
   };
 
   const handleProjectList = (e, { name }) => {
-    console.log(name);
     if (userInfo.authenticated) {
       history.push("/project-list");
       setActiveItem(name);
