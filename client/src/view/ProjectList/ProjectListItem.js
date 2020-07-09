@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Segment, Item, Icon, List, Button } from "semantic-ui-react";
 import ProjectListUser from "./ProjectListUser";
+import { Link } from "react-router-dom";
 
 /**
  * @author @binjiasata
@@ -17,7 +18,9 @@ const ProjectListItem = ({ project }) => {
             <Item>
               <Item.Image size="tiny" circular src={hostPhotoURL} />
               <Item.Content>
-                <Item.Header as="a">{title}</Item.Header>
+                <Item.Header as={Link} to={"/projectdetail/:id"}>
+                  {title}
+                </Item.Header>
                 <Item.Description>
                   Hosted by <a>{hostedBy}</a>
                 </Item.Description>

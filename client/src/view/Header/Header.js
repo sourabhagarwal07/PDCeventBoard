@@ -4,15 +4,17 @@ import useReactRouter from "use-react-router";
 import axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
+import { NavLink } from "react-router-dom";
 
 /**
  * @author @binjiasata
- * @description This is the navbar, contains PDC icon, project list button, 
+ * @description This is the navbar, contains PDC icon, project list button,
  *              login menu or logout menu for now.
- * 
+ *
  */
 const Header = (props) => {
   const { history } = useReactRouter();
+  const [activeItem, setActiveItem] = useState("");
 
   const [userInfo, setUserInfo] = useState({
     user: {},
@@ -33,13 +35,16 @@ const Header = (props) => {
     window.open("http://localhost:8080/auth/logout", "_self");
   };
 
-  const handleHome = () => {
+  const handleHome = (e, { name }) => {
     history.push("/");
+    setActiveItem(name);
   };
-  
-  const handleProjectList = () => {
+
+  const handleProjectList = (e, { name }) => {
+    console.log(name);
     if (userInfo.authenticated) {
       history.push("/project-list");
+      setActiveItem(name);
     } else {
       alert("You need to login!");
     }
@@ -73,13 +78,20 @@ const Header = (props) => {
     <Fragment>
       <Menu fixed="top" inverted>
         <Container>
-          <Menu.Item as="a" onClick={handleHome} header>
+          <Menu.Item
+            name="home"
+            active={activeItem === "home"}
+            as="a"
+            onClick={handleHome}
+            header
+          >
             Professional Development Club
           </Menu.Item>
-          <Menu.Item as="a" onClick={handleHome}>
-            Home
-          </Menu.Item>
-          <Menu.Item as="a" onClick={handleProjectList}>
+          <Menu.Item
+            name="projectList"
+            active={activeItem === "projectList"}
+            onClick={handleProjectList}
+          >
             Project List
           </Menu.Item>
           {userInfo.authenticated ? (

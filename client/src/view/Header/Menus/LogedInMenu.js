@@ -11,7 +11,7 @@ const LogedInMenu = ({ logOut, username, userPicture }) => {
       <Image avatar spaced="right" src={userPicture} />
       <Dropdown pointing="top left" text={username}>
         <Dropdown.Menu>
-          <Dropdown.Item text="Create Event" icon="plus" />
+          <Dropdown.Item text="Create Project" icon="plus" />
           <Dropdown.Item onClick={logOut} text="Log Out" icon="power" />
         </Dropdown.Menu>
       </Dropdown>
