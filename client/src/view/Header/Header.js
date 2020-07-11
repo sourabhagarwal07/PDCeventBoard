@@ -1,4 +1,4 @@
-import { Button, Container, Menu } from "semantic-ui-react";
+import { Button, Container, Menu, Image } from "semantic-ui-react";
 import React, { useEffect, useState, Fragment } from "react";
 import useReactRouter from "use-react-router";
 import axios from "axios";
@@ -77,6 +77,7 @@ const Header = (props) => {
     <Fragment>
       <Menu fixed="top" inverted>
         <Container>
+          <Image size="small" src="/assets/logo.png" />
           <Menu.Item
             name="home"
             active={activeItem === "home"}
