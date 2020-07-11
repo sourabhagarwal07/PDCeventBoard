@@ -10,6 +10,6 @@ const projectSchema = new Schema({
   user: Array,
 });
 
-const Project = mongoose.model("pdc-project", projectSchema);
+const Project = mongoose.model("project", projectSchema);
 
 module.exports = Project;

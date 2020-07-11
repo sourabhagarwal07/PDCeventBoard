@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Grid, Button } from "semantic-ui-react";
 import CreateProject from "../CreateProject/CreateProject";
 import ProjectList from "./ProjectList";
+import Axios from "axios";
 
 // This data should be got from server
 const projectsFromServer = [
@@ -68,6 +69,23 @@ const ProjectListInterface = () => {
     setProjectsInfo([...projectsInfo, newProject]);
     setIsOpen(false);
   };
+
+  // useEffect(() => {
+  //   Axios.get("http://localhost:8080/project", {})
+  //     .then((res) => {
+  //       return res.data;
+  //     })
+  //     .then((data) => {
+  //       console.log(data)
+  //       data.map((project) => {
+  //         console.log(project);
+  //         setProjectsInfo([...projectsInfo, project]);
+  //       });
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // }, []);
 
   return (
     <Fragment>
