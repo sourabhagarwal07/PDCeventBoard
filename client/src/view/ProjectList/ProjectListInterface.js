@@ -54,7 +54,7 @@ const projectsFromServer = [
  *              Todo: Create new project should be saved in server.
  */
 const ProjectListInterface = () => {
-  const [projectsInfo, setProjectsInfo] = useState(projectsFromServer);
+  const [projectsInfo, setProjectsInfo] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleIsOpenToggle = () => {
@@ -70,22 +70,22 @@ const ProjectListInterface = () => {
     setIsOpen(false);
   };
 
-  // useEffect(() => {
-  //   Axios.get("http://localhost:8080/project", {})
-  //     .then((res) => {
-  //       return res.data;
-  //     })
-  //     .then((data) => {
-  //       console.log(data)
-  //       data.map((project) => {
-  //         console.log(project);
-  //         setProjectsInfo([...projectsInfo, project]);
-  //       });
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // }, []);
+  useEffect(() => {
+    Axios.get("http://localhost:8080/project", {})
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        console.log(data)
+        data.map((project) => {
+          console.log(project);
+          setProjectsInfo([...projectsInfo, project]);
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <Fragment>
