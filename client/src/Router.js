@@ -5,6 +5,7 @@ import Home from "./view/Home/Home";
 import Header from "./view/Header/Header";
 import Footer from "./view/Footer/Footer";
 import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
+import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
 import { Container } from "semantic-ui-react";
 
 /**
@@ -26,6 +27,11 @@ const Routers = () => {
               exact
               path="/project-list"
               component={ProjectListInterface}
+            />
+            <Route
+              exact
+              path="/project-detail/:id"
+              component={ProjectDeatiledPage}
             />
           </Container>
         </Switch>

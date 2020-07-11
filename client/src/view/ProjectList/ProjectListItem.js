@@ -23,7 +23,6 @@ const ProjectListItem = ({ project }) => {
   const [ellipsisText, setEllipsisText] = useState("Read More");
   const [clamped, setClamped] = useState(false);
 
-
   // if click Read More button, show content and Collapse button.
   const handleReadMore = () => {
     if (readMore) {
@@ -50,7 +49,7 @@ const ProjectListItem = ({ project }) => {
             <Item>
               <Item.Image size="tiny" circular src={hostPhotoURL} />
               <Item.Content>
-                <Item.Header as={Link} to={"/projectdetail/" + id}>
+                <Item.Header as={Link} to={`/project-detail/${id}`}>
                   {title}
                 </Item.Header>
                 <Item.Description>
