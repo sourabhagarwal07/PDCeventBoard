@@ -27,6 +27,9 @@ const Header = (props) => {
   const handleHome = () => {
     history.push("/");
   };
+  const handleOurTeam = () => {
+    history.push("/OurTeam");
+  };
 
   const handleProjectList = () => {
     if (userInfo.authenticated) {
@@ -75,6 +78,7 @@ const Header = (props) => {
     );
   }
 
+  
   return (
     <Fragment>
       <Menu fixed="top" inverted>
@@ -84,6 +88,9 @@ const Header = (props) => {
           </Menu.Item>
           <Menu.Item as="a" onClick={handleHome}>
             Home
+          </Menu.Item>
+          <Menu.Item as="a" onClick={handleOurTeam}>
+            Our Team
           </Menu.Item>
           <Menu.Item as="a" onClick={handleProjectList}>
             Project List
