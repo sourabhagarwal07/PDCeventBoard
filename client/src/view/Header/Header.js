@@ -58,8 +58,8 @@ const Header = (props) => {
   useEffect(() => {
     axios
       // for deploy
-      // .get("/auth/login/success", {
-      .get("http://localhost:8080/auth/login/success", {
+      .get("/auth/login/success", {
+      // .get("http://localhost:8080/auth/login/success", {
         withCredentials: true,
       })
       .then((res) => {
