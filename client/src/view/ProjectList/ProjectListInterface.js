@@ -76,11 +76,8 @@ const ProjectListInterface = () => {
         return res.data;
       })
       .then((data) => {
-        console.log(data)
-        data.map((project) => {
-          console.log(project);
-          setProjectsInfo([...projectsInfo, project]);
-        });
+        console.log(data);
+        setProjectsInfo(data);
       })
       .catch((e) => {
         console.log(e);
