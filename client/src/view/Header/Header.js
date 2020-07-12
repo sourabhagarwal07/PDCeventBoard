@@ -40,6 +40,11 @@ const Header = (props) => {
     setActiveItem(name);
   };
 
+  const handleOurTeam = () => {
+    history.push("/OurTeam");
+    setActiveItem(name);
+  };
+
   const handleProjectList = (e, { name }) => {
     if (userInfo.authenticated) {
       history.push("/project-list");
@@ -85,6 +90,13 @@ const Header = (props) => {
             header
           >
             Professional Development Club
+          </Menu.Item>
+          <Menu.Item
+            name="OurTeam"
+            active={activeItem === "OurTeam"}
+            onClick={handleOurTeam}
+          >
+            Our Team
           </Menu.Item>
           <Menu.Item
             name="projectList"
