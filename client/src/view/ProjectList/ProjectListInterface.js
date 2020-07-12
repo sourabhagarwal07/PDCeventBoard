@@ -3,14 +3,14 @@ import { Grid, Button } from "semantic-ui-react";
 import CreateProject from "../CreateProject/CreateProject";
 import ProjectList from "./ProjectList";
 
-// data from server
+// This data should be got from server
 const projectsFromServer = [
   {
     id: "1",
     title: "Web Development",
     date: "2020-03-27",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut,enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut,enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     hostedBy: "Apple",
     hostPhotoURL:
       "https://imageog.flaticon.com/icons/png/512/37/37150.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF",
@@ -46,6 +46,12 @@ const projectsFromServer = [
   },
 ];
 
+/**
+ * @author @binjiasata
+ * @description This page shows a project list and a create new project button.
+ *              Todo: Project list data should be got from server.
+ *              Todo: Create new project should be saved in server.
+ */
 const ProjectListInterface = () => {
   const [projectsInfo, setProjectsInfo] = useState(projectsFromServer);
   const [isOpen, setIsOpen] = useState(false);
@@ -67,6 +73,7 @@ const ProjectListInterface = () => {
     <Fragment>
       <Grid>
         <Grid.Column width={10}>
+          {/* Pass project info to project list and children component */}
           <ProjectList projectsInfo={projectsInfo} />
         </Grid.Column>
         <Grid.Column width={6}>

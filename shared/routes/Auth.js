@@ -15,8 +15,8 @@ router.get(
   passport.authenticate("google", {
     failureRedirect: "/auth/failed",
     // for deploy
-    successRedirect: '/'
-    // successRedirect: 'http://localhost:3000/'
+    // successRedirect: '/'
+    successRedirect: 'http://localhost:3000/'
   })
 );
 
@@ -45,8 +45,8 @@ router.get("/logout", (req, res) => {
   req.session = null;
   req.logout();
   // for deploy
-  res.redirect("/");
-  // res.redirect("http://localhost:3000");
+  // res.redirect("/");
+  res.redirect("http://localhost:3000");
 });
 
 module.exports = router;
