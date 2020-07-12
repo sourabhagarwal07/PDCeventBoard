@@ -1,10 +1,20 @@
-import { Button, Container, Menu } from "semantic-ui-react";
+import { Button, Container, Menu, Image } from "semantic-ui-react";
 import React, { useEffect, useState, Fragment } from "react";
 import useReactRouter from "use-react-router";
 import axios from "axios";
+import LogedInMenu from "./Menus/LogedInMenu";
+import LogedOutMenu from "./Menus/LogedOutMenu";
+import { withRouter } from "react-router-dom";
 
+/**
+ * @author @binjiasata
+ * @description This is the navbar, contains PDC icon, project list button,
+ *              login menu or logout menu for now.
+ *
+ */
 const Header = (props) => {
   const { history } = useReactRouter();
+  const [activeItem, setActiveItem] = useState("");
 
   const [userInfo, setUserInfo] = useState({
     user: {},
@@ -12,38 +22,39 @@ const Header = (props) => {
     authenticated: false,
   });
 
+  // Use google login
   const handleLogin = () => {
     // for deploy
-    window.open("auth/login", "_self");
-    // window.open("http://localhost:8080/auth/login", "_self");
+    // window.open("auth/login", "_self");
+    window.open("http://localhost:8080/auth/login", "_self");
   };
 
   const handleLogout = () => {
     // for deploy
-    window.open("/auth/logout", "_self");
-    // window.open("http://localhost:8080/auth/logout", "_self");
+    // window.open("/auth/logout", "_self");
+    window.open("http://localhost:8080/auth/logout", "_self");
   };
 
-  const handleHome = () => {
+  const handleHome = (e, { name }) => {
     history.push("/");
-  };
-  const handleOurTeam = () => {
-    history.push("/OurTeam");
+    setActiveItem(name);
   };
 
-  const handleProjectList = () => {
+  const handleProjectList = (e, { name }) => {
     if (userInfo.authenticated) {
       history.push("/project-list");
+      setActiveItem(name);
     } else {
       alert("You need to login!");
     }
   };
 
+  // Get logged user info from backend
   useEffect(() => {
     axios
       // for deploy
-      .get("/auth/login/success", {
-      // .get("http://localhost:8080/auth/login/success", {
+      // .get("/auth/login/success", {
+      .get("http://localhost:8080/auth/login/success", {
         withCredentials: true,
       })
       .then((res) => {
@@ -62,43 +73,36 @@ const Header = (props) => {
       });
   }, []);
 
-  //if user doesn't login, display Login button, or display Sign out
-  let button;
-  if (userInfo.authenticated) {
-    button = (
-      <Button onClick={handleLogout} as="a" inverted>
-        Sign out
-      </Button>
-    );
-  } else {
-    button = (
-      <Button onClick={handleLogin} as="a" inverted>
-        Login
-      </Button>
-    );
-  }
-
-  
   return (
     <Fragment>
       <Menu fixed="top" inverted>
         <Container>
-          <Menu.Item as="a" onClick={handleHome} header>
+          <Image size="small" src="/assets/logo.png" />
+          <Menu.Item
+            name="home"
+            active={activeItem === "home"}
+            as="a"
+            onClick={handleHome}
+            header
+          >
             Professional Development Club
           </Menu.Item>
-          <Menu.Item as="a" onClick={handleHome}>
-            Home
-          </Menu.Item>
-          <Menu.Item as="a" onClick={handleOurTeam}>
-            Our Team
-          </Menu.Item>
-          <Menu.Item as="a" onClick={handleProjectList}>
+          <Menu.Item
+            name="projectList"
+            active={activeItem === "projectList"}
+            onClick={handleProjectList}
+          >
             Project List
           </Menu.Item>
-          <Menu.Item position="right">{button}</Menu.Item>
-          <Menu.Item>
-            {userInfo.authenticated ? "Welcome " + userInfo.user.name : ""}
-          </Menu.Item>
+          {userInfo.authenticated ? (
+            <LogedInMenu
+              logOut={handleLogout}
+              username={userInfo.user.name}
+              userPicture={userInfo.user.picture}
+            />
+          ) : (
+            <LogedOutMenu logIn={handleLogin} />
+          )}
         </Container>
       </Menu>
     </Fragment>
