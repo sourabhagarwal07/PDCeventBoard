@@ -25,18 +25,23 @@ const Header = (props) => {
   // Use google login
   const handleLogin = () => {
     // for deploy
-    // window.open("auth/login", "_self");
-    window.open("http://localhost:8080/auth/login", "_self");
+    window.open("auth/login", "_self");
+    // window.open("http://localhost:8080/auth/login", "_self");
   };
 
   const handleLogout = () => {
     // for deploy
-    // window.open("/auth/logout", "_self");
-    window.open("http://localhost:8080/auth/logout", "_self");
+    window.open("/auth/logout", "_self");
+    // window.open("http://localhost:8080/auth/logout", "_self");
   };
 
   const handleHome = (e, { name }) => {
     history.push("/");
+    setActiveItem(name);
+  };
+
+  const handleOurTeam = (e, { name }) => {
+    history.push("/OurTeam");
     setActiveItem(name);
   };
 
@@ -53,8 +58,8 @@ const Header = (props) => {
   useEffect(() => {
     axios
       // for deploy
-      // .get("/auth/login/success", {
-      .get("http://localhost:8080/auth/login/success", {
+      .get("/auth/login/success", {
+        // .get("http://localhost:8080/auth/login/success", {
         withCredentials: true,
       })
       .then((res) => {
@@ -77,7 +82,6 @@ const Header = (props) => {
     <Fragment>
       <Menu fixed="top" inverted>
         <Container>
-          <Image size="small" src="/assets/logo.png" />
           <Menu.Item
             name="home"
             active={activeItem === "home"}
@@ -86,6 +90,13 @@ const Header = (props) => {
             header
           >
             Professional Development Club
+          </Menu.Item>
+          <Menu.Item
+            name="OurTeam"
+            active={activeItem === "OurTeam"}
+            onClick={handleOurTeam}
+          >
+            Our Team
           </Menu.Item>
           <Menu.Item
             name="projectList"
