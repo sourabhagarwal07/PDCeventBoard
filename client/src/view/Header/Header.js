@@ -40,7 +40,7 @@ const Header = (props) => {
     setActiveItem(name);
   };
 
-  const handleOurTeam = () => {
+  const handleOurTeam = (e, { name }) => {
     history.push("/OurTeam");
     setActiveItem(name);
   };
@@ -59,7 +59,7 @@ const Header = (props) => {
     axios
       // for deploy
       .get("/auth/login/success", {
-      // .get("http://localhost:8080/auth/login/success", {
+        // .get("http://localhost:8080/auth/login/success", {
         withCredentials: true,
       })
       .then((res) => {
