@@ -1,48 +1,59 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const morgan = require('morgan');
-const path = require('path');
-const cors = require('cors');
+const express = require("express");
+const database = require("./shared/config/Database");
+const morgan = require("morgan");
+const cors = require("cors");
+const cookieSession = require("cookie-session");
+const passportSetup = require("./shared/config/Passport");
+const passport = require("passport");
+const keys = require("./shared/config/Keys");
+const authRoutes = require("./shared/routes/Auth");
+const mainRoutes = require("./shared/routes/MainRoute");
+const http = require("http");
+const path = require("path");
 
 const app = express();
-const PORT= process.env.PORT || 8080;  //Step 1
+const PORT = process.env.PORT || 8080; //Step 1
 
-const routes = require('./routes/api');
-
-//connect with mongo
-//const MONGOdb_URI = 'mongodb+srv://yiyinzhang:602390489stop@youtubedb.1pt6s.mongodb.net/<dbname>?retryWrites=true&w=majority';
-
-//mongodb+srv://yiyinzhang:602390489stop@youtubedb.1pt6s.mongodb.net/YoutubeDB?retryWrites=true&w=majority
-//Step 2
-//process.env.MONGODB_URI
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mern_youtube', {   
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-
-mongoose.connection.on('connected', () => {
-    console.log('Mongoose is connected!')
-})
-
-// newBlogPost.save((error) => {
-//     if(error) {
-//         console.log("Ooops, something happened")
-//     } else {
-//         console.log('Data has been saved')
-//     }
-// })
-//.saved    
-app.use(cors());
-
-app.use(express.json());
-app.use(express.urlencoded({extended: false}))
-app.use(morgan('tiny'));
-
-app.use('/', routes);
-
-//Step 3
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
+if (process.env.NODE_ENV === "production") {
+  console.log("dir name", __dirname);
+  app.use("/", express.static(path.join(__dirname, "/client/build")));
 }
 
-app.listen(PORT, console.log(`Server is starting at ${PORT}`))
+app.all("*", function (req, res, next) {
+  // res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type,Content-Length, Authorization, Accept,X-Requested-With"
+  );
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By", " 3.2.1");
+
+  if (req.method == "OPTIONS") {
+    res.send(200);
+  } else {
+    next();
+  }
+});
+
+// use cookie-session to encrypt user.id
+app.use(
+  cookieSession({
+    name: "session",
+    keys: [keys.cookieKey],
+    maxAge: 24 * 60 * 60 * 1000,
+  })
+);
+
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// log output
+app.use(morgan("tiny"));
+
+// auth router
+app.use("/auth", authRoutes);
+app.use("/", mainRoutes);
+
+app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));

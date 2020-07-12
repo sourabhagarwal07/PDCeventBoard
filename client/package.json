@@ -8,9 +8,18 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
+    "history": "^5.0.0",
+    "less": "^3.11.3",
+    "less-loader": "^6.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-hook-form": "^5.7.2",
+    "react-lines-ellipsis": "^0.14.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2",
+    "use-react-router": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,5 +42,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy":"http://localhost:3000"
+  "devDependencies": {
+    "customize-cra": "^1.0.0",
+    "react-router-dom": "^5.2.0"
+  }
 }
