@@ -31,6 +31,7 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       const { sub: googleId, name, email, hd } = profile._json;
+      console.log(profile)
       if (hd && hd == "uottawa.ca") {
         const newUser = new User({
           googleId: googleId,
