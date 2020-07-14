@@ -4,7 +4,10 @@ let user = {};
 
 router.get(
   "/login",
-  passport.authenticate("google", { scope: ["profile", "email"] }),
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    prompt: "select_account",
+  }),
   (req, res) => {
     console.log("come in to login");
   }
