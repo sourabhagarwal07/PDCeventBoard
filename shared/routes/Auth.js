@@ -1,7 +1,10 @@
 const router = require("express").Router();
 const passport = require("passport");
 let user = {};
-
+var path="/";
+  if (process.env.NODE_ENV != "production") {
+    path = "http://localhost:3000";
+  }
 router.get(
   "/login",
   passport.authenticate("google", {
@@ -18,8 +21,8 @@ router.get(
   passport.authenticate("google", {
     failureRedirect: "/auth/failed",
     // for deploy
-    successRedirect: "/",
-    // successRedirect: 'http://localhost:3000/'
+    //successRedirect: "/",
+    successRedirect: path
   })
 );
 
@@ -48,8 +51,8 @@ router.get("/logout", (req, res) => {
   req.session = null;
   req.logout();
   // for deploy
-  res.redirect("/");
-  //  res.redirect("http://localhost:3000");
+  res.redirect(path);
+  //res.redirect("http://localhost:3000");
 });
 
 module.exports = router;
