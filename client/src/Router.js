@@ -33,6 +33,7 @@ const Routers = () => {
         </Switch>
         <Footer />
       </Router>
+      
     </Fragment>
   );
 };

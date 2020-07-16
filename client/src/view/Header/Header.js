@@ -2,6 +2,7 @@ import { Button, Container, Menu } from "semantic-ui-react";
 import React, { useEffect, useState, Fragment } from "react";
 import useReactRouter from "use-react-router";
 import axios from "axios";
+import "./Header.css";
 
 const Header = (props) => {
   const { history } = useReactRouter();
@@ -80,7 +81,7 @@ const Header = (props) => {
 
   
   return (
-    <Fragment>
+    <Fragment className="body">
       <Menu fixed="top" inverted>
         <Container>
           <Menu.Item as="a" onClick={handleHome} header>
@@ -91,6 +92,12 @@ const Header = (props) => {
           </Menu.Item>
           <Menu.Item as="a" onClick={handleOurTeam}>
             Our Team
+          </Menu.Item>
+          <Menu.Item as="a" >
+            Hire Students
+          </Menu.Item>
+          <Menu.Item as="a" >
+            For Students
           </Menu.Item>
           <Menu.Item as="a" onClick={handleProjectList}>
             Project List
