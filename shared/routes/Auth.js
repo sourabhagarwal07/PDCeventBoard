@@ -4,7 +4,10 @@ let user = {};
 
 router.get(
   "/login",
-  passport.authenticate("google", { scope: ["profile", "email"] }),
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    prompt: "select_account",
+  }),
   (req, res) => {
     console.log("come in to login");
   }
@@ -15,7 +18,7 @@ router.get(
   passport.authenticate("google", {
     failureRedirect: "/auth/failed",
     // for deploy
-    successRedirect: '/'
+    successRedirect: "/",
     // successRedirect: 'http://localhost:3000/'
   })
 );
@@ -46,7 +49,7 @@ router.get("/logout", (req, res) => {
   req.logout();
   // for deploy
   res.redirect("/");
-   res.redirect("http://localhost:3000");
+  //  res.redirect("http://localhost:3000");
 });
 
 module.exports = router;
