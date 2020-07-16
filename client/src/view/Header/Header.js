@@ -22,17 +22,21 @@ const Header = (props) => {
     authenticated: false,
   });
 
+  var path="";
+  if (process.env.NODE_ENV != "production") {
+    //for local setup
+    path = "http://localhost:8080";
+  }
+
   // Use google login
   const handleLogin = () => {
-    // for deploy
-    window.open("auth/login", "_self");
-    // window.open("http://localhost:8080/auth/login", "_self");
+    path += '/auth/login';
+    window.open(path, "_self");
   };
 
   const handleLogout = () => {
-    // for deploy
-    window.open("/auth/logout", "_self");
-    // window.open("http://localhost:8080/auth/logout", "_self");
+    path += '/auth/logout'; 
+    window.open(path, "_self");
   };
 
   const handleHome = (e, { name }) => {
@@ -56,11 +60,11 @@ const Header = (props) => {
 
   // Get logged user info from backend
   useEffect(() => {
+    path+='/auth/login/success';
     axios
       // for deploy
-      .get("/auth/login/success", {
-        // .get("http://localhost:8080/auth/login/success", {
-        withCredentials: true,
+      .get(path, {
+       withCredentials: true,
       })
       .then((res) => {
         console.log(res);
