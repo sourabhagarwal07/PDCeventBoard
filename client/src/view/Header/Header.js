@@ -73,8 +73,8 @@ const Header = (props) => {
 
   // Get logged user info from backend
   useEffect(() => {
-    axios
     path+="/auth/login/success";
+    axios
       // for deploy
       .get(path, {
         // .get("http://localhost:8080/auth/login/success", {
