@@ -30,12 +30,13 @@ passport.use(
       // callbackURL: "http://localhost:8080/auth/login/callback",
     },
     (accessToken, refreshToken, profile, done) => {
-      const { sub: googleId, name, email, hd } = profile._json;
+      const { sub: googleId, name, email, picture, hd } = profile._json;
       if (hd && hd == "uottawa.ca") {
         const newUser = new User({
           googleId: googleId,
           name: name,
           email: email,
+          picture: picture,
         });
 
         // Check if database has already had this user

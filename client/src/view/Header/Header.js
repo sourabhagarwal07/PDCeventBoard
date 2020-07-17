@@ -12,7 +12,6 @@ import { withRouter } from "react-router-dom";
  *              login menu or logout menu for now.
  *
  */
-
 const Header = (props) => {
   const { history } = useReactRouter();
   const [activeItem, setActiveItem] = useState("");
@@ -25,31 +24,19 @@ const Header = (props) => {
 
   var path="";
   if (process.env.NODE_ENV != "production") {
+    //for local setup
     path = "http://localhost:8080";
   }
+
   // Use google login
   const handleLogin = () => {
-    // for deploy
-    //window.open("/auth/login", "_self");
     path += '/auth/login';
-    console.log("path",path);
     window.open(path, "_self");
-    // axios({
-    //   method: 'get',
-    //   url: path 
-    // });
   };
 
   const handleLogout = () => {
-    // for deploy
-    //window.open("/auth/logout", "_self");
-    // window.open("http://localhost:8080/auth/logout", "_self");
-    path+= "/auth/logout";
+    path += '/auth/logout'; 
     window.open(path, "_self");
-    // axios({
-    //   method: 'get',
-    //   url: '/auth/logout'
-    // });
   };
 
   const handleHome = (e, { name }) => {
@@ -73,12 +60,11 @@ const Header = (props) => {
 
   // Get logged user info from backend
   useEffect(() => {
-    path+="/auth/login/success";
+    path+='/auth/login/success';
     axios
       // for deploy
       .get(path, {
-        // .get("http://localhost:8080/auth/login/success", {
-        withCredentials: true,
+       withCredentials: true,
       })
       .then((res) => {
         console.log(res);
