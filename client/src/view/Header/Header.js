@@ -98,6 +98,12 @@ const Header = (props) => {
           >
             Our Team
           </Menu.Item>
+          <Menu.Item as="a" >
+            Hire Students
+          </Menu.Item>
+          <Menu.Item as="a" >
+            For Students
+          </Menu.Item>
           <Menu.Item
             name="projectList"
             active={activeItem === "projectList"}

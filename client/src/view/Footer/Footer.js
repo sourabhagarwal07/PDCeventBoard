@@ -55,11 +55,11 @@ const Footer = () => {
 
 <Form inverted>
     <Form.Field>
-      <label style={{color: focused ? 'red' : ''}}>First Name</label>
+      <label style={{color: focused ? 'red' : ''}}>Name</label>
       <input placeholder='First Name' />
     </Form.Field>
     <Form.Field>
-      <label>Last Name</label>
+      <label>Email</label>
       <input placeholder='Last Name' />
     </Form.Field>
     <Form.Field>

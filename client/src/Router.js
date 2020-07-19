@@ -5,6 +5,7 @@ import Home from "./view/Home/Home";
 import OurTeam from "./view/OurTeam/OurTeam";
 import Header from "./view/Header/Header";
 import Footer from "./view/Footer/Footer";
+import Signin from "./view/Signin/Signin";
 import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
 import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
 import { Container } from "semantic-ui-react";
@@ -23,6 +24,7 @@ const Routers = () => {
         <Switch>
           <Container className="main">
             <Route exact path="/" component={Home} />
+            <Route exact path="/signin" component={Signin} />
             <Route exact path="/OurTeam" component={OurTeam} />
             <Route exact path="/create-project" component={CreateProject} />
             <Route
@@ -39,6 +41,7 @@ const Routers = () => {
         </Switch>
         <Footer />
       </Router>
+      
     </Fragment>
   );
 };
