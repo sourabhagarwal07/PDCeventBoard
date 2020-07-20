@@ -7,9 +7,10 @@ const passportSetup = require("./shared/config/Passport");
 const passport = require("passport");
 const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
-const mainRoutes = require("./shared/routes/MainRoute");
+const projectRoutes = require("./shared/routes/ProjectRoute");
 const http = require("http");
 const path = require("path");
+const bodyParser = require("body-parser");
 
 const app = express();
 const PORT = process.env.PORT || 8080; //Step 1
@@ -20,8 +21,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.all("*", function (req, res, next) {
-  if (process.env.NODE_ENV != "production") {
-    //for local setup
+  if (process.env.NODE_ENV !== "production") {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   }
   res.header("Access-Control-Allow-Credentials", "true");
@@ -48,6 +48,14 @@ app.use(
   })
 );
 
+// use application/json to submit data
+app.use(bodyParser.json({ limit: "5mb" }));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
 // initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -57,6 +65,6 @@ app.use(morgan("tiny"));
 
 // auth router
 app.use("/auth", authRoutes);
-app.use("/", mainRoutes);
+app.use("/", projectRoutes);
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));

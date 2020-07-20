@@ -1,10 +1,11 @@
-import { Button, Container, Menu, Image } from "semantic-ui-react";
-import React, { useEffect, useState, Fragment } from "react";
+import { Container, Menu } from "semantic-ui-react";
+import React, { useEffect, useState, Fragment, useContext } from "react";
 import useReactRouter from "use-react-router";
-import axios from "axios";
+import Axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
-import { withRouter } from "react-router-dom";
+import { UserContext } from "../../common/context/UserProvider";
+import { config } from "../../common/config/config";
 
 /**
  * @author @binjiasata
@@ -16,23 +17,18 @@ const Header = (props) => {
   const { history } = useReactRouter();
   const [activeItem, setActiveItem] = useState("");
 
-  const [userInfo, setUserInfo] = useState({
-    user: {},
-    error: null,
-    authenticated: false,
-  });
+  const { userInfo, setUserInfo } = useContext(UserContext);
+
+  // path config http://localhost:8080/
+  let path = config();
 
   // Use google login
   const handleLogin = () => {
-    // for deploy
-    window.open("auth/login", "_self");
-    // window.open("http://localhost:8080/auth/login", "_self");
+    window.open(path + "auth/login", "_self");
   };
 
   const handleLogout = () => {
-    // for deploy
-    window.open("/auth/logout", "_self");
-    // window.open("http://localhost:8080/auth/logout", "_self");
+    window.open(path + "auth/logout", "_self");
   };
 
   const handleHome = (e, { name }) => {
@@ -56,14 +52,12 @@ const Header = (props) => {
 
   // Get logged user info from backend
   useEffect(() => {
-    axios
-      // for deploy
-      .get("/auth/login/success", {
-        // .get("http://localhost:8080/auth/login/success", {
+    Axios
+      .get(path + "auth/login/success", {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         return res.data;
       })
       .then((data) => {
@@ -98,12 +92,8 @@ const Header = (props) => {
           >
             Our Team
           </Menu.Item>
-          <Menu.Item as="a" >
-            Hire Students
-          </Menu.Item>
-          <Menu.Item as="a" >
-            For Students
-          </Menu.Item>
+          <Menu.Item as="a">Hire Students</Menu.Item>
+          <Menu.Item as="a">For Students</Menu.Item>
           <Menu.Item
             name="projectList"
             active={activeItem === "projectList"}

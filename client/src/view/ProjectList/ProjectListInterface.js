@@ -1,7 +1,10 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import { Grid, Button } from "semantic-ui-react";
 import CreateProject from "../CreateProject/CreateProject";
 import ProjectList from "./ProjectList";
+import Axios from "axios";
+import { UserContext } from "../../common/context/UserProvider";
+import { config } from "../../common/config/config";
 
 // This data should be got from server
 const projectsFromServer = [
@@ -53,8 +56,13 @@ const projectsFromServer = [
  *              Todo: Create new project should be saved in server.
  */
 const ProjectListInterface = () => {
-  const [projectsInfo, setProjectsInfo] = useState(projectsFromServer);
+  // path config http://localhost:8080/
+  const path = config();
+
+  const [projectsInfo, setProjectsInfo] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const handleIsOpenToggle = () => {
     setIsOpen((isOpen) => !isOpen);
@@ -69,6 +77,20 @@ const ProjectListInterface = () => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    Axios.get(path + "project", {})
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        // console.log(data);
+        setProjectsInfo(data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
   return (
     <Fragment>
       <Grid>
@@ -77,11 +99,14 @@ const ProjectListInterface = () => {
           <ProjectList projectsInfo={projectsInfo} />
         </Grid.Column>
         <Grid.Column width={6}>
-          <Button
-            onClick={handleIsOpenToggle}
-            positive
-            content="Create New Project"
-          />
+          {/* if a user is admin, show create project button */}
+          {userInfo.user.admin && (
+            <Button
+              onClick={handleIsOpenToggle}
+              positive
+              content="Create New Project"
+            />
+          )}
           {isOpen && (
             <CreateProject
               createProject={handleCreateProject}
