@@ -1,11 +1,17 @@
 import React, { Fragment } from "react";
 import Routers from "./Router";
 import "semantic-ui-css/semantic.min.css";
+import { BrowserRouter } from "react-router-dom";
+import ScrollToTop from "./common/utils/ScrollToTop";
 
 const App = () => {
   return (
     <Fragment>
-        <Routers />
+      <BrowserRouter>
+        <ScrollToTop>
+          <Routers />
+        </ScrollToTop>
+      </BrowserRouter>
     </Fragment>
   );
 };

@@ -7,10 +7,6 @@ const Home = (props) => {
   return (
     <Fragment>
       <Segment placeholder>
-       {/* <Image centered size="large" src="/assets/logo.png"/>
-            {/* <Image centered size="large" src="/assets/logo.png" />
-             <h1>Welcome to Professional Development Club!</h1>
-             <Image centered size="large" src="/assets/pdcimage.png" /> */}
         <Grid columns={2} stackable textAlign='center' >
         <Grid.Row verticalAlign='middle'>
         <Grid.Column>
