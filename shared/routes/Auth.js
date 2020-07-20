@@ -2,11 +2,12 @@ const router = require("express").Router();
 const passport = require("passport");
 let user = {};
 
-var path="/";
-  if (process.env.NODE_ENV != "production") {
-    //for local setup
-    path = "http://localhost:3000";
-  }
+// for deploy
+let path = "/";
+if (process.env.NODE_ENV !== "production") {
+  //for local setup
+  path = "http://localhost:3000";
+}
 
 router.get(
   "/login",
@@ -23,9 +24,7 @@ router.get(
   "/login/callback",
   passport.authenticate("google", {
     failureRedirect: "/auth/failed",
-    // for deploy
-    // successRedirect: "/",
-    successRedirect: "http://localhost:3000/",
+    successRedirect: path,
   })
 );
 
@@ -53,9 +52,7 @@ router.get("/login/success", (req, res) => {
 router.get("/logout", (req, res) => {
   req.session = null;
   req.logout();
-  // for deploy
-  // res.redirect("/");
-  res.redirect("http://localhost:3000");
+  res.redirect(path);
 });
 
 module.exports = router;

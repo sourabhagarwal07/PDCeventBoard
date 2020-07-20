@@ -9,7 +9,6 @@ import Signin from "./view/Signin/Signin";
 import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
 import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
 import { Container } from "semantic-ui-react";
-import ScrollToTop from "./common/utils/ScrollToTop";
 
 /**
  * This is routers for the website.
@@ -22,18 +21,24 @@ const Routers = () => {
     <Fragment>
       <Header />
       <Switch>
-        <Container className="main">
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signin" component={Signin} />
-          <Route exact path="/OurTeam" component={OurTeam} />
-          <Route exact path="/create-project" component={CreateProject} />
-          <Route exact path="/project-list" component={ProjectListInterface} />
-          <Route
-            exact
-            path="/project-detail/:id"
-            component={ProjectDeatiledPage}
-          />
-        </Container>
+        <Fragment>
+          <Container className="main">
+            <Route exact path="/" component={Home} />
+            <Route exact path="/signin" component={Signin} />
+            <Route exact path="/OurTeam" component={OurTeam} />
+            <Route exact path="/create-project" component={CreateProject} />
+            <Route
+              exact
+              path="/project-list"
+              component={ProjectListInterface}
+            />
+            <Route
+              exact
+              path="/project-detail/:id"
+              component={ProjectDeatiledPage}
+            />
+          </Container>
+        </Fragment>
       </Switch>
       <Footer />
     </Fragment>
