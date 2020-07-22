@@ -4,6 +4,7 @@ import useReactRouter from "use-react-router";
 import Axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
+import LogedInMenuLinkedin from "./Menus/LogedInMenuLinkedin"
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 
@@ -73,6 +74,28 @@ const Header = (props) => {
       });
   }, []);
 
+  // useEffect(() => {
+  //   Axios
+  //     .get(path + "auth/linkedin/callback", {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       // console.log(res);
+  //       return res.data;
+  //     })
+  //     .then((data) => {
+  //       setUserInfo({
+  //         ...userInfo,
+  //         user: data.name,
+  //         userEmail: data.email,
+  //         authenticated: data.authenticated,
+  //       });
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // }, []);
+
   return (
     <Fragment>
       <Menu fixed="top" inverted>
@@ -107,10 +130,13 @@ const Header = (props) => {
               logOut={handleLogout}
               username={userInfo.user.name}
               userPicture={userInfo.user.picture}
-            />
-          ) : (
+            />)
+          // ) : (userInfoLinkedin.authenticated ? (
+          //   <LogedInMenuLinkedin />)
+           : (
             <LogedOutMenu logIn={handleLogin} />
-          )}
+            )
+           }
         </Container>
       </Menu>
     </Fragment>

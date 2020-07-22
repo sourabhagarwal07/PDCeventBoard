@@ -54,5 +54,35 @@ router.get("/logout", (req, res) => {
   req.logout();
   res.redirect(path);
 });
+//addd linkedin login
+router.get(
+	"/auth/linkedin",
+	passport.authenticate("linkedin", { scope: ["profile", "email"] })
+);
+
+
+router.get(
+	"/auth/linkedin/callback",
+	passport.authenticate("linkedin", { failureRedirect: "/auth/failed", session: false , successRedirect:path}),
+	function(req, res) {
+      if (req.user !== undefined) {
+        res.json({
+          authenticated: true,
+          user: req.user,
+          cookies: req.cookies,
+          message: "Authenticated",
+        });
+      } else {
+        res.json({
+          authenticated: false,
+          cookies: req.cookies,
+          message: "Not Authenticate",
+        });
+      }
+		// var token = req.user.token;
+    // res.redirect("http://localhost:3000?token=" + token);
+    // console.log(token);
+	}
+);
 
 module.exports = router;
