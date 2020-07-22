@@ -24,7 +24,8 @@ const Header = (props) => {
 
   // Use google login
   const handleLogin = () => {
-    window.open(path + "auth/login", "_self");
+    
+    //window.open(path + "auth/login", "_self");
   };
 
   const handleLogout = () => {

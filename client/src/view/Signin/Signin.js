@@ -1,13 +1,20 @@
 import React, { Fragment } from "react";
+import { config } from "../../common/config/config";
 import { Button, Container, Image, Grid, Segment,Divider, GridColumn } from "semantic-ui-react";
 
 const Signin = (props) => {
+  let path = config();
+
+  // Use google login
+  const handleLogin = () => {
+    window.open(path + "auth/login", "_self");
+  };
   return (
     <Fragment>       
       <Grid columns={2} stackable textAlign='center' >
         <Grid.Column>
           <h2>If you are a student, please log in with Google</h2>
-          <h1><button class="ui google button"> 
+          <h1><button class="ui google button" onClick={handleLogin}> 
             <i class="google icon"></i>
                 Google
           </button></h1>
