@@ -4,7 +4,5 @@ module.exports = {
   googleClientSecret: 'noh-pylCWgjHfYw-5ceN-drl',
   cookieKey: 'dauhqebkguyfaslk',
   linkedinClientID: '78gnkqh7tw4fx1',
-  linkedinClientSecret: 'pOZEKyfrm9fSUej8',
-  callbackURL: `http://localhost:3000/auth/linkedin/callback`,
-  scope: ['r_emailaddress', 'r_liteprofile'],
+  linkedinClientSecret: 'pOZEKyfrm9fSUej8'
 };
