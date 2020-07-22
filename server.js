@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const passportSetup = require("./shared/config/Passport");
+const passportLinkedin = require("./shared/config/PassportLinkedin")
 const passport = require("passport");
 const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
@@ -13,6 +14,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const app = express();
+var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
+
 const PORT = process.env.PORT || 8080; //Step 1
 
 if (process.env.NODE_ENV === "production") {
@@ -57,8 +60,23 @@ app.use(
 );
 
 // initialize passport
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passportLinkedin.initialize());
+
+
+app.get('/auth/linkedin',
+  passportLinkedin.authenticate('linkedin', { state: 'SOME STATE'  }),
+  function(req, res){
+    // The request will be redirected to LinkedIn for authentication, so this
+    // function will not be called.
+});
+
+app.get('/auth/linkedin/callback', passportLinkedin.authenticate('linkedin', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}));
+
+
+app.use(passportLinkedin.session());
 
 // log output
 app.use(morgan("tiny"));

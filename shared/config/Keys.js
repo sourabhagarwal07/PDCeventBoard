@@ -2,5 +2,9 @@ module.exports = {
   mongoURI: "mongodb+srv://pdcUottawa:DisneyMouse@0M@pdcdatabase.r5myh.mongodb.net/PDCdatabase?retryWrites=true&w=majority",
   googleClientID: '689398033953-5qmd50m270o49t6rl6v4p95ku0i71vhr.apps.googleusercontent.com',
   googleClientSecret: 'noh-pylCWgjHfYw-5ceN-drl',
-  cookieKey: 'dauhqebkguyfaslk'
+  cookieKey: 'dauhqebkguyfaslk',
+  linkedinClientID: '78gnkqh7tw4fx1',
+  linkedinClientSecret: 'pOZEKyfrm9fSUej8',
+  callbackURL: `http://localhost:3000/auth/linkedin/callback`,
+  scope: ['r_emailaddress', 'r_liteprofile'],
 };
