@@ -14,7 +14,6 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const app = express();
-var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 const PORT = process.env.PORT || 8080; //Step 1
 
@@ -70,7 +69,7 @@ app.get('/auth/linkedin',
     // function will not be called.
 });
 
-app.get('/auth/linkedin/callback', passportLinkedin.authenticate('linkedin', {
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
     successRedirect: '/',
     failureRedirect: '/login'
 }));

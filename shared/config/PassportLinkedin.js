@@ -15,9 +15,9 @@ passportLinkedin.use(new LinkedInStrategy(
   {
     clientID: keys.linkedinClientID,
     clientSecret: keys.linkedinClientSecret,
-    callbackURL: keys.callbackURL,
-    scope: keys.scope,
-    },function(accessToken, refreshToken, profile, done) {
+    callbackURL: `https://uottawa-pdcweb.herokuapp.com/auth/linkedin/callback`,
+    scope: ['r_emailaddress', 'r_liteprofile']
+  },function(accessToken, refreshToken, profile, done) {
         var userData = {
             email: profile.emails[0].value,
             name: profile.displayName,
