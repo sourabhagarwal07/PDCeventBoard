@@ -1,10 +1,14 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
+import Axios from "axios";
+import { UserContext } from "../../common/context/UserProvider";
+import { config } from "../../common/config/config";
 
 // Create a new project and show on Project List page.
 const CreateProject = (props) => {
-  const { cancelCreateOpen, createProject } = props;
+  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { user } = userInfo;
+  const path = config();
 
   const [info, setInfo] = useState({
     title: "",
@@ -12,11 +16,29 @@ const CreateProject = (props) => {
     description: "",
     skills: "",
     hostedBy: "",
+    user: [user],
   });
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    createProject(info);
+    Axios.post(path + "project", info)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    if (!info.hostPhotoURL) {
+      info.hostPhotoURL = "https://img.icons8.com/carbon-copy/2x/company.png";
+    }
+    props.history.push("/project-list");
+    // props.history.push({ pathname: "/project-list" });
+    // window.location.href = "/project-list";
+  };
+
+  const handleFormCancel = () => {
+    props.history.push("project-list");
   };
 
   const handleFormChange = ({ target: { name, value } }) => {
@@ -78,7 +100,7 @@ const CreateProject = (props) => {
         <Button positive type="submit">
           Submit
         </Button>
-        <Button onClick={cancelCreateOpen} type="button">
+        <Button onClick={handleFormCancel} type="button">
           Cancel
         </Button>
       </Form>

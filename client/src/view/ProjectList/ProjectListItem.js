@@ -16,7 +16,7 @@ const ProjectListItem = ({ project }) => {
     description,
     hostedBy,
     user,
-    id,
+    _id,
   } = project;
 
   const [readMore, setReadMore] = useState(false);
@@ -49,7 +49,7 @@ const ProjectListItem = ({ project }) => {
             <Item>
               <Item.Image size="tiny" circular src={hostPhotoURL} />
               <Item.Content>
-                <Item.Header as={Link} to={`/project-detail/${id}`}>
+                <Item.Header as={Link} to={`/project-detail/${_id}`}>
                   {title}
                 </Item.Header>
                 <Item.Description>
@@ -67,7 +67,7 @@ const ProjectListItem = ({ project }) => {
         <Segment secondary>
           <List horizontal>
             {user &&
-              user.map((user) => <ProjectListUser key={user.id} user={user} />)}
+              user.map((user) => <ProjectListUser key={user._id} user={user} />)}
           </List>
         </Segment>
         <Segment clearing>

@@ -8,7 +8,7 @@ import { List, Image } from "semantic-ui-react";
 const ProjectListUser = ({ user }) => {
   return (
     <List.Item>
-      <Image as="a" size="mini" circular src={user.photoURL} />
+      <Image as="a" size="mini" circular src={user.picture} />
     </List.Item>
   );
 };
