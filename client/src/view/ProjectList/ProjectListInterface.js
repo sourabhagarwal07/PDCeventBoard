@@ -33,13 +33,6 @@ const ProjectListInterface = (props) => {
       .catch((e) => {
         console.log(e);
       });
-    console.log("render");
-    return () => {
-      console.log("leave");
-      window.removeEventListener("beforeunload", () => {
-        console.log("---leave");
-      });
-    };
   }, []);
 
   return (

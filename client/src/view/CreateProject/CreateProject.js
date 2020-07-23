@@ -21,20 +21,18 @@ const CreateProject = (props) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    if (!info.hostPhotoURL) {
+      info.hostPhotoURL =
+        "https://img.icons8.com/carbon-copy/2x/company.png";
+    }
     Axios.post(path + "project", info)
       .then((res) => {
         console.log(res);
+        props.history.push("/project-list");
       })
       .catch((e) => {
         console.log(e);
       });
-
-    if (!info.hostPhotoURL) {
-      info.hostPhotoURL = "https://img.icons8.com/carbon-copy/2x/company.png";
-    }
-    props.history.push("/project-list");
-    // props.history.push({ pathname: "/project-list" });
-    // window.location.href = "/project-list";
   };
 
   const handleFormCancel = () => {
