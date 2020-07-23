@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const mongooseFieldEncryption = require("mongoose-field-encryption").fieldEncryption;
-
+require('dotenv').config()
 
 // Schema
 const Schema = mongoose.Schema;
