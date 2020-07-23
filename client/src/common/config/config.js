@@ -6,7 +6,7 @@
 
 export const config = () => {
   // for deploy
-  let path = "/";
+  let path = "https://uottawa-pdctestyiyin.herokuapp.com/";
   if (process.env.NODE_ENV !== "production") {
     //for local setup
     path = "http://localhost:8080/";
