@@ -49,6 +49,11 @@ const Header = (props) => {
     setActiveItem(name);
   };
 
+  const handleData = (e, { name }) => {
+    history.push("/data");
+    setActiveItem(name);
+  };
+
   const handleProjectList = (e, { name }) => {
     if (userInfo.authenticated) {
       history.push("/project-list");
@@ -114,6 +119,13 @@ const Header = (props) => {
             onClick={handleProjectList}
           >
             Project List
+          </Menu.Item>
+          <Menu.Item
+            name="Data"
+            active={activeItem === "Data"}
+            onClick={handleData}
+          >
+            Data
           </Menu.Item>
           {userInfo.authenticated ? (
             <LogedInMenu

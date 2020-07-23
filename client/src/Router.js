@@ -3,6 +3,7 @@ import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import CreateProject from "./view/CreateProject/CreateProject";
 import Home from "./view/Home/Home";
 import OurTeam from "./view/OurTeam/OurTeam";
+import data from "./view/data/data";
 import Header from "./view/Header/Header";
 import Footer from "./view/Footer/Footer";
 import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
@@ -29,6 +30,7 @@ const Routers = () => {
               path="/project-list"
               component={ProjectListInterface}
             />
+            <Route exact path="/data" component={data} />
           </Container>
         </Switch>
         <Footer />

@@ -54,6 +54,8 @@ app.use(passport.session());
 
 // log output
 app.use(morgan("tiny"));
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 // auth router
 app.use("/auth", authRoutes);

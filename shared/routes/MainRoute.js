@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const Data = require("../models/DataModel");
 
 const authCheck = (req, res, next) => {
   if (!req.user) {
@@ -26,5 +27,29 @@ router.get('/', authCheck, (req, res) => {
   console.log("you logged in");
 });
 
-
+router.post('/senddata',(req,res)=>{
+  const data=req.body;
+  const newData = new Data(data);
+  newData.save((error)=>{
+    if(error){
+      res.status(500).json({msg:"Internal server error, unable to save data"});
+      return;
+    }
+    //data saved
+    return res.json({
+      msg:'Data saved successfully!!'
+    });
+  });
+  });
+  router.get('/showdata',(req,res)=>{
+    Data.find({  })
+    .then((data) => {
+        console.log('Data: ', data);
+        res.json(data);
+    })
+    .catch((error) => {
+        console.log('error: ', error);
+    });
+    });
+  
 module.exports = router;
