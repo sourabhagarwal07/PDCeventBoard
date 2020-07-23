@@ -83,14 +83,22 @@ app.use(passportLinkedin.session());
 // log output
 app.use(morgan("tiny"));
 
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "path/to/your/index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
+
 // auth router
 app.use("/auth", authRoutes);
 app.use("/", projectRoutes);
 
-app.get("*", (req, res) => {
-  res.sendFile(
-    path.resolve(__dirname, "the path to your react project", "index.html")
-  );
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(
+//     path.resolve(__dirname, "the path to your react project", "index.html")
+//   );
+// });
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));
