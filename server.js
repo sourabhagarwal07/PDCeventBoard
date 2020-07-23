@@ -4,7 +4,6 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const passportSetup = require("./shared/config/Passport");
-const passportLinkedin = require("./shared/config/PassportLinkedin")
 const passport = require("passport");
 const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
@@ -58,24 +57,8 @@ app.use(
   })
 );
 
-// initialize passport
-app.use(passportLinkedin.initialize());
-
-
-app.get('/auth/linkedin',
-  passportLinkedin.authenticate('linkedin', { state: 'SOME STATE'  }),
-  function(req, res){
-    // The request will be redirected to LinkedIn for authentication, so this
-    // function will not be called.
-});
-
-app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}));
-
-
-app.use(passportLinkedin.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // log output
 app.use(morgan("tiny"));

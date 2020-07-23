@@ -1,7 +1,5 @@
 import React from "react";
 import { Menu, Button } from "semantic-ui-react";
-import {Link} from 'react-router-dom';
-
 
 /**
  * @author @binjiasata
@@ -10,7 +8,7 @@ import {Link} from 'react-router-dom';
 const LogedOutMenu = ({ logIn }) => {
   return (
     <Menu.Item position="right">
-      <Link className = 'option' to = '/signin'><Button onClick={logIn} basic inverted content="Login" /></Link>
+      <Button onClick={logIn} basic inverted content="Login" />
     </Menu.Item>
   );
 };

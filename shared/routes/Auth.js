@@ -54,35 +54,27 @@ router.get("/logout", (req, res) => {
   req.logout();
   res.redirect(path);
 });
-//addd linkedin login
-router.get(
-	"/auth/linkedin",
-	passport.authenticate("linkedin", { scope: ["profile", "email"] })
-);
+//add linkedin login
 
+// router.get(
+// 	"/linkedin",
+// 	passport.authenticate("linkpedin", { scope: ["profile", "email"] })
+// );
 
-router.get(
-	"/auth/linkedin/callback",
-	passport.authenticate("linkedin", { failureRedirect: "/auth/failed", session: false , successRedirect:path}),
-	function(req, res) {
-      if (req.user !== undefined) {
-        res.json({
-          authenticated: true,
-          user: req.user,
-          cookies: req.cookies,
-          message: "Authenticated",
-        });
-      } else {
-        res.json({
-          authenticated: false,
-          cookies: req.cookies,
-          message: "Not Authenticate",
-        });
-      }
-		// var token = req.user.token;
-    // res.redirect("http://localhost:3000?token=" + token);
-    // console.log(token);
-	}
-);
+router.get('/linkedin',
+                passport.authenticate('linkedin', { scope: ['r_emailaddress', 'r_liteprofile'],
+                                                    state: 'SOME STATE'  }),
+		  function(req, res){
+		    // The request will be redirected to LinkedIn for authentication, so this
+		    // function will not be called.
+		});
+
+    router.get(
+      "/linkedin/callback",
+      passport.authenticate("linkedin", {
+        failureRedirect: "/auth/failed",
+        successRedirect: path,
+      })
+    );
 
 module.exports = router;

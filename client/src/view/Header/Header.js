@@ -26,7 +26,7 @@ const Header = (props) => {
   // Use google login
   const handleLogin = () => {
     
-    //window.open(path + "auth/login", "_self");
+    window.location.href="signin";
   };
 
   const handleLogout = () => {
@@ -73,28 +73,6 @@ const Header = (props) => {
         console.log(e);
       });
   }, []);
-
-  // useEffect(() => {
-  //   Axios
-  //     .get(path + "auth/linkedin/callback", {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       // console.log(res);
-  //       return res.data;
-  //     })
-  //     .then((data) => {
-  //       setUserInfo({
-  //         ...userInfo,
-  //         user: data.name,
-  //         userEmail: data.email,
-  //         authenticated: data.authenticated,
-  //       });
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // }, []);
 
   return (
     <Fragment>

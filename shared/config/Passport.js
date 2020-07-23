@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const User = require("../models/UserModel");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
 const keys = require("./Keys");
 const Admin = require("./Admin");
 
@@ -14,19 +15,23 @@ if (process.env.NODE_ENV !== "production") {
 
 // pass user.id to encrypt
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
 // get user.id from cookie and decrypt
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then((user) => {
-      done(null, user);
-    })
-    .catch((e) => {
-      done(new Error("Failed to deserialize an user"));
-    });
+passport.deserializeUser(function(user, done) {
+	done(null, user);
 });
+// passport.deserializeUser((id, done) => {
+//   console.log(id);
+//   User.findById(id)
+//     .then((user) => {
+//       done(null, user);
+//     })
+//     .catch((e) => {
+//       done(new Error("Failed to deserialize an user"));
+//     });
+// });
 
 passport.use(
   new GoogleStrategy(
@@ -93,6 +98,25 @@ passport.use(
       } else {
         done(new Error("Invaild host domain!"));
       }
+    }
+  )
+);
+
+passport.use(new LinkedInStrategy(
+  {
+    clientID: keys.linkedinClientID,
+    clientSecret: keys.linkedinClientSecret,
+    //callbackURL: `https://uottawa-pdcweb.herokuapp.com/auth/linkedin/callback`,
+    callbackURL: path + "auth/linkedin/callback",
+    scope: ['r_emailaddress', 'r_basicprofile']
+  },function(accessToken, refreshToken, profile, done) {
+        var userData = {
+            email: profile.emails[0].value,
+            name: profile.displayName,
+            token: accessToken
+        };
+        console.log(userData);
+        done(null, userData);
     }
   )
 );
