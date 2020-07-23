@@ -1,6 +1,12 @@
 import React from "react";
 import { Segment, Image, Item, Header, Button } from "semantic-ui-react";
 
+/**
+ * @author @binjiasata
+ * @description Project header component included title, hostby,
+ *              manage project and delete project button.
+ */
+
 const ProjectDetailedHeader = ({ project }) => {
   const eventImageStyle = {
     filter: "brightness(30%)",
@@ -40,7 +46,9 @@ const ProjectDetailedHeader = ({ project }) => {
 
       <Segment attached="bottom">
         <Button color="orange">Manage Project</Button>
-        <Button floated="right" color="red">Delete Project</Button>
+        <Button floated="right" color="red">
+          Delete Project
+        </Button>
       </Segment>
     </Segment.Group>
   );

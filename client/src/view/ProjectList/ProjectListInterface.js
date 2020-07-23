@@ -8,8 +8,8 @@ import { config } from "../../common/config/config";
 /**
  * @author @binjiasata
  * @description This page shows a project list and a create new project button.
- *              Todo: Project list data should be got from server.
- *              Todo: Create new project should be saved in server.
+ *              The project list is got from server.
+ *          
  */
 const ProjectListInterface = (props) => {
   // path config http://localhost:8080/
@@ -18,6 +18,7 @@ const ProjectListInterface = (props) => {
 
   const [projectsInfo, setProjectsInfo] = useState([]);
 
+  // when click create new project, jump to create-project page
   const handleCreateNewProject = () => {
     props.history.push("/create-project");
   };

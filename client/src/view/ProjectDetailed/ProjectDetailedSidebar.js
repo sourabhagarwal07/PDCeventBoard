@@ -1,6 +1,12 @@
 import React, { Fragment } from "react";
 import { Segment, Item, Label } from "semantic-ui-react";
 
+/**
+ * @author @binjiasata
+ * @description Project detail sidebar, show the principal of this project.
+ *
+ */
+
 const ProjectDetailedSidebar = ({ project }) => {
   return (
     <Fragment>

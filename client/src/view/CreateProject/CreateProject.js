@@ -4,12 +4,17 @@ import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 
-// Create a new project and show on Project List page.
+/**
+ * @author @binjiasata
+ * @description Create a new project and show on Project List page.
+ *              Post the new project to server.
+ */
 const CreateProject = (props) => {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const { user } = userInfo;
   const path = config();
 
+  // project information
   const [info, setInfo] = useState({
     title: "",
     date: "",
@@ -21,6 +26,10 @@ const CreateProject = (props) => {
     user: [user],
   });
 
+  /**
+   * Category options:
+   * include Machine Learning, Web Development, Game Development for now. 
+   */
   const categoryOptions = [
     {
       key: "machinelearning",
@@ -56,10 +65,12 @@ const CreateProject = (props) => {
       });
   };
 
+  // when click cancel, go back to the project list page
   const handleFormCancel = () => {
     props.history.push("project-list");
   };
 
+  // handle form field change
   const handleFormChange = ({ target: { name, value } }) => {
     setInfo({
       ...info,

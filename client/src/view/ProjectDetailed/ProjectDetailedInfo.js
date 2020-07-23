@@ -1,6 +1,12 @@
 import React from "react";
 import { Segment, Grid, Icon } from "semantic-ui-react";
 
+/**
+ * @author @binjiasata
+ * @description project details included date, description, skills
+ *
+ */
+
 const ProjectDetailedInfo = ({ project }) => {
   return (
     <Segment.Group>

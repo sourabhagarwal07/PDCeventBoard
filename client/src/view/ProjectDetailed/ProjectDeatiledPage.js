@@ -6,12 +6,19 @@ import ProjectDetailedSidebar from "./ProjectDetailedSidebar";
 import Axios from "axios";
 import { config } from "../../common/config/config";
 
+/**
+ * @author @binjiasata
+ * @description Project details page, get project details from server.
+ *
+ */
+
 const path = config();
 
 const ProjectDeatiledPage = (props) => {
   const [projectDetails, setProjectDetails] = useState({});
   const { id } = props.match.params;
 
+  // get project details accroding to project id
   useEffect(() => {
     Axios.get(path + "project/" + id)
       .then((res) => {
