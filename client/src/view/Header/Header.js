@@ -26,7 +26,7 @@ const Header = (props) => {
   // Use google login
   const handleLogin = () => {
     
-    window.location.href="signin";
+    //window.location.href="signin";
   };
 
   const handleLogout = () => {
