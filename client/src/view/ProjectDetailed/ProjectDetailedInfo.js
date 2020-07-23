@@ -1,7 +1,7 @@
 import React from "react";
-import { Segment, Grid, Icon, Button } from "semantic-ui-react";
+import { Segment, Grid, Icon } from "semantic-ui-react";
 
-const ProjectDetailedInfo = ({ projects }) => {
+const ProjectDetailedInfo = ({ project }) => {
   return (
     <Segment.Group>
       <Segment attached="top">
@@ -10,7 +10,7 @@ const ProjectDetailedInfo = ({ projects }) => {
             <Icon name="calendar" size="large" color="teal" />
           </Grid.Column>
           <Grid.Column width={15}>
-            <span>{projects.date}</span>
+            <span>{project.date}</span>
           </Grid.Column>
         </Grid>
       </Segment>
@@ -20,7 +20,7 @@ const ProjectDetailedInfo = ({ projects }) => {
             <Icon size="large" color="teal" name="info" />
           </Grid.Column>
           <Grid.Column width={15}>
-            <p>{projects.description}</p>
+            <p>{project.description}</p>
           </Grid.Column>
         </Grid>
       </Segment>
@@ -30,7 +30,7 @@ const ProjectDetailedInfo = ({ projects }) => {
             <Icon size="large" color="teal" name="code branch" />
           </Grid.Column>
           <Grid.Column width={15}>
-            <p>Skills</p>
+            <p>{project.skills}</p>
           </Grid.Column>
         </Grid>
       </Segment>

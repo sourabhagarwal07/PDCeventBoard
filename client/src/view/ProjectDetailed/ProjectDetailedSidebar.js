@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Segment, Item, Label } from "semantic-ui-react";
 
-const ProjectDetailedSidebar = ({ projects }) => {
+const ProjectDetailedSidebar = ({ project }) => {
   return (
     <Fragment>
       <Segment
@@ -26,11 +26,12 @@ const ProjectDetailedSidebar = ({ projects }) => {
             </Label>
             <Item.Image
               size="tiny"
-              src={projects.user.map((user) => user.photoURL)}
+              rounded
+              src={project.user && project.user.map((user) => user.picture)}
             />
             <Item.Content verticalAlign="middle">
               <Item.Header as="h3">
-                {projects.user.map((user) => user.name)}
+                {project.user && project.user.map((user) => user.name)}
               </Item.Header>
             </Item.Content>
           </Item>
