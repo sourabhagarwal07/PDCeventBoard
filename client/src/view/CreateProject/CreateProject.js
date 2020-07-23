@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Button, Form, Segment } from "semantic-ui-react";
+import { Button, Form, Segment, Dropdown } from "semantic-ui-react";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
@@ -16,14 +16,35 @@ const CreateProject = (props) => {
     description: "",
     skills: "",
     hostedBy: "",
+    hostPhotoURL: "",
+    category: [],
     user: [user],
   });
 
+  const categoryOptions = [
+    {
+      key: "machinelearning",
+      text: "Machine Learning",
+      value: "Machine Learning",
+    },
+    { key: "web", text: "Web Development", value: "Web Development" },
+    { key: "game", text: "Game Development", value: "Game Development" },
+  ];
+
+  // handle dropdown category
+  const handleCategoryChange = (e, data) => {
+    setInfo({
+      ...info,
+      category: data.value,
+    });
+  };
+
+  // post project info to server
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    // if does not have hostPhotoURL, use a default one
     if (!info.hostPhotoURL) {
-      info.hostPhotoURL =
-        "https://img.icons8.com/carbon-copy/2x/company.png";
+      info.hostPhotoURL = "https://img.icons8.com/carbon-copy/2x/company.png";
     }
     Axios.post(path + "project", info)
       .then((res) => {
@@ -93,6 +114,27 @@ const CreateProject = (props) => {
             value={info.hostedBy}
             onChange={handleFormChange}
             placeholder="Enter the name of company hosting"
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Category</label>
+          <Dropdown
+            name="category"
+            placeholder="Category"
+            fluid
+            multiple
+            selection
+            onChange={handleCategoryChange}
+            options={categoryOptions}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Project Picture</label>
+          <input
+            name="hostPhotoURL"
+            value={info.hostPhotoURL}
+            onChange={handleFormChange}
+            placeholder="Enter the URL of picture"
           />
         </Form.Field>
         <Button positive type="submit">

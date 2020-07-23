@@ -25,9 +25,6 @@ const ProjectDeatiledPage = (props) => {
   return (
     <Grid>
       <Grid.Column width={10}>
-        <Button onClick={() => props.history.goBack()}>
-          Back
-        </Button>
         <ProjectDetailedHeader project={projectDetails} />
         <ProjectDetailedInfo project={projectDetails} />
       </Grid.Column>

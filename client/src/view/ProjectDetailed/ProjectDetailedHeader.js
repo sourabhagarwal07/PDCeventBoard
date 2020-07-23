@@ -40,6 +40,7 @@ const ProjectDetailedHeader = ({ project }) => {
 
       <Segment attached="bottom">
         <Button color="orange">Manage Project</Button>
+        <Button floated="right" color="red">Delete Project</Button>
       </Segment>
     </Segment.Group>
   );

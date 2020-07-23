@@ -7,6 +7,8 @@ const projectSchema = new Schema({
   hostPhotoURL: String,
   date: String,
   description: String,
+  skills: String,
+  category: Array,
   user: Array,
 });
 

@@ -30,7 +30,7 @@ const ProjectDetailedInfo = ({ project }) => {
             <Icon size="large" color="teal" name="code branch" />
           </Grid.Column>
           <Grid.Column width={15}>
-            <p>Skills</p>
+            <p>{project.skills}</p>
           </Grid.Column>
         </Grid>
       </Segment>
