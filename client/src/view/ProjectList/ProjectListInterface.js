@@ -45,7 +45,7 @@ const ProjectListInterface = (props) => {
         </Grid.Column>
         <Grid.Column width={6}>
           {/* if a user is admin, show create project button */}
-          {userInfo.user.admin && (
+          {userInfo.user && userInfo.user.admin && (
             <Button
               onClick={handleCreateNewProject}
               positive
