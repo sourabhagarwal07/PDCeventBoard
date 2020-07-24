@@ -87,13 +87,4 @@ app.use(morgan("tiny"));
 app.use("/auth", authRoutes);
 app.use("/", projectRoutes);
 
-app.get("/*", (req, res) => {
-  console.log(__dirname);
-  res.sendFile(path.join(__dirname, "/client/public/index.html"), (err) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
-
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));
