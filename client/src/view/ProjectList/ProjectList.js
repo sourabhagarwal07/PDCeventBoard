@@ -9,7 +9,7 @@ const ProjectList = ({ projectsInfo }) => {
   return (
     <Fragment>
       {projectsInfo.map((project) => (
-        <ProjectListItem key={project.id} project={project} />
+        <ProjectListItem key={project._id} project={project} />
       ))}
     </Fragment>
   );

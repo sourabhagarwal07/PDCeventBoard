@@ -1,7 +1,13 @@
 import React from "react";
 import { Segment, Image, Item, Header, Button } from "semantic-ui-react";
 
-const ProjectDetailedHeader = ({ projects }) => {
+/**
+ * @author @binjiasata
+ * @description Project header component included title, hostby,
+ *              manage project and delete project button.
+ */
+
+const ProjectDetailedHeader = ({ project }) => {
   const eventImageStyle = {
     filter: "brightness(30%)",
   };
@@ -13,9 +19,7 @@ const ProjectDetailedHeader = ({ projects }) => {
     width: "100%",
     height: "auto",
     color: "white",
-	};
-	
-	console.log(projects);
+  };
 
   return (
     <Segment.Group>
@@ -28,11 +32,11 @@ const ProjectDetailedHeader = ({ projects }) => {
               <Item.Content>
                 <Header
                   size="huge"
-                  content={projects.title}
+                  content={project.title}
                   style={{ color: "white" }}
                 />
                 <p>
-                  Hosted by <strong>{projects.hostedBy}</strong>
+                  Hosted by <strong>{project.hostedBy}</strong>
                 </p>
               </Item.Content>
             </Item>
@@ -42,6 +46,9 @@ const ProjectDetailedHeader = ({ projects }) => {
 
       <Segment attached="bottom">
         <Button color="orange">Manage Project</Button>
+        <Button floated="right" color="red">
+          Delete Project
+        </Button>
       </Segment>
     </Segment.Group>
   );

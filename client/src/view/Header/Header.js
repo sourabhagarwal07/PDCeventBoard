@@ -4,7 +4,7 @@ import useReactRouter from "use-react-router";
 import Axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
-import LogedInMenuLinkedin from "./Menus/LogedInMenuLinkedin"
+import LogedInMenuLinkedin from "./Menus/LogedInMenuLinkedin";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 
@@ -25,8 +25,8 @@ const Header = (props) => {
 
   // Use google login
   const handleLogin = () => {
-    
-    //window.location.href="signin";
+    //window.open(path + "auth/login", "_self");
+    history.push("/signin");
   };
 
   const handleLogout = () => {
@@ -54,10 +54,9 @@ const Header = (props) => {
 
   // Get logged user info from backend
   useEffect(() => {
-    Axios
-      .get(path + "auth/login/success", {
-        withCredentials: true,
-      })
+    Axios.get(path + "auth/login/success", {
+      withCredentials: true,
+    })
       .then((res) => {
         // console.log(res);
         return res.data;
@@ -108,13 +107,12 @@ const Header = (props) => {
               logOut={handleLogout}
               username={userInfo.user.name}
               userPicture={userInfo.user.picture}
-            />)
-          // ) : (userInfoLinkedin.authenticated ? (
-          //   <LogedInMenuLinkedin />)
-           : (
+            />
+          ) : (
+            // ) : (userInfoLinkedin.authenticated ? (
+            //   <LogedInMenuLinkedin />)
             <LogedOutMenu logIn={handleLogin} />
-            )
-           }
+          )}
         </Container>
       </Menu>
     </Fragment>

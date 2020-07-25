@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Segment, Item, Icon, List, Button } from "semantic-ui-react";
+import { Segment, Item, Icon, List, Button, Label } from "semantic-ui-react";
 import ProjectListUser from "./ProjectListUser";
 import { Link } from "react-router-dom";
 import LinesEllipsis from "react-lines-ellipsis";
@@ -16,7 +16,8 @@ const ProjectListItem = ({ project }) => {
     description,
     hostedBy,
     user,
-    id,
+    category,
+    _id,
   } = project;
 
   const [readMore, setReadMore] = useState(false);
@@ -49,11 +50,16 @@ const ProjectListItem = ({ project }) => {
             <Item>
               <Item.Image size="tiny" circular src={hostPhotoURL} />
               <Item.Content>
-                <Item.Header as={Link} to={`/project-detail/${id}`}>
+                <Item.Header as={Link} to={`/project-detail/${_id}`}>
                   {title}
                 </Item.Header>
                 <Item.Description>
                   Hosted by <a>{hostedBy}</a>
+                </Item.Description>
+                <Item.Description>
+                  {category !== [] ? category.map((tag) => (
+                    <Label size={"mini"} tag>{tag}</Label>
+                  )) : ""}
                 </Item.Description>
               </Item.Content>
             </Item>
@@ -67,7 +73,9 @@ const ProjectListItem = ({ project }) => {
         <Segment secondary>
           <List horizontal>
             {user &&
-              user.map((user) => <ProjectListUser key={user.id} user={user} />)}
+              user.map((user) => (
+                <ProjectListUser key={user._id} user={user} />
+              ))}
           </List>
         </Segment>
         <Segment clearing>

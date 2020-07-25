@@ -1,24 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Button, Form, Segment, Dropdown } from "semantic-ui-react";
+import Axios from "axios";
+import { UserContext } from "../../common/context/UserProvider";
+import { config } from "../../common/config/config";
 
-import { Button, Form, Segment } from "semantic-ui-react";
-
-// Create a new project and show on Project List page.
+/**
+ * @author @binjiasata
+ * @description Create a new project and show on Project List page.
+ *              Post the new project to server.
+ */
 const CreateProject = (props) => {
-  const { cancelCreateOpen, createProject } = props;
+  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { user } = userInfo;
+  const path = config();
 
+  // project information
   const [info, setInfo] = useState({
     title: "",
     date: "",
     description: "",
     skills: "",
     hostedBy: "",
+    hostPhotoURL: "",
+    category: [],
+    user: [user],
   });
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    createProject(info);
+  /**
+   * Category options:
+   * include Machine Learning, Web Development, Game Development for now. 
+   */
+  const categoryOptions = [
+    {
+      key: "machinelearning",
+      text: "Machine Learning",
+      value: "Machine Learning",
+    },
+    { key: "web", text: "Web Development", value: "Web Development" },
+    { key: "game", text: "Game Development", value: "Game Development" },
+  ];
+
+  // handle dropdown category
+  const handleCategoryChange = (e, data) => {
+    setInfo({
+      ...info,
+      category: data.value,
+    });
   };
 
+  // post project info to server
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    // if does not have hostPhotoURL, use a default one
+    if (!info.hostPhotoURL) {
+      info.hostPhotoURL = "https://img.icons8.com/carbon-copy/2x/company.png";
+    }
+    Axios.post(path + "project", info)
+      .then((res) => {
+        console.log(res);
+        props.history.push("/project-list");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // when click cancel, go back to the project list page
+  const handleFormCancel = () => {
+    props.history.push("project-list");
+  };
+
+  // handle form field change
   const handleFormChange = ({ target: { name, value } }) => {
     setInfo({
       ...info,
@@ -75,10 +127,31 @@ const CreateProject = (props) => {
             placeholder="Enter the name of company hosting"
           />
         </Form.Field>
+        <Form.Field>
+          <label>Category</label>
+          <Dropdown
+            name="category"
+            placeholder="Category"
+            fluid
+            multiple
+            selection
+            onChange={handleCategoryChange}
+            options={categoryOptions}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Project Picture</label>
+          <input
+            name="hostPhotoURL"
+            value={info.hostPhotoURL}
+            onChange={handleFormChange}
+            placeholder="Enter the URL of picture"
+          />
+        </Form.Field>
         <Button positive type="submit">
           Submit
         </Button>
-        <Button onClick={cancelCreateOpen} type="button">
+        <Button onClick={handleFormCancel} type="button">
           Cancel
         </Button>
       </Form>
