@@ -19,7 +19,7 @@ passport.serializeUser((user, done) => {
 });
 
 // get user.id from cookie and decrypt
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser((user, done) => {
 	done(null, user);
 });
 // passport.deserializeUser((id, done) => {
@@ -38,8 +38,6 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      // for deploy
-      // callbackURL: "/auth/login/callback",
       callbackURL: path + "auth/login/callback",
     },
     (accessToken, refreshToken, profile, done) => {
@@ -106,16 +104,14 @@ passport.use(new LinkedInStrategy(
   {
     clientID: keys.linkedinClientID,
     clientSecret: keys.linkedinClientSecret,
-    //callbackURL: `https://uottawa-pdcweb.herokuapp.com/auth/linkedin/callback`,
     callbackURL: path + "auth/linkedin/callback",
-    scope: ['r_emailaddress', 'r_basicprofile']
-  },function(accessToken, refreshToken, profile, done) {
-        var userData = {
+    scope: ['r_emailaddress', 'r_liteprofile']
+  }, (accessToken, refreshToken, profile, done) => {
+        let userData = {
             email: profile.emails[0].value,
             name: profile.displayName,
-            token: accessToken
+            picture: profile.photos[0].value
         };
-        console.log(userData);
         done(null, userData);
     }
   )

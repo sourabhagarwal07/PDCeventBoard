@@ -11,6 +11,8 @@ const projectRoutes = require("./shared/routes/ProjectRoute");
 const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
+const session = require('express-session');
+
 
 const app = express();
 
@@ -56,6 +58,11 @@ app.use(
     extended: true,
   })
 );
+app.use(session({
+  resave: false,
+  saveUninitialized: true,
+  secret: 'SECRET'
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
