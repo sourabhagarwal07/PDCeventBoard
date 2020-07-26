@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 /**
  * @author @binjiasata

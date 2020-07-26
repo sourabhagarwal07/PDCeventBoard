@@ -1,50 +1,64 @@
-import { Button, Container, Menu } from "semantic-ui-react";
-import React, { useEffect, useState, Fragment } from "react";
+import { Container, Menu } from "semantic-ui-react";
+import React, { useEffect, useState, Fragment, useContext } from "react";
 import useReactRouter from "use-react-router";
-import axios from "axios";
+import Axios from "axios";
+import LogedInMenu from "./Menus/LogedInMenu";
+import LogedOutMenu from "./Menus/LogedOutMenu";
+import LogedInMenuLinkedin from "./Menus/LogedInMenuLinkedin";
+import { UserContext } from "../../common/context/UserProvider";
+import { config } from "../../common/config/config";
 
+/**
+ * @author @binjiasata
+ * @description This is the navbar, contains PDC icon, project list button,
+ *              login menu or logout menu for now.
+ *
+ */
 const Header = (props) => {
   const { history } = useReactRouter();
+  const [activeItem, setActiveItem] = useState("");
 
-  const [userInfo, setUserInfo] = useState({
-    user: {},
-    error: null,
-    authenticated: false,
-  });
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
+  // path config http://localhost:8080/
+  let path = config();
+
+  // Use google login
   const handleLogin = () => {
-    // for deploy
-    window.open("auth/login", "_self");
-    // window.open("http://localhost:8080/auth/login", "_self");
+    //window.open(path + "auth/login", "_self");
+    history.push("/signin");
   };
 
   const handleLogout = () => {
-    // for deploy
-    window.open("/auth/logout", "_self");
-    // window.open("http://localhost:8080/auth/logout", "_self");
+    window.open(path + "auth/logout", "_self");
   };
 
-  const handleHome = () => {
+  const handleHome = (e, { name }) => {
     history.push("/");
+    setActiveItem(name);
   };
 
-  const handleProjectList = () => {
+  const handleOurTeam = (e, { name }) => {
+    history.push("/OurTeam");
+    setActiveItem(name);
+  };
+
+  const handleProjectList = (e, { name }) => {
     if (userInfo.authenticated) {
       history.push("/project-list");
+      setActiveItem(name);
     } else {
       alert("You need to login!");
     }
   };
 
+  // Get logged user info from backend
   useEffect(() => {
-    axios
-      // for deploy
-      .get("/auth/login/success", {
-      // .get("http://localhost:8080/auth/login/success", {
-        withCredentials: true,
-      })
+    Axios.get(path + "auth/login/success", {
+      withCredentials: true,
+    })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         return res.data;
       })
       .then((data) => {
@@ -59,39 +73,46 @@ const Header = (props) => {
       });
   }, []);
 
-  //if user doesn't login, display Login button, or display Sign out
-  let button;
-  if (userInfo.authenticated) {
-    button = (
-      <Button onClick={handleLogout} as="a" inverted>
-        Sign out
-      </Button>
-    );
-  } else {
-    button = (
-      <Button onClick={handleLogin} as="a" inverted>
-        Login
-      </Button>
-    );
-  }
-
   return (
     <Fragment>
       <Menu fixed="top" inverted>
         <Container>
-          <Menu.Item as="a" onClick={handleHome} header>
+          <Menu.Item
+            name="home"
+            active={activeItem === "home"}
+            as="a"
+            onClick={handleHome}
+            header
+          >
             Professional Development Club
           </Menu.Item>
-          <Menu.Item as="a" onClick={handleHome}>
-            Home
+          <Menu.Item
+            name="OurTeam"
+            active={activeItem === "OurTeam"}
+            onClick={handleOurTeam}
+          >
+            Our Team
           </Menu.Item>
-          <Menu.Item as="a" onClick={handleProjectList}>
+          <Menu.Item as="a">Hire Students</Menu.Item>
+          <Menu.Item as="a">For Students</Menu.Item>
+          <Menu.Item
+            name="projectList"
+            active={activeItem === "projectList"}
+            onClick={handleProjectList}
+          >
             Project List
           </Menu.Item>
-          <Menu.Item position="right">{button}</Menu.Item>
-          <Menu.Item>
-            {userInfo.authenticated ? "Welcome " + userInfo.user.name : ""}
-          </Menu.Item>
+          {userInfo.authenticated ? (
+            <LogedInMenu
+              logOut={handleLogout}
+              username={userInfo.user.name}
+              userPicture={userInfo.user.picture}
+            />
+          ) : (
+            // ) : (userInfoLinkedin.authenticated ? (
+            //   <LogedInMenuLinkedin />)
+            <LogedOutMenu logIn={handleLogin} />
+          )}
         </Container>
       </Menu>
     </Fragment>

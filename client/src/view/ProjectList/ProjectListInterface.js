@@ -1,94 +1,57 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import { Grid, Button } from "semantic-ui-react";
-import CreateProject from "../CreateProject/CreateProject";
 import ProjectList from "./ProjectList";
-
-// This data should be got from server
-const projectsFromServer = [
-  {
-    id: "1",
-    title: "Web Development",
-    date: "2020-03-27",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut,enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut,enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    hostedBy: "Apple",
-    hostPhotoURL:
-      "https://imageog.flaticon.com/icons/png/512/37/37150.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF",
-    user: [
-      {
-        id: "a",
-        name: "Bob",
-        photoURL: "https://randomuser.me/api/portraits/men/20.jpg",
-      },
-    ],
-  },
-  {
-    id: "2",
-    title: "Game Development",
-    date: "2020-05-28",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.",
-    hostedBy: "Ubisoft",
-    hostPhotoURL:
-      "https://www.logo-designer.co/wp-content/uploads/2017/06/2017-new-ubisoft-logo-2.png",
-    user: [
-      {
-        id: "a",
-        name: "Tom",
-        photoURL: "https://randomuser.me/api/portraits/men/30.jpg",
-      },
-      {
-        id: "b",
-        name: "Bob",
-        photoURL: "https://randomuser.me/api/portraits/men/29.jpg",
-      },
-    ],
-  },
-];
+import Axios from "axios";
+import { UserContext } from "../../common/context/UserProvider";
+import { config } from "../../common/config/config";
 
 /**
  * @author @binjiasata
  * @description This page shows a project list and a create new project button.
- *              Todo: Project list data should be got from server.
- *              Todo: Create new project should be saved in server.
+ *              The project list is got from server.
+ *          
  */
-const ProjectListInterface = () => {
-  const [projectsInfo, setProjectsInfo] = useState(projectsFromServer);
-  const [isOpen, setIsOpen] = useState(false);
+const ProjectListInterface = (props) => {
+  // path config http://localhost:8080/
+  const path = config();
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
-  const handleIsOpenToggle = () => {
-    setIsOpen((isOpen) => !isOpen);
+  const [projectsInfo, setProjectsInfo] = useState([]);
+
+  // when click create new project, jump to create-project page
+  const handleCreateNewProject = () => {
+    props.history.push("/create-project");
   };
 
-  const handleCreateProject = (newProject) => {
-    // we will get these info from server
-    newProject.id = 9;
-    newProject.hostPhotoURL =
-      "https://img.icons8.com/carbon-copy/2x/company.png";
-    setProjectsInfo([...projectsInfo, newProject]);
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    Axios.get(path + "project", {})
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        setProjectsInfo(data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <Fragment>
       <Grid>
-        <Grid.Column width={10}>
+        <Grid.Column width={12}>
           {/* Pass project info to project list and children component */}
           <ProjectList projectsInfo={projectsInfo} />
         </Grid.Column>
-        <Grid.Column width={6}>
-          <Button
-            onClick={handleIsOpenToggle}
-            positive
-            content="Create New Project"
-          />
-          {isOpen && (
-            <CreateProject
-              createProject={handleCreateProject}
-              cancelCreateOpen={handleIsOpenToggle}
+        {/* <Grid.Column width={6}>
+          {userInfo.user && userInfo.user.admin && (
+            <Button
+              onClick={handleCreateNewProject}
+              positive
+              content="Create New Project"
             />
           )}
-        </Grid.Column>
+        </Grid.Column> */}
       </Grid>
     </Fragment>
   );
