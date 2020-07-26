@@ -7,7 +7,7 @@
 export const config = () => {
   // for deploy
   let path = "/";
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV != "production") {
     //for local setup
     path = "http://localhost:8080/";
   }

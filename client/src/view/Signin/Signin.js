@@ -19,17 +19,17 @@ const Signin = (props) => {
       <Grid columns={2} stackable textAlign='center' >
         <Grid.Column>
           <h2>If you are a student, please log in with Google</h2>
-          <h1><button class="ui google button" onClick={handleGoogleLogin}> 
-            <i class="google icon"></i>
+          <Button onClick={handleGoogleLogin}> 
+            <i className="google icon"></i>
                 Google
-          </button></h1>
+          </Button>
         </Grid.Column>
         <Grid.Column>
           <h2>If you are a company, please log in with Linkedin</h2>
-          <h1><button class="ui linkedin button" onClick={handleLinkedinLogin}> 
-            <i class="linkedin icon"></i>
+          <Button className="ui linkedin button" onClick={handleLinkedinLogin}> 
+            <i className="linkedin icon"></i>
                 Linkedin
-          </button></h1>
+          </Button>
         </Grid.Column>
       </Grid>
     </Fragment>
