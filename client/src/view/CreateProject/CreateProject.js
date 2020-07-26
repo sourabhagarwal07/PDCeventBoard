@@ -1,5 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Button, Form, Segment, Dropdown } from "semantic-ui-react";
+import React, { useState, useContext, useEffect } from "react";
+import {
+  Button,
+  Form,
+  Segment,
+  Dropdown,
+  TextArea,
+  Checkbox,
+} from "semantic-ui-react";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
@@ -13,14 +20,17 @@ const CreateProject = (props) => {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const { user } = userInfo;
   const path = config();
+  const [isDisable, setIsDisable] = useState(true);
 
   // project information
   const [info, setInfo] = useState({
     title: "",
-    date: "",
+    startDate: "",
+    expireDate: "",
     description: "",
     skills: "",
-    hostedBy: "",
+    hostedBy:
+      user && user.admin ? "EGS-PDC" : user.company ? "Company Name" : "",
     hostPhotoURL: "",
     category: [],
     user: [user],
@@ -28,7 +38,7 @@ const CreateProject = (props) => {
 
   /**
    * Category options:
-   * include Machine Learning, Web Development, Game Development for now. 
+   * include Machine Learning, Web Development, Game Development for now.
    */
   const categoryOptions = [
     {
@@ -91,13 +101,30 @@ const CreateProject = (props) => {
           />
         </Form.Field>
         <Form.Field>
-          <label>Date</label>
+          <label>Start Date</label>
           <input
-            name="date"
-            value={info.date}
+            name="startDate"
+            value={info.startDate}
             onChange={handleFormChange}
             type="date"
-            placeholder="Date"
+            placeholder="Start Date"
+          />
+        </Form.Field>
+        <Form.Field>
+          <Checkbox
+            onClick={() => setIsDisable(!isDisable)}
+            label="Set a expire date on project (Default is 4 weeks)"
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Expire Date</label>
+          <input
+            name="expireDate"
+            value={info.expireDate}
+            onChange={handleFormChange}
+            disabled={isDisable}
+            type="date"
+            placeholder="Expire Date"
           />
         </Form.Field>
         <Form.Field>
@@ -107,15 +134,6 @@ const CreateProject = (props) => {
             value={info.skills}
             onChange={handleFormChange}
             placeholder="Required Skills"
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Desciption</label>
-          <input
-            name="description"
-            value={info.description}
-            onChange={handleFormChange}
-            placeholder="Enter the Desciption of the project"
           />
         </Form.Field>
         <Form.Field>
@@ -140,12 +158,22 @@ const CreateProject = (props) => {
           />
         </Form.Field>
         <Form.Field>
-          <label>Project Picture</label>
+          <label>Add Logo</label>
           <input
             name="hostPhotoURL"
             value={info.hostPhotoURL}
             onChange={handleFormChange}
-            placeholder="Enter the URL of picture"
+            placeholder="Enter the URL of logo"
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Desciption</label>
+          <TextArea
+            name="description"
+            rows={3}
+            value={info.description}
+            onChange={handleFormChange}
+            placeholder="Enter the Desciption of the project"
           />
         </Form.Field>
         <Button positive type="submit">

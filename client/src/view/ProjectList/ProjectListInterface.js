@@ -39,12 +39,11 @@ const ProjectListInterface = (props) => {
   return (
     <Fragment>
       <Grid>
-        <Grid.Column width={10}>
+        <Grid.Column width={12}>
           {/* Pass project info to project list and children component */}
           <ProjectList projectsInfo={projectsInfo} />
         </Grid.Column>
-        <Grid.Column width={6}>
-          {/* if a user is admin, show create project button */}
+        {/* <Grid.Column width={6}>
           {userInfo.user && userInfo.user.admin && (
             <Button
               onClick={handleCreateNewProject}
@@ -52,7 +51,7 @@ const ProjectListInterface = (props) => {
               content="Create New Project"
             />
           )}
-        </Grid.Column>
+        </Grid.Column> */}
       </Grid>
     </Fragment>
   );

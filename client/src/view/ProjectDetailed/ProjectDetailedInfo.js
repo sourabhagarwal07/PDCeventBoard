@@ -16,7 +16,10 @@ const ProjectDetailedInfo = ({ project }) => {
             <Icon name="calendar" size="large" color="teal" />
           </Grid.Column>
           <Grid.Column width={15}>
-            <span>{project.date}</span>
+            <span>
+              {project.startDate}
+              {project.expireDate ? "  To  " + project.expireDate : ""}
+            </span>
           </Grid.Column>
         </Grid>
       </Segment>

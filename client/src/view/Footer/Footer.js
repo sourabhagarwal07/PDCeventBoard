@@ -32,15 +32,15 @@ const Footer = () => {
             <Grid.Column width={5}>
               <Header inverted as="h4" content="Get in Touch" />
               <p>
-                <button class="ui facebook button">
-                  <i class="facebook icon"></i>
+                <button className="ui facebook button">
+                  <i className="facebook icon"></i>
                   Facebook
                 </button>
               </p>
               <p>
                 {" "}
-                <button class="ui twitter button">
-                  <i class="twitter icon"></i>
+                <button className="ui twitter button">
+                  <i className="twitter icon"></i>
                   Twitter
                 </button>
               </p>
