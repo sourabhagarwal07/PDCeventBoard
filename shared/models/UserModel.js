@@ -3,10 +3,12 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   googleId: String,
+  linkedinId: String,
   name: String,
   email: String,
   picture: String,
   admin: Boolean,
+  company: Boolean,
 });
 
 const User = mongoose.model("pdc-user", userSchema);
