@@ -108,11 +108,41 @@ passport.use(new LinkedInStrategy(
     scope: ['r_emailaddress', 'r_liteprofile']
   }, (accessToken, refreshToken, profile, done) => {
         let userData = {
+            linkedinId:profile.linkedinId,
             email: profile.emails[0].value,
             name: profile.displayName,
             picture: profile.photos[0].value
         };
+       
         done(null, userData);
+            
+        if (profile) {
+          const newUser = new User({
+            linkedinId: profile.linkedinId,
+            email: profile.emails[0].value,
+            name: profile.displayName,
+            picture: profile.photos[0].value
+          });
+  
+          // Check if database has already had this user
+          User.findOneAndUpdate(
+            { linkedinId: linkedinId },
+            { picture: profile.photos[0].value, name:profile.displayName }
+          ).then((currentUser) => {
+            // if it has, don't save
+            if (currentUser) {
+              done(null, currentUser);
+            } else {
+              // if it does not, save the new user
+              newUser.save().then((newUser) => {
+                done(null, newUser);
+              });
+            }
+          });
+        } else {
+          done(new Error("Invaild host domain!"));
+        }
+
     }
   )
 );
