@@ -1,5 +1,5 @@
 import { Container, Menu, Grid } from "semantic-ui-react";
-import React, { useEffect, useState, Fragment, useContext, } from "react";
+import React, { useEffect, useState, Fragment, useContext } from "react";
 import useReactRouter from "use-react-router";
 import Axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
@@ -62,10 +62,10 @@ const Header = (props) => {
       withCredentials: true,
     })
       .then((res) => {
-        // console.log(res);
         return res.data;
       })
       .then((data) => {
+        console.log(data);
         setUserInfo({
           ...userInfo,
           user: data.user,
@@ -77,114 +77,68 @@ const Header = (props) => {
       });
   }, []);
 
-  if (userInfo.authenticated) {
-    return (
-      <Fragment>
-        <Menu fixed="top" inverted>
-          <Container>
-            <Menu.Item
-              name="home"
-              active={activeItem === "home"}
-              as="a"
-              onClick={handleHome}
-              header
-            >
-              Professional Development Club
-            </Menu.Item>
-            <Menu.Item
-              name="OurTeam"
-              active={activeItem === "OurTeam"}
-              onClick={handleOurTeam}
-            >
-              Our Team
-            </Menu.Item>
-
-            <Menu.Item as="a">For Students</Menu.Item>
-            <Menu.Item as="a">For Alumni</Menu.Item>
-            <Menu.Item as="a">Updates on COVID-19</Menu.Item>
-            <Menu.Item
-              name="Events"
-              active={activeItem === "Events"}
-              onClick={handleEvents}
-            >
-              Events
-            </Menu.Item>
-            <Menu.Item
-              name="projectList"
-              active={activeItem === "projectList"}
-              onClick={handleProjectList}
-            >
-              Project List
-            </Menu.Item>
-            {userInfo.authenticated ? (
-              <LogedInMenu
-                logOut={handleLogout}
-                username={userInfo.user.name}
-                userPicture={userInfo.user.picture}
-              />
-            ) : (
-              // ) : (userInfoLinkedin.authenticated ? (
-              //   <LogedInMenuLinkedin />)
-              <LogedOutMenu logIn={handleLogin} />
-            )}
-          </Container>
-        </Menu>
-      </Fragment>
-    );
-  } else {
-    return (
-      
-      <Fragment>
-        {/* <Grid>
-        <Grid.Row columns={1} only='mobile'>
-        <Grid.Column> */}
-        <Menu fixed="top" inverted>
-          <Container>
-            <Menu.Item
-              name="home"
-              active={activeItem === "home"}
-              as="a"
-              onClick={handleHome}
-              header
-            >
-              Professional Development Club
-            </Menu.Item>
-            <Menu.Item
-              name="OurTeam"
-              active={activeItem === "OurTeam"}
-              onClick={handleOurTeam}
-            >
-              Our Team
-            </Menu.Item>
+  return (
+    <Fragment>
+      <Menu fixed="top" inverted>
+        <Container>
+          <Menu.Item
+            name="home"
+            active={activeItem === "home"}
+            as="a"
+            onClick={handleHome}
+            header
+          >
+            Professional Development Club
+          </Menu.Item>
+          <Menu.Item
+            name="OurTeam"
+            active={activeItem === "OurTeam"}
+            onClick={handleOurTeam}
+          >
+            Our Team
+          </Menu.Item>
+          {!userInfo.authenticated ||
+          (userInfo.user && (userInfo.user.company || userInfo.user.admin)) ? (
             <Menu.Item as="a">Hire Students</Menu.Item>
+          ) : (
+            ""
+          )}
+
+          {!userInfo.authenticated ||
+          (userInfo.user && !userInfo.user.company) ? (
             <Menu.Item as="a">For Students</Menu.Item>
-            <Menu.Item as="a">Updates on COVID-19</Menu.Item>
-            <Menu.Item
-              name="Events"
-              active={activeItem === "Events"}
-              onClick={handleEvents}
-            >
-              Events
-            </Menu.Item>
-            {userInfo.authenticated ? (
-              <LogedInMenu
-                logOut={handleLogout}
-                username={userInfo.user.name}
-                userPicture={userInfo.user.picture}
-              />
-            ) : (
-              // ) : (userInfoLinkedin.authenticated ? (
-              //   <LogedInMenuLinkedin />)
-              <LogedOutMenu logIn={handleLogin} />
-            )}
-          </Container>
-        </Menu>
-        {/* </Grid.Column>
-        </Grid.Row>
-        </Grid> */}
-      </Fragment>
-    );
-  }
+          ) : (
+            ""
+          )}
+          <Menu.Item as="a">For Alumni</Menu.Item>
+          <Menu.Item as="a">Updates on COVID-19</Menu.Item>
+          <Menu.Item
+            name="Events"
+            active={activeItem === "Events"}
+            onClick={handleEvents}
+          >
+            Events
+          </Menu.Item>
+          <Menu.Item
+            name="projectList"
+            active={activeItem === "projectList"}
+            onClick={handleProjectList}
+          >
+            Project List
+          </Menu.Item>
+          {userInfo.authenticated ? (
+            <LogedInMenu
+              logOut={handleLogout}
+              username={userInfo.user.name}
+              userPicture={userInfo.user.picture}
+            />
+          ) : (
+            <LogedOutMenu logIn={handleLogin} />
+          )}
+        </Container>
+      </Menu>
+    </Fragment>
+  );
 };
 
 export default Header;

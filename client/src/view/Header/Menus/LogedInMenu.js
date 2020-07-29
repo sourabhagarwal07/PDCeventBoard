@@ -17,7 +17,7 @@ const LogedInMenu = ({ logOut, username, userPicture }) => {
       <Dropdown pointing="top left" text={username}>
         {/* if a user is admin, show create project button */}
         <Dropdown.Menu>
-          {userInfo.user && userInfo.user.admin && (
+          {userInfo.user && (userInfo.user.admin || userInfo.user.company) && (
             <Dropdown.Item
               onClick={() => {
                 history.push("/create-project");
