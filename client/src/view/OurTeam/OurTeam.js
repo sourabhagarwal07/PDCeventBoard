@@ -11,7 +11,7 @@ const Home = (props) => {
             Our Team
           </h2>     
           <p>
-            <h3>president</h3>
+            <h3>President</h3>
             <div class="ui list">
               <div class="item">Astha Tiwari</div>
               <div class="item">Email: atiwa061@uottawa.ca</div>
