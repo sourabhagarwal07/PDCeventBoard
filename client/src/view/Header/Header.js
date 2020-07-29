@@ -135,9 +135,9 @@ const Header = (props) => {
     return (
       
       <Fragment>
-        <Grid>
+        {/* <Grid>
         <Grid.Row columns={1} only='mobile'>
-        <Grid.Column>
+        <Grid.Column> */}
         <Menu fixed="top" inverted>
           <Container>
             <Menu.Item
@@ -179,9 +179,9 @@ const Header = (props) => {
             )}
           </Container>
         </Menu>
-        </Grid.Column>
+        {/* </Grid.Column>
         </Grid.Row>
-        </Grid>
+        </Grid> */}
       </Fragment>
     );
   }
