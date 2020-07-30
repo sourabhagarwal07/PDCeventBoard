@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Segment, Image, Item, Header, Button } from "semantic-ui-react";
+import { UserContext } from "../../common/context/UserProvider";
 
 /**
  * @author @binjiasata
@@ -20,6 +21,8 @@ const ProjectDetailedHeader = ({ project }) => {
     height: "auto",
     color: "white",
   };
+
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   return (
     <Segment.Group>
@@ -44,12 +47,14 @@ const ProjectDetailedHeader = ({ project }) => {
         </Segment>
       </Segment>
 
-      <Segment attached="bottom">
-        <Button color="orange">Manage Project</Button>
-        <Button floated="right" color="red">
-          Delete Project
-        </Button>
-      </Segment>
+      {userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
+        <Segment attached="bottom">
+          <Button color="orange">Manage Project</Button>
+          <Button floated="right" color="red">
+            Delete Project
+          </Button>
+        </Segment>
+      ) : null}
     </Segment.Group>
   );
 };
