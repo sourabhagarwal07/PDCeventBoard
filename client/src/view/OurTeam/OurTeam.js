@@ -1,21 +1,29 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Image, Grid, Segment, Accordion, Icon } from "semantic-ui-react";
-import useReactRouter from "use-react-router";
-import { use } from "passport";
 
 const Home = (props) => {
-  const [bios, setbios] = useState("Show bios");
+  const InitialArray = new Array([10]);
+  for (let i=0; i < 10; i++){
+    InitialArray[i] = "Show bios";
+  }
+  const [bios, setbios] = useState(InitialArray);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [index, setIndex] = useState(-1);
 
   const handleClick = (e, titleProps) => {
-    const { index } = titleProps;
-    let newIndex = activeIndex === index ? -1 : index;
-    setActiveIndex(newIndex);
-    if(bios == "Show bios"){
-      setbios("Hide bios")
+    // setIndex(titleProps.index);
+    const {index} = titleProps;
+    let newIndex;
+    if(activeIndex === index){
+      newIndex = -1;
+        bios[index] = "Show bios";
     } else {
-      setbios("Show bios")
+      newIndex = index;
+      bios[activeIndex] = "Show bios";
+      bios[newIndex] = "Hide bios";
     }
+    setActiveIndex(newIndex);
+    
   };
 
   return (
@@ -35,7 +43,7 @@ const Home = (props) => {
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios}
+                  {bios[0]}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 0}>
                   <p>
@@ -56,7 +64,7 @@ const Home = (props) => {
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios}
+                  {bios[1]}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 1}>
                   <p>Introduction 2</p>
@@ -75,7 +83,7 @@ const Home = (props) => {
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios}
+                  {bios[2]}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 2}>
                   <p>
@@ -96,7 +104,7 @@ const Home = (props) => {
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios}
+                  {bios[3]}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 3}>
                   <p>
@@ -120,7 +128,7 @@ const Home = (props) => {
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios}
+                  {bios[4]}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 4}>
                   <p>
@@ -141,7 +149,7 @@ const Home = (props) => {
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios}
+                  {bios[5]}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 5}>
                   <p>
@@ -162,7 +170,7 @@ const Home = (props) => {
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios}
+                  {bios[6]}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 6}>
                   <p>
@@ -183,7 +191,7 @@ const Home = (props) => {
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios}
+                  {bios[7]}
                 </Accordion.Title>
                 <Accordion.Content active={activeIndex === 7}>
                   <p>
