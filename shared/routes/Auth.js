@@ -55,14 +55,13 @@ router.get("/logout", (req, res) => {
   res.redirect(path);
 });
 
-
 //add linkedin login
 router.get(
   "/linkedin",
   passport.authenticate("linkedin", {
     scope: ["r_emailaddress", "r_liteprofile"],//,"r_fullprofile"],
     prompt: "select_account",
-    state: "SOME STATE"
+    state: "SOME STATE",
   }),
   function (req, res) {
     // The request will be redirected to LinkedIn for authentication, so this
@@ -77,17 +76,5 @@ router.get(
     successRedirect: path,
   })
 );
-
-router.get('/profile', isLoggedIn, function (req, res) {
-  res.render('pages/profile.ejs', {
-    user: req.user // get the user out of session and pass to template
-  });
-});
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-  res.redirect('/');
-}
 
 module.exports = router;

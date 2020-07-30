@@ -8,6 +8,8 @@ import Footer from "./view/Footer/Footer";
 import Signin from "./view/Signin/Signin";
 import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
 import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
+import Events from "./view/Events/Events";
+import Admin from "./view/Admin/Admin";
 import { Container } from "semantic-ui-react";
 
 /**
@@ -27,6 +29,8 @@ const Routers = () => {
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/OurTeam" component={OurTeam} />
             <Route exact path="/create-project" component={CreateProject} />
+            <Route exact path="/events" component={Events} />
+            <Route exact path="/admin" component={Admin} />
             <Route
               exact
               path="/project-list"

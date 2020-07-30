@@ -1,10 +1,10 @@
-import { Container, Menu } from "semantic-ui-react";
+import { Container, Menu, Grid } from "semantic-ui-react";
 import React, { useEffect, useState, Fragment, useContext } from "react";
 import useReactRouter from "use-react-router";
 import Axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
-import LogedInMenuLinkedin from "./Menus/LogedInMenuLinkedin"
+import LogedInMenuLinkedin from "./Menus/LogedInMenuLinkedin";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 
@@ -25,8 +25,8 @@ const Header = (props) => {
 
   // Use google login
   const handleLogin = () => {
-    
-    //window.location.href="signin";
+    //window.open(path + "auth/login", "_self");
+    history.push("/signin");
   };
 
   const handleLogout = () => {
@@ -42,6 +42,10 @@ const Header = (props) => {
     history.push("/OurTeam");
     setActiveItem(name);
   };
+  const handleEvents = (e, { name }) => {
+    history.push("/events");
+    setActiveItem(name);
+  };
 
   const handleProjectList = (e, { name }) => {
     if (userInfo.authenticated) {
@@ -54,15 +58,14 @@ const Header = (props) => {
 
   // Get logged user info from backend
   useEffect(() => {
-    Axios
-      .get(path + "auth/login/success", {
-        withCredentials: true,
-      })
+    Axios.get(path + "auth/login/success", {
+      withCredentials: true,
+    })
       .then((res) => {
-        // console.log(res);
         return res.data;
       })
       .then((data) => {
+        console.log(data);
         setUserInfo({
           ...userInfo,
           user: data.user,
@@ -94,8 +97,28 @@ const Header = (props) => {
           >
             Our Team
           </Menu.Item>
-          <Menu.Item as="a">Hire Students</Menu.Item>
-          <Menu.Item as="a">For Students</Menu.Item>
+          {!userInfo.authenticated ||
+          (userInfo.user && (userInfo.user.company || userInfo.user.admin)) ? (
+            <Menu.Item as="a">Hire Students</Menu.Item>
+          ) : (
+            ""
+          )}
+
+          {!userInfo.authenticated ||
+          (userInfo.user && !userInfo.user.company) ? (
+            <Menu.Item as="a">For Students</Menu.Item>
+          ) : (
+            ""
+          )}
+          <Menu.Item as="a">For Alumni</Menu.Item>
+          <Menu.Item as="a">Updates on COVID-19</Menu.Item>
+          <Menu.Item
+            name="Events"
+            active={activeItem === "Events"}
+            onClick={handleEvents}
+          >
+            Events
+          </Menu.Item>
           <Menu.Item
             name="projectList"
             active={activeItem === "projectList"}
@@ -108,13 +131,10 @@ const Header = (props) => {
               logOut={handleLogout}
               username={userInfo.user.name}
               userPicture={userInfo.user.picture}
-            />)
-          // ) : (userInfoLinkedin.authenticated ? (
-          //   <LogedInMenuLinkedin />)
-           : (
+            />
+          ) : (
             <LogedOutMenu logIn={handleLogin} />
-            )
-           }
+          )}
         </Container>
       </Menu>
     </Fragment>

@@ -5,8 +5,11 @@ const projectSchema = new Schema({
   title: String,
   hostedBy: String,
   hostPhotoURL: String,
-  date: String,
+  startDate: String,
+  expireDate: String,
   description: String,
+  skills: String,
+  category: Array,
   user: Array,
 });
 
