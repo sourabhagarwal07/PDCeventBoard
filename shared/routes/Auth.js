@@ -60,7 +60,7 @@ router.get("/logout", (req, res) => {
 router.get(
   "/linkedin",
   passport.authenticate("linkedin", {
-    scope: ["r_emailaddress", "r_liteprofile"],
+    scope: ["r_emailaddress", r_liteprofile],//,"r_fullprofile"],
     prompt: "select_account",
     state: "SOME STATE"
   }),

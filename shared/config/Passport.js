@@ -105,7 +105,7 @@ passport.use(new LinkedInStrategy(
     clientID: keys.linkedinClientID,
     clientSecret: keys.linkedinClientSecret,
     callbackURL: path + "auth/linkedin/callback",
-    scope: ['r_emailaddress', 'r_liteprofile']
+    scope: ['r_emailaddress', 'r_liteprofile'] //'r_fullprofile']
   }, (accessToken, refreshToken, profile, done) => {
         let userData = {
             email: profile.emails[0].value,
