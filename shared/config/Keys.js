@@ -4,5 +4,5 @@ module.exports = {
   googleClientSecret: 'noh-pylCWgjHfYw-5ceN-drl',
   cookieKey: 'dauhqebkguyfaslk',
   linkedinClientID: '78gnkqh7tw4fx1',
-  linkedinClientSecret: 'pOZEKyfrm9fSUej8'
+  linkedinClientSecret: 'pOZEKyfrm9fSUej8',
 };

@@ -9,6 +9,8 @@ import Signin from "./view/Signin/Signin";
 import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
 import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
 import Events from "./view/Events/Events";
+import CreateEvent from './view/Events/createEvent';
+
 import Admin from "./view/Admin/Admin";
 import { Container } from "semantic-ui-react";
 
@@ -41,6 +43,12 @@ const Routers = () => {
               path="/project-detail/:id"
               component={ProjectDeatiledPage}
             />
+            <Route
+              exact
+              path="/create-event"
+              component={CreateEvent}
+            />
+
           </Container>
         </Fragment>
       </Switch>
