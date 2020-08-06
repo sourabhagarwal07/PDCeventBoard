@@ -23,11 +23,13 @@ const ProjectList = ({ projectsInfo }) => {
            */
         }
         if (
+          !project.isDeleted &&
           project.expireDate &&
           moment(currentDate).isBefore(project.expireDate)
         ) {
           return <ProjectListItem key={project._id} project={project} />;
         } else if (
+          !project.isDeleted &&
           !project.expireDate &&
           moment(project.startDate).isAfter(currentDateFourWeeksAgo)
         ) {

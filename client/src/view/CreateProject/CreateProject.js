@@ -12,8 +12,6 @@ import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 import UploadFile from "./UploadFile";
-import { set } from "mongoose";
-import { message } from "antd";
 
 /**
  * @author @binjiasata
@@ -22,22 +20,32 @@ import { message } from "antd";
  */
 const CreateProject = (props) => {
   const { userInfo, setUserInfo } = useContext(UserContext);
+
+  // get state from project detail manage button
+  const { state } = props.location;
+  const { id } = props.match.params;
   const { user } = userInfo;
   const path = config();
   const [isDisable, setIsDisable] = useState(true);
 
   // project information
   const [info, setInfo] = useState({
-    title: "",
-    postedOn: "",
-    validUntil: "",
-    description: "",
-    skills: "",
-    hostedBy:
-      user && user.admin ? "EGS-PDC" : user.company ? "Company Name" : "",
-    logoUrl: "",
-    category: [],
-    user: [user],
+    title: state ? state.title : "",
+    postedOn: state ? state.postedOn : "",
+    validUntil: state ? state.validUntil : "",
+    description: state ? state.description : "",
+    skills: state ? state.skills : "",
+    hostedBy: state
+      ? state.hostedBy
+      : user && user.admin
+      ? "EGS-PDC"
+      : user.company
+      ? "Company Name"
+      : "",
+    logoUrl: state ? state.logoUrl : "",
+    category: state ? state.category : [],
+    user: state ? state.user : [user],
+    isDeleted: state ? state.isDeleted : false,
   });
 
   /**
@@ -69,19 +77,25 @@ const CreateProject = (props) => {
     if (!info.logoUrl) {
       info.logoUrl = "https://img.icons8.com/carbon-copy/2x/company.png";
     }
-    Axios.post(path + "project", info)
-      .then((res) => {
-        console.log(res);
+
+    if (id) {
+      Axios.post(path + "project/manage/" + id, info).then((res) => {
         props.history.push("/project-list");
-      })
-      .catch((e) => {
-        console.log(e);
       });
+    } else {
+      Axios.post(path + "project", info)
+        .then((res) => {
+          props.history.push("/project-list");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   };
 
   // when click cancel, go back to the project list page
   const handleFormCancel = () => {
-    props.history.push("project-list");
+    props.history.push("/project-list");
   };
 
   // handle form field change
@@ -167,6 +181,7 @@ const CreateProject = (props) => {
             multiple
             selection
             onChange={handleCategoryChange}
+            defaultValue={info.category}
             options={categoryOptions}
           />
         </Form.Field>
@@ -188,7 +203,7 @@ const CreateProject = (props) => {
         </Form.Field>
 
         <Button positive type="submit">
-          Submit
+          {state ? "Update" : "Submit"}
         </Button>
         <Button onClick={handleFormCancel} type="button">
           Cancel

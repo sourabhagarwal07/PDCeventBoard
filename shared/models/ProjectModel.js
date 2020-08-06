@@ -11,6 +11,7 @@ const projectSchema = new Schema({
   skills: String,
   category: Array,
   user: Array,
+  isDeleted: Boolean,
 });
 
 const Project = mongoose.model("project", projectSchema);

@@ -18,13 +18,22 @@ const LogedInMenu = ({ logOut, username, userPicture }) => {
         {/* if a user is admin, show create project button */}
         <Dropdown.Menu>
           {userInfo.user && (userInfo.user.admin || userInfo.user.company) && (
-            <Dropdown.Item
-              onClick={() => {
-                history.push("/create-project");
-              }}
-              text="Create Project"
-              icon="plus"
-            />
+            <Fragment>
+              <Dropdown.Item
+                onClick={() => {
+                  history.push("/create-project");
+                }}
+                text="Create Project"
+                icon="plus"
+              />
+              <Dropdown.Item
+                onClick={() => {
+                  history.push("/company-dashboard");
+                }}
+                text="Dashboard"
+                icon="dashboard"
+              />
+            </Fragment>
           )}
 
           <Dropdown.Item onClick={logOut} text="Log Out" icon="power" />

@@ -11,6 +11,7 @@ import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
 import Events from "./view/Events/Events";
 import Admin from "./view/Admin/Admin";
 import { Container } from "semantic-ui-react";
+import CompanyDashboard from "./view/CompanyDashboard/CompanyDashboard";
 
 /**
  * This is routers for the website.
@@ -29,6 +30,7 @@ const Routers = () => {
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/OurTeam" component={OurTeam} />
             <Route exact path="/create-project" component={CreateProject} />
+            <Route exact path="/project/manage/:id" component={CreateProject} />
             <Route exact path="/events" component={Events} />
             <Route exact path="/admin" component={Admin} />
             <Route
@@ -40,6 +42,11 @@ const Routers = () => {
               exact
               path="/project-detail/:id"
               component={ProjectDeatiledPage}
+            />
+            <Route
+              exact
+              path="/company-dashboard"
+              component={CompanyDashboard}
             />
           </Container>
         </Fragment>
