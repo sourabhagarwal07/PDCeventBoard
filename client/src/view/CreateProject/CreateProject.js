@@ -6,10 +6,14 @@ import {
   Dropdown,
   TextArea,
   Checkbox,
+  Grid,
 } from "semantic-ui-react";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
+import UploadFile from "./UploadFile";
+import { set } from "mongoose";
+import { message } from "antd";
 
 /**
  * @author @binjiasata
@@ -25,13 +29,13 @@ const CreateProject = (props) => {
   // project information
   const [info, setInfo] = useState({
     title: "",
-    startDate: "",
-    expireDate: "",
+    postedOn: "",
+    validUntil: "",
     description: "",
     skills: "",
     hostedBy:
       user && user.admin ? "EGS-PDC" : user.company ? "Company Name" : "",
-    hostPhotoURL: "",
+    logoUrl: "",
     category: [],
     user: [user],
   });
@@ -61,9 +65,9 @@ const CreateProject = (props) => {
   // post project info to server
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // if does not have hostPhotoURL, use a default one
-    if (!info.hostPhotoURL) {
-      info.hostPhotoURL = "https://img.icons8.com/carbon-copy/2x/company.png";
+    // if does not have logoUrl, use a default one
+    if (!info.logoUrl) {
+      info.logoUrl = "https://img.icons8.com/carbon-copy/2x/company.png";
     }
     Axios.post(path + "project", info)
       .then((res) => {
@@ -100,34 +104,41 @@ const CreateProject = (props) => {
             placeholder="Project Title"
           />
         </Form.Field>
-        <Form.Field>
-          <label>Start Date</label>
-          <input
-            name="startDate"
-            value={info.startDate}
-            onChange={handleFormChange}
-            type="date"
-            placeholder="Start Date"
-          />
-        </Form.Field>
+
         <Form.Field>
           <Checkbox
             onClick={() => setIsDisable(!isDisable)}
             label="Set a expire date on project (Default is 4 weeks)"
           />
         </Form.Field>
+
         <Form.Field>
-          <label>Expire Date</label>
-          <input
-            name="expireDate"
-            value={info.expireDate}
-            onChange={handleFormChange}
-            disabled={isDisable}
-            type="date"
-            placeholder="Expire Date"
-          />
+          <Grid style={{ paddindBottom: "10px" }}>
+            <Grid.Column width={8}>
+              <label>Posted On</label>
+              <input
+                name="postedOn"
+                value={info.postedOn}
+                onChange={handleFormChange}
+                type="date"
+                placeholder="Posted On"
+              />
+            </Grid.Column>
+            <Grid.Column width={8}>
+              <label>Valid Until</label>
+              <input
+                name="validUntil"
+                value={info.validUntil}
+                onChange={handleFormChange}
+                disabled={isDisable}
+                type="date"
+                placeholder="Valid Until"
+              />
+            </Grid.Column>
+          </Grid>
         </Form.Field>
-        <Form.Field>
+
+        {/* <Form.Field>
           <label>Skills</label>
           <input
             name="skills"
@@ -135,7 +146,8 @@ const CreateProject = (props) => {
             onChange={handleFormChange}
             placeholder="Required Skills"
           />
-        </Form.Field>
+        </Form.Field> */}
+
         <Form.Field>
           <label>Hosted By</label>
           <input
@@ -145,6 +157,7 @@ const CreateProject = (props) => {
             placeholder="Enter the name of company hosting"
           />
         </Form.Field>
+
         <Form.Field>
           <label>Category</label>
           <Dropdown
@@ -157,15 +170,12 @@ const CreateProject = (props) => {
             options={categoryOptions}
           />
         </Form.Field>
+
         <Form.Field>
-          <label>Add Logo</label>
-          <input
-            name="hostPhotoURL"
-            value={info.hostPhotoURL}
-            onChange={handleFormChange}
-            placeholder="Enter the URL of logo"
-          />
+          <label>Upload your logo</label>
+          <UploadFile info={info} setInfo={setInfo} />
         </Form.Field>
+
         <Form.Field>
           <label>Desciption</label>
           <TextArea
@@ -176,6 +186,7 @@ const CreateProject = (props) => {
             placeholder="Enter the Desciption of the project"
           />
         </Form.Field>
+
         <Button positive type="submit">
           Submit
         </Button>

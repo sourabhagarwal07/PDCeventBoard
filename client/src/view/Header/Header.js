@@ -65,7 +65,6 @@ const Header = (props) => {
         return res.data;
       })
       .then((data) => {
-        console.log(data);
         setUserInfo({
           ...userInfo,
           user: data.user,

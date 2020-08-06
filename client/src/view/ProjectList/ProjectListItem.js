@@ -18,10 +18,10 @@ import LinesEllipsis from "react-lines-ellipsis";
  */
 const ProjectListItem = ({ project }) => {
   const {
-    hostPhotoURL,
+    logoUrl,
     title,
-    startDate,
-    expireDate,
+    postedOn,
+    validUntil,
     description,
     hostedBy,
     user,
@@ -57,7 +57,7 @@ const ProjectListItem = ({ project }) => {
         <Segment>
           <Item.Group>
             <Item>
-              <Item.Image size="tiny" circular src={hostPhotoURL} />
+              <Item.Image size="tiny" circular src={logoUrl} />
               <Item.Content>
                 <Item.Header as={Link} to={`/project-detail/${_id}`}>
                   {title}
@@ -67,8 +67,8 @@ const ProjectListItem = ({ project }) => {
                 </Item.Description>
                 <Item.Description>
                   {category !== []
-                    ? category.map((tag) => (
-                        <Label size={"mini"} tag>
+                    ? category.map((tag, index) => (
+                        <Label key={index} size={"mini"} tag>
                           {tag}
                         </Label>
                       ))
@@ -80,15 +80,15 @@ const ProjectListItem = ({ project }) => {
         </Segment>
         <Segment>
           <span>
-            <Icon name="clock" /> {startDate}
-            {expireDate ? "  To  " + expireDate : ""}
+            <Icon name="clock" /> {postedOn}
+            {validUntil ? "  To  " + validUntil : ""}
           </span>
         </Segment>
         <Segment secondary>
           <List horizontal>
             {user &&
-              user.map((user) => (
-                <ProjectListUser key={user._id} user={user} />
+              user.map((user, index) => (
+                <ProjectListUser key={index} user={user} />
               ))}
           </List>
         </Segment>
