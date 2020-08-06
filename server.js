@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 const database = require("./shared/config/Database");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -8,8 +9,10 @@ const passport = require("passport");
 const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
 const mainRoutes = require("./shared/routes/MainRoute");
+const imageRoutes = require("./shared/routes/Images");
 const http = require("http");
 const path = require("path");
+//const methodOverride = require('method-override');
 
 const app = express();
 const PORT = process.env.PORT || 8080; //Step 1
@@ -54,11 +57,17 @@ app.use(passport.session());
 
 // log output
 app.use(morgan("tiny"));
+//app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(bodyParser.json({limit: '50mb'}));
+
+//use query string to make delete request
+//app.use(methodOverride('_method'));
 
 // auth router
 app.use("/auth", authRoutes);
+app.use("/images", imageRoutes);
 app.use("/", mainRoutes);
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));

@@ -4,6 +4,7 @@ import CreateProject from "./view/CreateProject/CreateProject";
 import Home from "./view/Home/Home";
 import OurTeam from "./view/OurTeam/OurTeam";
 import data from "./view/data/data";
+import pictures from "./view/pictures/pictures";
 import Header from "./view/Header/Header";
 import Footer from "./view/Footer/Footer";
 import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
@@ -31,6 +32,7 @@ const Routers = () => {
               component={ProjectListInterface}
             />
             <Route exact path="/data" component={data} />
+            <Route exact path="/pictures" component={pictures} />
           </Container>
         </Switch>
         <Footer />

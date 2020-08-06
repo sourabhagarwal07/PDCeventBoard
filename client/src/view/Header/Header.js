@@ -54,6 +54,10 @@ const Header = (props) => {
     setActiveItem(name);
   };
 
+  const handlePictures = (e, { name }) => {
+    history.push("/pictures");
+    setActiveItem(name);
+  };
   const handleProjectList = (e, { name }) => {
     if (userInfo.authenticated) {
       history.push("/project-list");
@@ -126,6 +130,13 @@ const Header = (props) => {
             onClick={handleData}
           >
             Data
+          </Menu.Item>
+          <Menu.Item
+            name="Pictures"
+            active={activeItem === "Pictures"}
+            onClick={handlePictures}
+          >
+            Pictures
           </Menu.Item>
           {userInfo.authenticated ? (
             <LogedInMenu
