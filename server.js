@@ -8,6 +8,7 @@ const passport = require("passport");
 const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
 const projectRoutes = require("./shared/routes/ProjectRoute");
+const EventRoutes = require("./shared/routes/EventRoute");
 const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -80,5 +81,6 @@ app.use(morgan("tiny"));
 // auth router
 app.use("/auth", authRoutes);
 app.use("/", projectRoutes);
+// app.use("/", EventRoutes);
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));
