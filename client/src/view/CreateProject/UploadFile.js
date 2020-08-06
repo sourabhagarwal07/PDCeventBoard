@@ -3,6 +3,7 @@ import { Icon } from "semantic-ui-react";
 import { Upload, message, Button } from "antd";
 import "antd/dist/antd.css";
 import { config } from "../../common/config/config";
+import Axios from "axios";
 
 /**
  * @author @binjiasata
@@ -19,6 +20,16 @@ const UploadFile = ({ info, setInfo }) => {
     const reader = new FileReader();
     reader.addEventListener("load", () => callback(reader.result));
     reader.readAsDataURL(img);
+  };
+
+  const customRequest = ({ onSuccess }) => {
+    Axios.post(path + "image/upload", {})
+      .then((res) => {
+        onSuccess(null, res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   // limit image type to JPG and PNG and size < 1 MB.
@@ -54,7 +65,8 @@ const UploadFile = ({ info, setInfo }) => {
   return (
     <Fragment>
       <Upload
-        action={path + "image/upload"}
+        // action={path + "image/upload"}
+        customRequest={customRequest}
         name="logoUrl"
         onChange={uploadOnChange}
         fileList={fileList}

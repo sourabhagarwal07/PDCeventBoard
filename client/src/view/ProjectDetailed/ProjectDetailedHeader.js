@@ -40,7 +40,7 @@ const ProjectDetailedHeader = ({ id, path, project, props }) => {
   const handleDelete = () => {
     Axios.post(path + "project/delete/" + id, {
       isDeleted: true,
-    }).then((res) => console.log(res));
+    });
     setModalOpen(false);
     history.push("/project-list");
   };
