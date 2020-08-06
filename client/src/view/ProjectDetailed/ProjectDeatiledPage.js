@@ -32,7 +32,7 @@ const ProjectDeatiledPage = (props) => {
   return (
     <Grid>
       <Grid.Column width={10}>
-        <ProjectDetailedHeader project={projectDetails} />
+        <ProjectDetailedHeader id={id} path={path} project={projectDetails} />
         <ProjectDetailedInfo project={projectDetails} />
       </Grid.Column>
       <Grid.Column width={6}>

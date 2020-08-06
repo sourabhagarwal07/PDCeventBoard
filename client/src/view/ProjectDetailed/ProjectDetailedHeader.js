@@ -1,6 +1,16 @@
-import React, { useContext } from "react";
-import { Segment, Image, Item, Header, Button } from "semantic-ui-react";
+import React, { useContext, useState } from "react";
+import {
+  Segment,
+  Image,
+  Item,
+  Header,
+  Button,
+  Modal,
+  Icon,
+} from "semantic-ui-react";
 import { UserContext } from "../../common/context/UserProvider";
+import Axios from "axios";
+import useReactRouter from "use-react-router";
 
 /**
  * @author @binjiasata
@@ -8,7 +18,7 @@ import { UserContext } from "../../common/context/UserProvider";
  *              manage project and delete project button.
  */
 
-const ProjectDetailedHeader = ({ project }) => {
+const ProjectDetailedHeader = ({ id, path, project, props }) => {
   const eventImageStyle = {
     filter: "brightness(30%)",
   };
@@ -22,7 +32,26 @@ const ProjectDetailedHeader = ({ project }) => {
     color: "white",
   };
 
+  const { history } = useReactRouter();
   const { userInfo, setUserInfo } = useContext(UserContext);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // set isDelete to true, this will remove the project from project list
+  const handleDelete = () => {
+    Axios.post(path + "project/delete/" + id, {
+      isDeleted: true,
+    }).then((res) => console.log(res));
+    setModalOpen(false);
+    history.push("/project-list");
+  };
+
+  const handleManage = () => {
+    let path = {
+      pathname: "/project/manage/" + id,
+      state: project,
+    };
+    history.push(path);
+  };
 
   return (
     <Segment.Group>
@@ -49,10 +78,36 @@ const ProjectDetailedHeader = ({ project }) => {
 
       {userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
         <Segment attached="bottom">
-          <Button color="orange">Manage Project</Button>
-          <Button floated="right" color="red">
-            Delete Project
+          <Button color="orange" onClick={handleManage}>
+            Manage Project
           </Button>
+          <Modal
+            size="tiny"
+            closeIcon
+            open={modalOpen}
+            trigger={
+              <Button floated="right" color="red">
+                Delete Project
+              </Button>
+            }
+            onClose={() => setModalOpen(false)}
+            onOpen={() => setModalOpen(true)}
+          >
+            <Header icon="archive" content="Delete The Project" />
+            <Modal.Content>
+              <p>
+                <strong>Do you want to delete this project?</strong>
+              </p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button color="red" onClick={() => setModalOpen(false)}>
+                <Icon name="remove" /> No
+              </Button>
+              <Button color="green" onClick={handleDelete}>
+                <Icon name="checkmark" /> Yes
+              </Button>
+            </Modal.Actions>
+          </Modal>
         </Segment>
       ) : null}
     </Segment.Group>

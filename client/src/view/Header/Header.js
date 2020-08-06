@@ -4,7 +4,6 @@ import useReactRouter from "use-react-router";
 import Axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
-import LogedInMenuLinkedin from "./Menus/LogedInMenuLinkedin";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 
@@ -65,7 +64,6 @@ const Header = (props) => {
         return res.data;
       })
       .then((data) => {
-        console.log(data);
         setUserInfo({
           ...userInfo,
           user: data.user,
