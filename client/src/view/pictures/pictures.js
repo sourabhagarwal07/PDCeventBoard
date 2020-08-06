@@ -50,6 +50,25 @@ const Pictures = (props) => {
     const onChangePicture = e => {
       setImage([e.target.files[0]]);
     };
+    const displayImages =()=>{
+      console.log('getting data');
+        path+='/images/displayImages';
+        axios({
+          url: path,
+          method: 'GET'
+        })
+          .then((response) => { 
+            const udata = response;
+            // setUserData({
+            //   ...userdata,
+            //   userdata:udata,
+            // })
+            console.log("received data", udata);
+          })
+          .catch(() => {
+            console.log('Internal server error, not able to receive data');
+          });
+    };
       return (
     <Fragment>
       <Segment placeholder>
@@ -88,6 +107,7 @@ const Pictures = (props) => {
           Upload
         </Button>
         </Form>
+          <button onClick={displayImages}>Display images</button>
         </div>
       </Segment>
     </Fragment>
