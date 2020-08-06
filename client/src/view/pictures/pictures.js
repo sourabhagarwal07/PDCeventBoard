@@ -13,7 +13,6 @@ const Pictures = (props) => {
     //for local setup
     path = "http://localhost:8080";
   }
-
     const handleFormSubmit=(e)=>{
         debugger;
         let imageFormObj= new FormData();

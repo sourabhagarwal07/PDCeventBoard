@@ -12,7 +12,7 @@ require('dotenv').config()
 var redirectpath="/";
   if (process.env.NODE_ENV != "production") {
     //for local setup
-    var redirectpath= "http://localhost:3000";
+    redirectpath= "http://localhost:3000";
   }
 
 const storage = new GridFsStorage({
@@ -32,11 +32,11 @@ const storage = new GridFsStorage({
             eventDate:req.body.eventDate
             }
           }
-          resolve(fileInfo)
-        })
-      })
+          resolve(fileInfo);
+        });
+      });
     },
-  })
+  });
   
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
