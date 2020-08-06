@@ -182,7 +182,7 @@ const Home = (props) => {
             <Grid.Column>
               <Image centered size="large" src="/assets/Simardeep.jpg" />
               <h2>Simardeep Singh</h2>
-              <h3>Project Managers</h3>
+              <h3>Project Manager</h3>
               <p>ssima066@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
