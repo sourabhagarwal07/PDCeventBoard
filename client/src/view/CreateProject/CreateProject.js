@@ -46,6 +46,7 @@ const CreateProject = (props) => {
     category: state ? state.category : [],
     user: state ? state.user : [user],
     isDeleted: state ? state.isDeleted : false,
+    uploadStatus: "none", 
   });
 
   /**
