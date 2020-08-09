@@ -267,7 +267,7 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="" />
+              <Image centered size="large" src="/assets/Navpreet.jpg" />
               <h2>Navpreet Kaur</h2>
               <h3>Web Developer</h3>
               <p>nkaur051@uottawa.ca</p>
