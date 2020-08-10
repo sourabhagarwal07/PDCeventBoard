@@ -11,9 +11,12 @@ const projectSchema = new Schema({
   skills: String,
   category: Array,
   user: Array,
+  contactPhone: String,
+  contactEmail: String,
+  linkedinProfile: String,
   isDeleted: Boolean,
 });
 
-const Project = mongoose.model("project", projectSchema);
+const Project = mongoose.model("projects", projectSchema);
 
 module.exports = Project;

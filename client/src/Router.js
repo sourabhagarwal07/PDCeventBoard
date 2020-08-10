@@ -12,6 +12,7 @@ import Events from "./view/Events/Events";
 import Admin from "./view/Admin/Admin";
 import { Container } from "semantic-ui-react";
 import CompanyDashboard from "./view/CompanyDashboard/CompanyDashboard";
+import ApplyForm from "./view/Students/ApplyForm/ApplyForm";
 
 /**
  * This is routers for the website.
@@ -33,6 +34,7 @@ const Routers = () => {
             <Route exact path="/project/manage/:id" component={CreateProject} />
             <Route exact path="/events" component={Events} />
             <Route exact path="/admin" component={Admin} />
+            <Route exact path="/students/apply/:id" component={ApplyForm} />
             <Route
               exact
               path="/project-list"
