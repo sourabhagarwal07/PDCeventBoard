@@ -109,7 +109,6 @@ passport.use(
       scope: ["r_emailaddress", "r_liteprofile"],
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
       const { id: linkedinId, emails, displayName, photos } = profile;
       const newUser = new User({
         linkedinId: linkedinId,

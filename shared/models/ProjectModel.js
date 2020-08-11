@@ -4,13 +4,14 @@ const Schema = mongoose.Schema;
 const projectSchema = new Schema({
   title: String,
   hostedBy: String,
-  hostPhotoURL: String,
-  startDate: String,
-  expireDate: String,
+  logoUrl: String,
+  postedOn: String,
+  validUntil: String,
   description: String,
   skills: String,
   category: Array,
   user: Array,
+  isDeleted: Boolean,
 });
 
 const Project = mongoose.model("project", projectSchema);

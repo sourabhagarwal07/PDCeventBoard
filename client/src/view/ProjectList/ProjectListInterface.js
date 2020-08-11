@@ -19,9 +19,9 @@ const ProjectListInterface = (props) => {
   const [projectsInfo, setProjectsInfo] = useState([]);
 
   // when click create new project, jump to create-project page
-  const handleCreateNewProject = () => {
-    props.history.push("/create-project");
-  };
+  // const handleCreateNewProject = () => {
+  //   props.history.push("/create-project");
+  // };
 
   useEffect(() => {
     Axios.get(path + "project", {})

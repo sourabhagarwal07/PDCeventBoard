@@ -7,9 +7,9 @@ body {
 
 .footer {
   position: fixed;
-  left:0px;
-  bottom:0px;
-  width:100%;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
   text-align: left;
 }
 
@@ -23,24 +23,6 @@ body {
     rgb(32, 167, 172) 89%
   ) !important;
   height: 100vh;
-}
-
-/*timepicker style*/
-.react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box
-  ul.react-datepicker__time-list {
-  padding-left: 0;
-  padding-right: 0;
-  width: 100px;
-}
-
-.react-datepicker__input-container {
-  width: inherit;
-}
-
-.react-datepicker-wrapper {
-  width: 100%;
 }
 
 /*home page styles*/
@@ -112,8 +94,6 @@ Grid {
   margin-right: 1em;
 }
 
-
-
 .ui.main.container,
 .main.segment {
   margin-top: 7em;
@@ -122,7 +102,7 @@ Grid {
 }
 
 .ui.center.aligned.segment.attendance-preview {
-  background-color: rgb(255,255,255);
+  background-color: rgb(255, 255, 255);
 }
 
 .masthead .ui.menu .ui.button,
@@ -138,22 +118,12 @@ Grid {
   margin-left: 0.5em;
 }
 
-/*chat comments*/
-
-.ui.comments .comment .comments {
-  padding-bottom: 0 !important;
-  padding-left: 2em !important;
+/* project list item style */
+.ui.list > .item > .image img {
+  height: 35px;
+  width: 35px;
 }
-
-/* dropzone styles */
-.dropzone {
-  border: dashed 3px #eee;
-  border-radius: 5px;
-  padding-top: 30px;
-  text-align: center;
-  /* min-height: 236px; */
-}
-
-.dropzone--isActive {
-  border: dashed 3px green;
+.ui.items > .item > .image > img {
+  height: 80px !important;
+  width: 80px !important;
 }

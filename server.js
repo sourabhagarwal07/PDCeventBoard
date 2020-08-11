@@ -8,7 +8,7 @@ const passport = require("passport");
 const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
 const projectRoutes = require("./shared/routes/ProjectRoute");
-const EventRoutes = require("./shared/routes/EventRoute");
+const uploadRoutes = require("./shared/routes/Upload");
 const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -44,7 +44,7 @@ app.all("*", function (req, res, next) {
   res.header("X-Powered-By", " 3.2.1");
 
   if (req.method == "OPTIONS") {
-    res.send(200);
+    res.sendStatus(200);
   } else {
     next();
   }
@@ -81,6 +81,6 @@ app.use(morgan("tiny"));
 // auth router
 app.use("/auth", authRoutes);
 app.use("/", projectRoutes);
-// app.use("/", EventRoutes);
+app.use("/image", uploadRoutes)
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));
