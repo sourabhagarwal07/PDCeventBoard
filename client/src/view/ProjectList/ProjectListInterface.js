@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
-import { Grid, Button } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import ProjectList from "./ProjectList";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
@@ -34,7 +34,7 @@ const ProjectListInterface = (props) => {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [setProjectsInfo, path]);
 
   return (
     <Fragment>

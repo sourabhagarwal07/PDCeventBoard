@@ -8,19 +8,20 @@ const passport = require("passport");
 const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
 const projectRoutes = require("./shared/routes/ProjectRoute");
+const studentRoutes = require("./shared/routes/StudentRoute");
 const uploadRoutes = require("./shared/routes/Upload");
 const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
-const session = require('express-session');
+const session = require("express-session");
 
-const Bearer = require('@bearer/node-agent')
+const Bearer = require("@bearer/node-agent");
 Bearer.init({
-  secretKey: 'app_e04e30106f9bf35da5d6051bd20962a2c939ca705198fe0001',
+  secretKey: "app_e04e30106f9bf35da5d6051bd20962a2c939ca705198fe0001",
   stripSensitiveData: true,
 }).then(() => {
-  console.log('Bearer Initialized!')
-})
+  console.log("Bearer Initialized!");
+});
 
 const app = express();
 
@@ -66,11 +67,13 @@ app.use(
     extended: true,
   })
 );
-app.use(session({
-  resave: false,
-  saveUninitialized: true,
-  secret: 'SECRET'
-}));
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: "SECRET",
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -81,6 +84,7 @@ app.use(morgan("tiny"));
 // auth router
 app.use("/auth", authRoutes);
 app.use("/", projectRoutes);
-app.use("/image", uploadRoutes)
+app.use("/student", studentRoutes);
+app.use("/file", uploadRoutes);
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));

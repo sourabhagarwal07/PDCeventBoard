@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { Fragment } from "react";
 import ProjectListItem from "./ProjectListItem";
 import moment from "moment";
@@ -35,7 +36,7 @@ const ProjectList = ({ projectsInfo }) => {
         ) {
           return <ProjectListItem key={project._id} project={project} />;
         } else {
-          return;
+          return "";
         }
       })}
     </Fragment>

@@ -1,11 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Form,
   Segment,
-  Dropdown,
-  TextArea,
-  Checkbox,
+
 } from "semantic-ui-react";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";

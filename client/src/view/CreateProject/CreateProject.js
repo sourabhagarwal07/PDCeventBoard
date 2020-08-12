@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   Form,
@@ -6,12 +6,11 @@ import {
   Dropdown,
   TextArea,
   Checkbox,
-  Grid,
 } from "semantic-ui-react";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
-import UploadFile from "./UploadFile";
+import UploadLogo from "./UploadLogo";
 
 /**
  * @author @binjiasata
@@ -45,8 +44,11 @@ const CreateProject = (props) => {
     logoUrl: state ? state.logoUrl : "",
     category: state ? state.category : [],
     user: state ? state.user : [user],
+    contactEmail: state ? state.contactEmail : "",
+    contactPhone: state ? state.contactPhone : "",
+    linkedinProfile: state ? state.linkedinProfile : "",
     isDeleted: state ? state.isDeleted : false,
-    uploadStatus: "none", 
+    uploadStatus: "none",
   });
 
   /**
@@ -120,6 +122,38 @@ const CreateProject = (props) => {
           />
         </Form.Field>
 
+        <Form.Group widths="equal">
+          <Form.Field>
+            <label>Contact Email</label>
+            <input
+              name="contactEmail"
+              value={info.contactEmail}
+              onChange={handleFormChange}
+              placeholder="Contact Email"
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>Contact Phone</label>
+            <input
+              name="contactPhone"
+              value={info.contactPhone}
+              onChange={handleFormChange}
+              placeholder="Contact Phone"
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>LinkedIn Profile</label>
+            <input
+              name="linkedinProfile"
+              value={info.linkedinProfile}
+              onChange={handleFormChange}
+              placeholder="Your LinkedIn URL"
+            />
+          </Form.Field>
+        </Form.Group>
+
         <Form.Field>
           <Checkbox
             onClick={() => setIsDisable(!isDisable)}
@@ -127,31 +161,30 @@ const CreateProject = (props) => {
           />
         </Form.Field>
 
-        <Form.Field>
-          <Grid style={{ paddindBottom: "10px" }}>
-            <Grid.Column width={8}>
-              <label>Posted On</label>
-              <input
-                name="postedOn"
-                value={info.postedOn}
-                onChange={handleFormChange}
-                type="date"
-                placeholder="Posted On"
-              />
-            </Grid.Column>
-            <Grid.Column width={8}>
-              <label>Valid Until</label>
-              <input
-                name="validUntil"
-                value={info.validUntil}
-                onChange={handleFormChange}
-                disabled={isDisable}
-                type="date"
-                placeholder="Valid Until"
-              />
-            </Grid.Column>
-          </Grid>
-        </Form.Field>
+        <Form.Group widths="equal">
+          <Form.Field>
+            <label>Posted On</label>
+            <input
+              name="postedOn"
+              value={info.postedOn}
+              onChange={handleFormChange}
+              type="date"
+              placeholder="Posted On"
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>Valid Until</label>
+            <input
+              name="validUntil"
+              value={info.validUntil}
+              onChange={handleFormChange}
+              disabled={isDisable}
+              type="date"
+              placeholder="Valid Until"
+            />
+          </Form.Field>
+        </Form.Group>
 
         {/* <Form.Field>
           <label>Skills</label>
@@ -189,7 +222,7 @@ const CreateProject = (props) => {
 
         <Form.Field>
           <label>Upload your logo</label>
-          <UploadFile info={info} setInfo={setInfo} />
+          <UploadLogo info={info} setInfo={setInfo} />
         </Form.Field>
 
         <Form.Field>

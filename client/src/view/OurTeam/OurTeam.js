@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Image, Grid, Segment, Accordion, Icon } from "semantic-ui-react";
+import React, { Fragment, useState } from "react";
+import { Image, Grid, Segment } from "semantic-ui-react";
 
 const Home = (props) => {
   const InitialArray = new Array([10]);
-  for (let i=0; i < 10; i++){
+  for (let i = 0; i < 10; i++) {
     InitialArray[i] = "Show bios";
   }
   const [bios, setbios] = useState(InitialArray);
@@ -12,18 +12,17 @@ const Home = (props) => {
 
   const handleClick = (e, titleProps) => {
     // setIndex(titleProps.index);
-    const {index} = titleProps;
+    const { index } = titleProps;
     let newIndex;
-    if(activeIndex === index){
+    if (activeIndex === index) {
       newIndex = -1;
-        bios[index] = "Show bios";
+      bios[index] = "Show bios";
     } else {
       newIndex = index;
       bios[activeIndex] = "Show bios";
       bios[newIndex] = "Hide bios";
     }
     setActiveIndex(newIndex);
-    
   };
 
   return (
