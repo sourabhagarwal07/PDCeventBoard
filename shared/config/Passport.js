@@ -20,7 +20,7 @@ passport.serializeUser((user, done) => {
 
 // get user.id from cookie and decrypt
 passport.deserializeUser((user, done) => {
-	done(null, user);
+  done(null, user);
 });
 // passport.deserializeUser((id, done) => {
 //   console.log(id);
@@ -100,19 +100,38 @@ passport.use(
   )
 );
 
-passport.use(new LinkedInStrategy(
-  {
-    clientID: keys.linkedinClientID,
-    clientSecret: keys.linkedinClientSecret,
-    callbackURL: path + "auth/linkedin/callback",
-    scope: ['r_emailaddress', 'r_liteprofile']
-  }, (accessToken, refreshToken, profile, done) => {
-        let userData = {
-            email: profile.emails[0].value,
-            name: profile.displayName,
-            picture: profile.photos[0].value
-        };
-        done(null, userData);
+passport.use(
+  new LinkedInStrategy(
+    {
+      clientID: keys.linkedinClientID,
+      clientSecret: keys.linkedinClientSecret,
+      callbackURL: path + "auth/linkedin/callback",
+      scope: ["r_emailaddress", "r_liteprofile"],
+    },
+    (accessToken, refreshToken, profile, done) => {
+      const { id: linkedinId, emails, displayName, photos } = profile;
+      const newUser = new User({
+        linkedinId: linkedinId,
+        email: emails[0].value,
+        name: displayName,
+        picture: photos[0].value,
+        company: true,
+      });
+
+      User.findOneAndUpdate(
+        { linkedinId: linkedinId },
+        { picture: photos[0].value, name: displayName }
+      ).then((currentUser) => {
+        // if it has, don't save
+        if (currentUser) {
+          done(null, currentUser);
+        } else {
+          // if it does not, save the new user
+          newUser.save().then((newUser) => {
+            done(null, newUser);
+          });
+        }
+      });
     }
   )
 );

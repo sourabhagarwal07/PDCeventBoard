@@ -1,5 +1,15 @@
-import React from "react";
-import { Segment, Image, Item, Header, Button } from "semantic-ui-react";
+import React, { useState } from "react";
+import {
+  Segment,
+  Image,
+  Item,
+  Header,
+  Button,
+  Modal,
+  Icon,
+} from "semantic-ui-react";
+import Axios from "axios";
+import useReactRouter from "use-react-router";
 
 /**
  * @author @binjiasata
@@ -7,7 +17,13 @@ import { Segment, Image, Item, Header, Button } from "semantic-ui-react";
  *              manage project and delete project button.
  */
 
-const ProjectDetailedHeader = ({ project }) => {
+const ProjectDetailedHeader = ({
+  id,
+  path,
+  project,
+  userInfo,
+  appliedStudentsList,
+}) => {
   const eventImageStyle = {
     filter: "brightness(30%)",
   };
@@ -19,6 +35,31 @@ const ProjectDetailedHeader = ({ project }) => {
     width: "100%",
     height: "auto",
     color: "white",
+  };
+
+  const { history } = useReactRouter();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // set isDelete to true, this will remove the project from project list
+  const handleDelete = () => {
+    Axios.post(path + "project/delete/" + id, {
+      isDeleted: true,
+    });
+    setModalOpen(false);
+    history.push("/project-list");
+  };
+
+  // pass state to Creat Project, state includes Project Details
+  const handleManage = () => {
+    let path = {
+      pathname: "/project/manage/" + id,
+      state: project,
+    };
+    history.push(path);
+  };
+
+  const handleApply = () => {
+    history.push("/students/apply/" + id);
   };
 
   return (
@@ -43,13 +84,52 @@ const ProjectDetailedHeader = ({ project }) => {
           </Item.Group>
         </Segment>
       </Segment>
-
-      <Segment attached="bottom">
-        <Button color="orange">Manage Project</Button>
-        <Button floated="right" color="red">
-          Delete Project
-        </Button>
-      </Segment>
+      {/* For student, only show Apply button. For company and admin, show Manage and Delete button */}
+      {userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
+        <Segment attached="bottom" clearing>
+          <Button color="orange" onClick={handleManage}>
+            Manage Project
+          </Button>
+          <Modal
+            size="tiny"
+            closeIcon
+            open={modalOpen}
+            trigger={
+              <Button floated="right" color="red">
+                Delete Project
+              </Button>
+            }
+            onClose={() => setModalOpen(false)}
+            onOpen={() => setModalOpen(true)}
+          >
+            <Header icon="archive" content="Delete The Project" />
+            <Modal.Content>
+              <p>
+                <strong>Do you want to delete this project?</strong>
+              </p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button color="red" onClick={() => setModalOpen(false)}>
+                <Icon name="remove" /> No
+              </Button>
+              <Button color="green" onClick={handleDelete}>
+                <Icon name="checkmark" /> Yes
+              </Button>
+            </Modal.Actions>
+          </Modal>
+        </Segment>
+      ) : (
+        <Segment attached="bottom" clearing>
+          {JSON.stringify(appliedStudentsList).indexOf(userInfo.user.email) ===
+          -1 ? (
+            <Button floated="right" color="green" onClick={handleApply}>
+              Apply
+            </Button>
+          ) : (
+            <Button disabled floated="right" color="orange" content="Applied" />
+          )}
+        </Segment>
+      )}
     </Segment.Group>
   );
 };

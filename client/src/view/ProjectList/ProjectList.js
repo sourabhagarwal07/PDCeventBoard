@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { Fragment } from "react";
 import ProjectListItem from "./ProjectListItem";
 import moment from "moment";
@@ -23,17 +24,19 @@ const ProjectList = ({ projectsInfo }) => {
            */
         }
         if (
+          !project.isDeleted &&
           project.expireDate &&
           moment(currentDate).isBefore(project.expireDate)
         ) {
           return <ProjectListItem key={project._id} project={project} />;
         } else if (
+          !project.isDeleted &&
           !project.expireDate &&
           moment(project.startDate).isAfter(currentDateFourWeeksAgo)
         ) {
           return <ProjectListItem key={project._id} project={project} />;
         } else {
-          return;
+          return "";
         }
       })}
     </Fragment>

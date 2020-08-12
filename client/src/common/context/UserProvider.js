@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState } from "react";
 
 const UserContext = createContext();
 
@@ -18,4 +18,4 @@ const UserProvider = (props) => {
   );
 };
 
-export { UserProvider, UserContext };
+export {UserProvider, UserContext };

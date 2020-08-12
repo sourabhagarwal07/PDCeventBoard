@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   Form,
@@ -10,6 +10,7 @@ import {
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
+import UploadLogo from "./UploadLogo";
 
 /**
  * @author @binjiasata
@@ -18,22 +19,36 @@ import { config } from "../../common/config/config";
  */
 const CreateProject = (props) => {
   const { userInfo, setUserInfo } = useContext(UserContext);
+
+  // get state from project detail manage button
+  const { state } = props.location;
+  const { id } = props.match.params;
   const { user } = userInfo;
   const path = config();
   const [isDisable, setIsDisable] = useState(true);
 
   // project information
   const [info, setInfo] = useState({
-    title: "",
-    startDate: "",
-    expireDate: "",
-    description: "",
-    skills: "",
-    hostedBy:
-      user && user.admin ? "EGS-PDC" : user.company ? "Company Name" : "",
-    hostPhotoURL: "",
-    category: [],
-    user: [user],
+    title: state ? state.title : "",
+    postedOn: state ? state.postedOn : "",
+    validUntil: state ? state.validUntil : "",
+    description: state ? state.description : "",
+    skills: state ? state.skills : "",
+    hostedBy: state
+      ? state.hostedBy
+      : user && user.admin
+      ? "EGS-PDC"
+      : user.company
+      ? "Company Name"
+      : "",
+    logoUrl: state ? state.logoUrl : "",
+    category: state ? state.category : [],
+    user: state ? state.user : [user],
+    contactEmail: state ? state.contactEmail : "",
+    contactPhone: state ? state.contactPhone : "",
+    linkedinProfile: state ? state.linkedinProfile : "",
+    isDeleted: state ? state.isDeleted : false,
+    uploadStatus: "none",
   });
 
   /**
@@ -61,23 +76,29 @@ const CreateProject = (props) => {
   // post project info to server
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // if does not have hostPhotoURL, use a default one
-    if (!info.hostPhotoURL) {
-      info.hostPhotoURL = "https://img.icons8.com/carbon-copy/2x/company.png";
+    // if does not have logoUrl, use a default one
+    if (!info.logoUrl) {
+      info.logoUrl = "https://img.icons8.com/carbon-copy/2x/company.png";
     }
-    Axios.post(path + "project", info)
-      .then((res) => {
-        console.log(res);
+
+    if (id) {
+      Axios.post(path + "project/manage/" + id, info).then((res) => {
         props.history.push("/project-list");
-      })
-      .catch((e) => {
-        console.log(e);
       });
+    } else {
+      Axios.post(path + "project", info)
+        .then((res) => {
+          props.history.push("/project-list");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   };
 
   // when click cancel, go back to the project list page
   const handleFormCancel = () => {
-    props.history.push("project-list");
+    props.history.push("/project-list");
   };
 
   // handle form field change
@@ -100,34 +121,72 @@ const CreateProject = (props) => {
             placeholder="Project Title"
           />
         </Form.Field>
-        <Form.Field>
-          <label>Start Date</label>
-          <input
-            name="startDate"
-            value={info.startDate}
-            onChange={handleFormChange}
-            type="date"
-            placeholder="Start Date"
-          />
-        </Form.Field>
+
+        <Form.Group widths="equal">
+          <Form.Field>
+            <label>Contact Email</label>
+            <input
+              name="contactEmail"
+              value={info.contactEmail}
+              onChange={handleFormChange}
+              placeholder="Contact Email"
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>Contact Phone</label>
+            <input
+              name="contactPhone"
+              value={info.contactPhone}
+              onChange={handleFormChange}
+              placeholder="Contact Phone"
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>LinkedIn Profile</label>
+            <input
+              name="linkedinProfile"
+              value={info.linkedinProfile}
+              onChange={handleFormChange}
+              placeholder="Your LinkedIn URL"
+            />
+          </Form.Field>
+        </Form.Group>
+
         <Form.Field>
           <Checkbox
             onClick={() => setIsDisable(!isDisable)}
             label="Set a expire date on project (Default is 4 weeks)"
           />
         </Form.Field>
-        <Form.Field>
-          <label>Expire Date</label>
-          <input
-            name="expireDate"
-            value={info.expireDate}
-            onChange={handleFormChange}
-            disabled={isDisable}
-            type="date"
-            placeholder="Expire Date"
-          />
-        </Form.Field>
-        <Form.Field>
+
+        <Form.Group widths="equal">
+          <Form.Field>
+            <label>Posted On</label>
+            <input
+              name="postedOn"
+              value={info.postedOn}
+              onChange={handleFormChange}
+              type="date"
+              placeholder="Posted On"
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>Valid Until</label>
+            <input
+              name="validUntil"
+              value={info.validUntil}
+              onChange={handleFormChange}
+              disabled={isDisable}
+              type="date"
+              placeholder="Valid Until"
+            />
+          </Form.Field>
+        </Form.Group>
+
+        {/* <Form.Field>
           <label>Skills</label>
           <input
             name="skills"
@@ -135,7 +194,8 @@ const CreateProject = (props) => {
             onChange={handleFormChange}
             placeholder="Required Skills"
           />
-        </Form.Field>
+        </Form.Field> */}
+
         <Form.Field>
           <label>Hosted By</label>
           <input
@@ -145,6 +205,7 @@ const CreateProject = (props) => {
             placeholder="Enter the name of company hosting"
           />
         </Form.Field>
+
         <Form.Field>
           <label>Category</label>
           <Dropdown
@@ -154,18 +215,16 @@ const CreateProject = (props) => {
             multiple
             selection
             onChange={handleCategoryChange}
+            defaultValue={info.category}
             options={categoryOptions}
           />
         </Form.Field>
+
         <Form.Field>
-          <label>Add Logo</label>
-          <input
-            name="hostPhotoURL"
-            value={info.hostPhotoURL}
-            onChange={handleFormChange}
-            placeholder="Enter the URL of logo"
-          />
+          <label>Upload your logo</label>
+          <UploadLogo info={info} setInfo={setInfo} />
         </Form.Field>
+
         <Form.Field>
           <label>Desciption</label>
           <TextArea
@@ -176,8 +235,9 @@ const CreateProject = (props) => {
             placeholder="Enter the Desciption of the project"
           />
         </Form.Field>
+
         <Button positive type="submit">
-          Submit
+          {state ? "Update" : "Submit"}
         </Button>
         <Button onClick={handleFormCancel} type="button">
           Cancel

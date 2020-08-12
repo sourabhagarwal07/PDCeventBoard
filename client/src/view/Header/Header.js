@@ -4,7 +4,6 @@ import useReactRouter from "use-react-router";
 import Axios from "axios";
 import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
-import LogedInMenuLinkedin from "./Menus/LogedInMenuLinkedin";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 
@@ -42,6 +41,10 @@ const Header = (props) => {
     history.push("/OurTeam");
     setActiveItem(name);
   };
+  const handleEvents = (e, { name }) => {
+    history.push("/events");
+    setActiveItem(name);
+  };
 
   const handleProjectList = (e, { name }) => {
     if (userInfo.authenticated) {
@@ -58,7 +61,6 @@ const Header = (props) => {
       withCredentials: true,
     })
       .then((res) => {
-        // console.log(res);
         return res.data;
       })
       .then((data) => {
@@ -93,8 +95,28 @@ const Header = (props) => {
           >
             Our Team
           </Menu.Item>
-          <Menu.Item as="a">Hire Students</Menu.Item>
-          <Menu.Item as="a">For Students</Menu.Item>
+          {!userInfo.authenticated ||
+          (userInfo.user && (userInfo.user.company || userInfo.user.admin)) ? (
+            <Menu.Item as="a">Hire Students</Menu.Item>
+          ) : (
+            ""
+          )}
+
+          {!userInfo.authenticated ||
+          (userInfo.user && !userInfo.user.company) ? (
+            <Menu.Item as="a">For Students</Menu.Item>
+          ) : (
+            ""
+          )}
+          <Menu.Item as="a">For Alumni</Menu.Item>
+          <Menu.Item as="a">Updates on COVID-19</Menu.Item>
+          <Menu.Item
+            name="Events"
+            active={activeItem === "Events"}
+            onClick={handleEvents}
+          >
+            Events
+          </Menu.Item>
           <Menu.Item
             name="projectList"
             active={activeItem === "projectList"}
@@ -109,8 +131,6 @@ const Header = (props) => {
               userPicture={userInfo.user.picture}
             />
           ) : (
-            // ) : (userInfoLinkedin.authenticated ? (
-            //   <LogedInMenuLinkedin />)
             <LogedOutMenu logIn={handleLogin} />
           )}
         </Container>
