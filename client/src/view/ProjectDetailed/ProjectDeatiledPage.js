@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Grid, Button } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import ProjectDetailedHeader from "./ProjectDetailedHeader";
 import ProjectDetailedInfo from "./ProjectDetailedInfo";
 import ProjectDetailedSidebar from "./ProjectDetailedSidebar";
@@ -38,10 +38,9 @@ const ProjectDeatiledPage = (props) => {
         return res.data;
       })
       .then((data) => {
-        console.log(data);
         setAppliedStudentsList(data);
       });
-  }, [setProjectDetails]);
+  }, [setProjectDetails, id]);
 
   return (
     <Grid>
@@ -51,6 +50,7 @@ const ProjectDeatiledPage = (props) => {
           path={path}
           project={projectDetails}
           userInfo={userInfo}
+          appliedStudentsList={appliedStudentsList}
         />
         <ProjectDetailedInfo project={projectDetails} />
       </Grid.Column>

@@ -85,6 +85,6 @@ app.use(morgan("tiny"));
 app.use("/auth", authRoutes);
 app.use("/", projectRoutes);
 app.use("/student", studentRoutes);
-app.use("/image", uploadRoutes);
+app.use("/file", uploadRoutes);
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));

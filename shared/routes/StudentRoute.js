@@ -7,14 +7,14 @@ router.post("/apply", (req, res) => {
   let newApply = req.body;
   ApplyForm.find(
     {
-      studentNumber: newApply.studentNumber,
       projectId: newApply.projectId,
+      email: newApply.email,
     },
     (error, data) => {
       if (error) {
         console.log(error);
       }
-      if (data) {
+      if (data.length !== 0) {
         res.send("You have already applied");
       } else {
         ApplyForm.create(newApply, (error, doc) => {

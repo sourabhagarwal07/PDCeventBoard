@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   Form,
@@ -6,12 +6,11 @@ import {
   Dropdown,
   TextArea,
   Checkbox,
-  Grid,
 } from "semantic-ui-react";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
-import UploadFile from "./UploadFile";
+import UploadLogo from "./UploadLogo";
 
 /**
  * @author @binjiasata
@@ -49,7 +48,7 @@ const CreateProject = (props) => {
     contactPhone: state ? state.contactPhone : "",
     linkedinProfile: state ? state.linkedinProfile : "",
     isDeleted: state ? state.isDeleted : false,
-    uploadStatus: "none", 
+    uploadStatus: "none",
   });
 
   /**
@@ -223,7 +222,7 @@ const CreateProject = (props) => {
 
         <Form.Field>
           <label>Upload your logo</label>
-          <UploadFile info={info} setInfo={setInfo} />
+          <UploadLogo info={info} setInfo={setInfo} />
         </Form.Field>
 
         <Form.Field>

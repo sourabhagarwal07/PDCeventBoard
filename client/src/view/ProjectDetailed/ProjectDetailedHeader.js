@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   Segment,
   Image,
@@ -17,7 +17,13 @@ import useReactRouter from "use-react-router";
  *              manage project and delete project button.
  */
 
-const ProjectDetailedHeader = ({ id, path, project, userInfo }) => {
+const ProjectDetailedHeader = ({
+  id,
+  path,
+  project,
+  userInfo,
+  appliedStudentsList,
+}) => {
   const eventImageStyle = {
     filter: "brightness(30%)",
   };
@@ -114,9 +120,14 @@ const ProjectDetailedHeader = ({ id, path, project, userInfo }) => {
         </Segment>
       ) : (
         <Segment attached="bottom" clearing>
-          <Button floated="right" color="green" onClick={handleApply}>
-            Apply
-          </Button>
+          {JSON.stringify(appliedStudentsList).indexOf(userInfo.user.email) ===
+          -1 ? (
+            <Button floated="right" color="green" onClick={handleApply}>
+              Apply
+            </Button>
+          ) : (
+            <Button disabled floated="right" color="orange" content="Applied" />
+          )}
         </Segment>
       )}
     </Segment.Group>

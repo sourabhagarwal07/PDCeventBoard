@@ -7,6 +7,8 @@ const applySchema = new Schema({
   studentNumber: String,
   email: String,
   description: String,
+  resume: String,
+  isApplied: Boolean,
 });
 
 const ApplyForm = mongoose.model("studentapplies", applySchema);

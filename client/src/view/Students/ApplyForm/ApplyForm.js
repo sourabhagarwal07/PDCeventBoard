@@ -1,30 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Segment, Form, TextArea, Button } from "semantic-ui-react";
-import UploadFile from "../../CreateProject/UploadFile";
 import Axios from "axios";
 import { config } from "../../../common/config/config";
+import UploadResume from "./UploadResume";
+import { UserContext } from "../../../common/context/UserProvider";
 
 const ApplyForm = (props) => {
   const path = config();
   const projectId = props.match.params.id;
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const [applyInfo, setApplyInfo] = useState({
     projectId: projectId,
     name: "",
-    email: "",
+    email: userInfo.user.email,
     studentNumber: "",
     description: "",
+    resume: "",
+    isApplied: true, // isApplied do not use for now
   });
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+
     Axios.post(path + "student/apply", applyInfo)
       .then((res) => {
-        console.log(res);
+        if (res.data === "You have already applied") {
+          alert("You have already applied for this project!");
+        }
       })
       .catch((e) => {
         console.log(e);
       });
+      props.history.push("/project-list");
   };
 
   const handleFormChange = ({ target: { name, value } }) => {
@@ -62,7 +70,8 @@ const ApplyForm = (props) => {
             name="email"
             value={applyInfo.email}
             onChange={handleFormChange}
-            placeholder="Your Email"
+            placeholder="Your email"
+            disabled
           />
         </Form.Field>
 
@@ -81,7 +90,7 @@ const ApplyForm = (props) => {
 
         <Form.Field>
           <label>Upload your resume</label>
-          <UploadFile />
+          <UploadResume applyInfo={applyInfo} setApplyInfo={setApplyInfo} />
         </Form.Field>
 
         <Button positive type="submit">
