@@ -10,6 +10,7 @@ import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
 import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
 import Events from "./view/Events/Events";
 import CreateEvent from './view/Events/createEvent';
+import CreateTicket from './view/Events/createTicket';
 
 import Admin from "./view/Admin/Admin";
 import { Container } from "semantic-ui-react";
@@ -46,13 +47,18 @@ const Routers = () => {
               component={ProjectDeatiledPage}
             />
             <Route
+              path="/company-dashboard"
+              component={CompanyDashboard}
+            />
+            <Route
               exact
               path="/create-event"
               component={CreateEvent}
             />
             <Route
-              path="/company-dashboard"
-              component={CompanyDashboard}
+              exact
+              path="/create-tickets"
+              component={CreateTicket}
             />
           </Container>
         </Fragment>

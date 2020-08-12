@@ -2,7 +2,7 @@ import React, { createContext, Component, useState, useContext } from 'react';
 import axios from 'axios';
 
 const EventsContext = createContext();
-export const EventsConsumer = EventsContext.Consumer;
+// export const EventsConsumer = EventsContext.Consumer;
 
 export {EventsContext};
 

@@ -21,6 +21,13 @@ const LogedInMenu = ({ logOut, username, userPicture }) => {
             <Fragment>
               <Dropdown.Item
                 onClick={() => {
+                  history.push("/create-event");
+                }}
+                text="Post events"
+                icon="plus"
+              />
+              <Dropdown.Item
+                onClick={() => {
                   history.push("/create-project");
                 }}
                 text="Create Project"

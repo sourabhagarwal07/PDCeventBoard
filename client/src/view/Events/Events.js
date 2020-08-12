@@ -12,17 +12,16 @@ const Events = (props) => {
   const { eventInfo, setEventInfo } = useContext(EventsContext);
 
   const url ="https://www.eventbriteapi.com/v3/organizations/464741062423/events/?token=2SWITQPH72SPNCSRK7OW";
-
-  useEffect(async () => {
+  
+  useEffect( () => {
     console.log("effective currently")
-    await Axios.get(url, {})
+    Axios.get(url)
       .then((res) => {
         return res.data;
       })
       .then((data) => {
         console.log(data);
         setEventInfo(data);
-        console.log()
       })
       .catch((e) => {
         console.log(e);
