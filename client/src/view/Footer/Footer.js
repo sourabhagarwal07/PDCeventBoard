@@ -6,11 +6,8 @@ import {
   Grid,
   Header,
   List,
-  Divider,
-  Image,
   Button,
   Form,
-  Checkbox,
 } from "semantic-ui-react";
 
 const Footer = () => {

@@ -6,7 +6,6 @@ import {
   List,
   Button,
   Label,
-  Header,
 } from "semantic-ui-react";
 import ProjectListUser from "./ProjectListUser";
 import { Link } from "react-router-dom";

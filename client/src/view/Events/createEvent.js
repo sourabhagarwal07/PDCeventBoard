@@ -1,12 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Form,
   Segment,
+<<<<<<< HEAD
   Dropdown,
   TextArea,
   Checkbox,
   Grid,
+=======
+
+>>>>>>> 64219ff6950112ffa811289aa1a97b40c9fe702c
 } from "semantic-ui-react";
 import axios from "axios";
 import { EventsContext } from "../../common/context/EventContext";

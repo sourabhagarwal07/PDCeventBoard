@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Icon, Label } from "semantic-ui-react";
-import { Upload, message, Button } from "antd";
+import { Upload, Button } from "antd";
 import "antd/dist/antd.css";
 import { config } from "../../common/config/config";
 import Axios from "axios";
@@ -12,7 +12,7 @@ import Axios from "axios";
 
 const path = config();
 
-const UploadFile = ({ info, setInfo }) => {
+const UploadLogo = ({ info, setInfo }) => {
   const [fileList, setFileList] = useState([]);
   let fileName = "";
 
@@ -25,7 +25,7 @@ const UploadFile = ({ info, setInfo }) => {
 
   // send post to trigger upload, this post does not do anything
   const customRequest = ({ onSuccess }) => {
-    Axios.post(path + "image/upload", {})
+    Axios.post(path + "file/upload", {})
       .then((res) => {
         onSuccess(null, res.data);
       })
@@ -78,7 +78,6 @@ const UploadFile = ({ info, setInfo }) => {
     }
   };
 
-  console.log(info.uploadStatus);
   return (
     <Fragment>
       <Upload
@@ -114,4 +113,4 @@ const UploadFile = ({ info, setInfo }) => {
   );
 };
 
-export default UploadFile;
+export default UploadLogo;

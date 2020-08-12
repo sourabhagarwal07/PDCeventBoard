@@ -11,6 +11,6 @@ const userSchema = new Schema({
   company: Boolean,
 });
 
-const User = mongoose.model("pdc-user", userSchema);
+const User = mongoose.model("pdc-users", userSchema);
 
 module.exports = User;
