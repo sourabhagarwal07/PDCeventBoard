@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Icon } from "semantic-ui-react";
+import { Icon, Label } from "semantic-ui-react";
 import { Upload, message, Button } from "antd";
 import "antd/dist/antd.css";
 import { config } from "../../common/config/config";
@@ -14,6 +14,7 @@ const path = config();
 
 const UploadFile = ({ info, setInfo }) => {
   const [fileList, setFileList] = useState([]);
+  let fileName = "";
 
   // For saving images in database, convert image to base64 format
   const getBase64 = (img, callback) => {
@@ -22,6 +23,7 @@ const UploadFile = ({ info, setInfo }) => {
     reader.readAsDataURL(img);
   };
 
+  // send post to trigger upload, this post does not do anything
   const customRequest = ({ onSuccess }) => {
     Axios.post(path + "image/upload", {})
       .then((res) => {
@@ -43,11 +45,17 @@ const UploadFile = ({ info, setInfo }) => {
       e.file.type === "image/jpeg" || e.file.type === "image/png";
 
     if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
       setFileList([]);
+      setInfo({
+        ...info,
+        uploadStatus: "format error",
+      });
     } else if (!isLt1M) {
-      message.error("Image must smaller than 1MB!");
       setFileList([]);
+      setInfo({
+        ...info,
+        uploadStatus: "size error",
+      });
     }
     // upload base64 image
     else if (e.file.status === "done") {
@@ -55,17 +63,25 @@ const UploadFile = ({ info, setInfo }) => {
         setInfo({
           ...info,
           logoUrl: logoUrl,
+          uploadStatus: "success",
         });
       });
-      message.success(`${e.file.name} file uploaded successfully`);
+      fileName = e.file.name;
+      // message.success(`${e.file.name} file uploaded successfully`);
     } else if (e.file.status === "error") {
-      message.error(`${e.file.name} file upload failed.`);
+      setInfo({
+        ...info,
+        uploadStatus: "failed",
+      });
+      fileName = e.file.name;
+      // message.error(`${e.file.name} file upload failed.`);
     }
   };
+
+  console.log(info.uploadStatus);
   return (
     <Fragment>
       <Upload
-        // action={path + "image/upload"}
         customRequest={customRequest}
         name="logoUrl"
         onChange={uploadOnChange}
@@ -74,6 +90,25 @@ const UploadFile = ({ info, setInfo }) => {
         <Button>
           <Icon name="upload" /> Click to Upload
         </Button>
+        {info.uploadStatus === "success" ? (
+          <Label basic color="green" pointing="left">
+            {`${fileName} file uploaded successfully`}
+          </Label>
+        ) : info.uploadStatus === "failed" ? (
+          <Label basic color="red" pointing="left">
+            {`${fileName} file upload failed.`}
+          </Label>
+        ) : info.uploadStatus === "format error" ? (
+          <Label basic color="red" pointing="left">
+            You can only upload JPG/PNG file!
+          </Label>
+        ) : info.uploadStatus === "size error" ? (
+          <Label basic color="red" pointing="left">
+            Image must smaller than 1MB!
+          </Label>
+        ) : (
+          ""
+        )}
       </Upload>
     </Fragment>
   );

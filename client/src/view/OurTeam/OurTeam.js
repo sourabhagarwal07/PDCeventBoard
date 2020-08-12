@@ -32,7 +32,7 @@ const Home = (props) => {
         <Grid columns={4} stackable textAlign="center">
           <Grid.Row>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Astha.jpg" />
               <h2>Astha Tiwari</h2>
               <h3>President</h3>
               <p>atiwa061@uottawa.ca</p>
@@ -53,7 +53,7 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Flora.jpg" />
               <h2>Yi (Flora) Liu</h2>
               <h3>Vice-President</h3>
               <p>yliu538@uottawa.ca</p>
@@ -72,7 +72,7 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Parth.jpg" />
               <h2>Parth Patel</h2>
               <h3>Event Manager</h3>
               <p>ppate127@uottawa.ca</p>
@@ -93,7 +93,7 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Pat.jpg" />
               <h2>Patricia Da Silva</h2>
               <h3>Event Manager</h3>
               <p>pdasi056@uottawa.ca</p>
@@ -117,7 +117,7 @@ const Home = (props) => {
 
           <Grid.Row>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Bamdad.jpg" />
               <h2>Bamdad Mousavi</h2>
               <h3>Web Master</h3>
               <p>bmous014@uottawa.ca</p>
@@ -138,7 +138,7 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/yillin.jpg" />
               <h2>Yiling Yang</h2>
               <h3>Publications Director</h3>
               <p>yyang308@uottawa.ca</p>
@@ -159,9 +159,9 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Ajay 2.jpg" />
               <h2>Ajay Modagi</h2>
-              <h3>Project Managers</h3>
+              <h3>Project Manager</h3>
               <p>atiwa061@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
@@ -180,9 +180,9 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Simardeep.jpg" />
               <h2>Simardeep Singh</h2>
-              <h3>Project Managers</h3>
+              <h3>Project Manager</h3>
               <p>ssima066@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
@@ -204,9 +204,9 @@ const Home = (props) => {
 
           <Grid.Row>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Abhiram.jpg" />
               <h2>Abhiram Kothapalli</h2>
-              <h3>Web developer</h3>
+              <h3>Web Developer</h3>
               <p>akoth101@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
@@ -225,9 +225,9 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Yiyin.png" />
               <h2>Yiyin Zhang</h2>
-              <h3>Web developer</h3>
+              <h3>Web Developer</h3>
               <p>yzhan647@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
@@ -246,9 +246,9 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Bin.jpg" />
               <h2>Bin Jia</h2>
-              <h3>Web developer</h3>
+              <h3>Web Developer</h3>
               <p>bjia038@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
@@ -267,9 +267,9 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/liam_peyton3.jpg" />
+              <Image centered size="large" src="/assets/Navpreet.jpg" />
               <h2>Navpreet Kaur</h2>
-              <h3>Web developer</h3>
+              <h3>Web Developer</h3>
               <p>nkaur051@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title

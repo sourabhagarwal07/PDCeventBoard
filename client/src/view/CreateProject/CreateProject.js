@@ -49,6 +49,7 @@ const CreateProject = (props) => {
     contactPhone: state ? state.contactPhone : "",
     linkedinProfile: state ? state.linkedinProfile : "",
     isDeleted: state ? state.isDeleted : false,
+    uploadStatus: "none", 
   });
 
   /**

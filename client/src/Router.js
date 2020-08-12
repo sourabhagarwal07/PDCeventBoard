@@ -9,6 +9,8 @@ import Signin from "./view/Signin/Signin";
 import ProjectListInterface from "./view/ProjectList/ProjectListInterface";
 import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
 import Events from "./view/Events/Events";
+import CreateEvent from './view/Events/createEvent';
+
 import Admin from "./view/Admin/Admin";
 import { Container } from "semantic-ui-react";
 import CompanyDashboard from "./view/CompanyDashboard/CompanyDashboard";
@@ -47,6 +49,10 @@ const Routers = () => {
             />
             <Route
               exact
+              path="/create-event"
+              component={CreateEvent}
+            />
+            <Route
               path="/company-dashboard"
               component={CompanyDashboard}
             />
