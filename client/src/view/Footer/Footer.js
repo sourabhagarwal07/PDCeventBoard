@@ -23,7 +23,7 @@ const Footer = () => {
   };
   return (
     <Fragment>
-      <Segment inverted color="violet" vertical className="footer">
+      <Segment inverted color="blue" vertical className="footer">
         <Container textAlign="center">
           <Grid divided inverted stackable>
             <Grid.Column width={5}>

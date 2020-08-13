@@ -76,8 +76,8 @@ const Header = (props) => {
   }, []);
 
   return (
-    <Fragment>
-      <Menu fixed="top" inverted>
+    <Fragment color="blue">
+      <Menu fixed="top" inverted color="blue">
         <Container>
           <Menu.Item
             name="home"

@@ -9,7 +9,7 @@ const EventCard = ({ event }) => {
 
   return (
     <Fragment>
-      <Card color='red'>
+      <Card color='blue'>
         {event.logo ? <Image src={event.logo.url} alt={event.name} /> : null}
         <Card.Content>
         <Card.Header>{event.name.text}</Card.Header>

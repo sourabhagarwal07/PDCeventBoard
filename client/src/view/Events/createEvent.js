@@ -27,12 +27,18 @@ const CreateEvent = (props) => {
     endDate:"",
   });
 
+  const [isOnline, setOnline] = useState(false);
+
   // project information
   const [event, setEvent] = useState({
     name: {html: ""},
     start: { timezone: "America/Toronto", utc: "" },
     end: { timezone: "America/Toronto", utc: "" },
     currency: "USD",
+    online_event: false,
+    summary:"",
+    description: {html: ""},
+    logo_id:"108521843"
   });
 
   /**
@@ -72,7 +78,7 @@ const CreateEvent = (props) => {
     { key: "2.30pm", text: "2:30 PM", value: "14:30:00" },
     { key: "3pm", text: "3:00 PM", value: "15:00:00" },
     { key: "3.30pm", text: "3:30 PM", value: "15:30:00" },
-    { key: "4pm", text: "4:00 PM", value: ":16:00:00" },
+    { key: "4pm", text: "4:00 PM", value: "16:00:00" },
     { key: "4.30pm", text: "4:30 PM", value: "16:30:00" },
     { key: "5pm", text: "5:00 PM", value: "17:00:00" },
     { key: "5.30pm", text: "5:30 PM", value: "17:30:00" },
@@ -120,6 +126,7 @@ const CreateEvent = (props) => {
         pathname: "/create-ticket",
         state: response.data.id
       }
+      console.log(response);
       alert("Your event is saved and please fill up ticket information")
       history.push(path);
     })
@@ -135,10 +142,10 @@ const CreateEvent = (props) => {
 
   // handle form field change
   const handleFormChange = ({ target: { name, value } }) => {
-    if (name == "name") {
+    if (name == "name" || name == "description") {
       setEvent({
         ...event,
-        name: {html: value }
+        [name]: {html: value }
       });
     } else {setEvent({
         ...event,
@@ -164,6 +171,7 @@ const CreateEvent = (props) => {
             value={event.name.html}
             onChange={handleFormChange}
             placeholder="Event Title"
+            required
           />
         </Form.Field>
 
@@ -177,6 +185,7 @@ const CreateEvent = (props) => {
                 onChange={handleTimeChange}
                 type="date"
                 placeholder="Start Date"
+                required
               />
             </Grid.Column>
             <Grid.Column width={8}>
@@ -187,6 +196,7 @@ const CreateEvent = (props) => {
                 fluid
                 selection
                 options={timeOptions}
+                required
               />
             </Grid.Column>
           </Grid>
@@ -199,6 +209,7 @@ const CreateEvent = (props) => {
                 onChange={handleTimeChange}
                 type="date"
                 placeholder="End Date"
+                required
               />
             </Grid.Column>
             <Grid.Column width={8}>
@@ -210,33 +221,36 @@ const CreateEvent = (props) => {
                 fluid
                 selection
                 options={timeOptions}
+                required
               />
             </Grid.Column>
           </Grid>
         </Form.Field>
 
         {/* <Form.Field>
-          <label>Hosted By</label>
+          <label>Summary</label>
           <input
-            name="hostedBy"
-            value={info.hostedBy}
+            name="summary"
+            value={event.summary}
             onChange={handleFormChange}
-            placeholder="Enter the name of company hosting"
+            placeholder="Enter the Event summary"
           />
         </Form.Field> */}
 
 
-        {/* <Form.Field>
-          <label>Upload your logo</label>
-          <UploadFile info={info} setInfo={setInfo} />
-        </Form.Field> */}
+        <Form.Field>
+          <Checkbox
+            onClick={() => setOnline(!isOnline)}
+            label="Set it as an online event"
+          />
+        </Form.Field>
 
         <Form.Field>
-          <label>Desciption</label>
+          <label>Description</label>
           <TextArea
             name="description"
             rows={3}
-            value={event.description}
+            value={event.description.html}
             onChange={handleFormChange}
             placeholder="Enter the Desciption of the event"
           />
