@@ -3,18 +3,15 @@ import {
   Button,
   Form,
   Segment,
-<<<<<<< HEAD
   Dropdown,
   TextArea,
   Checkbox,
   Grid,
-=======
-
->>>>>>> 64219ff6950112ffa811289aa1a97b40c9fe702c
 } from "semantic-ui-react";
 import axios from "axios";
 import { EventsContext } from "../../common/context/EventContext";
 import { config } from "../../common/config/config";
+import CreateTicket from "./createTicket";
 // import UploadFile from "./UploadFile";
 
 /**
@@ -22,17 +19,14 @@ import { config } from "../../common/config/config";
  * @description Create a new project and show on Project List page.
  *              Post the new project to server.
  */
-const CreateEvent = (props) => {
-  const event_id;
 
+const CreateEvent = (props) => {
   const [time, setTime] = useState({
     startDate:"",
-    startTime:"",
     endDate:"",
-    endTime:""
   });
 
-  const path = config();
+  const [event_id, setEventId] = useState("");
 
   // project information
   const [event, setEvent] = useState({
@@ -114,37 +108,29 @@ const CreateEvent = (props) => {
 
   // post project info to server
   const handleFormSubmit = async (e) => {
+    
     e.preventDefault();
-    // const test = {
-    //   event: {
-    //     name: {
-    //       html: "Test Event"
-    //     },
-    //     start: {
-    //       timezone: "America/Los_Angeles",
-    //       utc: "2020-09-01T02:00:00Z"
-    //     },
-    //     end: {
-    //       timezone: "America/Los_Angeles",
-    //       utc: "2020-10-01T05:00:00Z"
-    //     },
-    //     currency: "USD"
-    //   }
-    // }
     const testdata = {
       event: event
     }
+
     console.log(testdata);
     axios.post('https://www.eventbriteapi.com/v3/organizations/464741062423/events/?token=2SWITQPH72SPNCSRK7OW', testdata)
     .then(response => { 
-      console.log(response);
-      event_id = response.data.id;
+      // console.log(response);
+      // console.log(response.data);
+      // console.log(response.data.id);
+      setEventId(response.data.id);
       alert("Your event is saved and please fill up ticket information")
     })
-    .then(props.history.push("/create-event"))
+    .then(props.history.push("/create-tickets"))
     .catch(error => {
         console.log(error.response)
     });
+    console.log(event_id);
+    console.log("koo",event_id);
+
+    return (<CreateTicket event_id = {event_id}></CreateTicket>)
     
   };
 
@@ -274,4 +260,4 @@ const CreateEvent = (props) => {
   );
 };
 export default CreateEvent;
-export {event_id};
+// export {event_id};
