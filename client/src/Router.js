@@ -2,6 +2,15 @@ import React, { Fragment } from "react";
 import { Switch, Route } from "react-router-dom";
 import CreateProject from "./view/CreateProject/CreateProject";
 import Home from "./view/Home/Home";
+import Student from "./view/Student/Student";
+import CreateForm from "./view/Student/CreateForm";
+import Fswep from "./view/Student/Fswep";
+import StudentForm from "./view/Student/StudentForm";
+import ResumeGuidelines from "./view/Student/ResumeGuidelines";
+import GNG5299 from "./view/Student/GNG5299";
+import HireStudent from "./view/HireStudent/HireStudent";
+import Alumni from "./view/Alumni/Alumni";
+import Covid19 from "./view/Covid19/Covid19";
 import OurTeam from "./view/OurTeam/OurTeam";
 import Header from "./view/Header/Header";
 import Footer from "./view/Footer/Footer";
@@ -35,6 +44,17 @@ const Routers = () => {
             <Route exact path="/project/manage/:id" component={CreateProject} />
             <Route exact path="/events" component={Events} />
             <Route exact path="/admin" component={Admin} />
+            <Route  exact path="/student" component={Student}/>
+            <Route  exact path="/create-form" component={CreateForm}/>
+            <Route  exact path="/fswep" component={Fswep}/>
+            <Route  exact path="/student-form" component={StudentForm}/>
+            <Route  exact path="/resume-guidelines" component={ResumeGuidelines}/>
+            <Route  exact path="/gng5299" component={GNG5299}/>
+            <Route exact path="/hirestudent" component={HireStudent} />
+            <Route exact path="/alumni" component={Alumni} />
+            <Route exact path="/covid" component={Covid19}/>
+
+            
             <Route
               exact
               path="/project-list"
