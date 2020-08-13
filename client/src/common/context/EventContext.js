@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 
 const EventsContext = createContext();
-export const EventsConsumer = EventsContext.Consumer;
+// export const EventsConsumer = EventsContext.Consumer;
 
 export {EventsContext};
 

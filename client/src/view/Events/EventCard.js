@@ -9,15 +9,15 @@ const EventCard = ({ event }) => {
 
   return (
     <Fragment>
-      <Card color='red'>
+      <Card color='blue'>
         {event.logo ? <Image src={event.logo.url} alt={event.name} /> : null}
         <Card.Content>
         <Card.Header>{event.name.text}</Card.Header>
         <Card.Meta>
-          <span>Start time: {event.start.local}</span>
+          <span>Start time: {event.start.utc}</span>
         </Card.Meta>
         <Card.Meta>
-          <span>End time: {event.end.local}</span>
+          <span>End time: {event.end.utc}</span>
         </Card.Meta>
         <Card.Description>
           {event.description.text}

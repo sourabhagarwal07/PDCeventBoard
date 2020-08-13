@@ -23,60 +23,31 @@ const Footer = () => {
   };
   return (
     <Fragment>
-      <Segment inverted color="violet" vertical className="footer">
+      <Segment inverted color="blue" vertical className="footer">
         <Container textAlign="center">
           <Grid divided inverted stackable>
-            <Grid.Column width={5}>
-              <Header inverted as="h4" content="PDC" />
-              <List link inverted>
-                <List.Item as="a">About Us</List.Item>
-                <List.Item as="a">Join Us</List.Item>
-                <List.Item as="a">Events</List.Item>
-                <List.Item as="a">Project Opportunities</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Header inverted as="h4" content="Get in Touch" />
+            
+            <Grid.Column width={15}>
+              <Header inverted as="h4" content="FOLLOW US" />
+              
               <p>
+                {" "}
                 <button onClick={handlefacebook} className="ui facebook button">
                   <i className="facebook icon"></i>
                   Facebook
                 </button>
-              </p>
-              <p>
-                {" "}
                 <button onClick={handletwitter} className="ui twitter button">
                   <i className="twitter icon"></i>
                   Twitter
                 </button>
-              </p>
-              <p>
-                {" "}
                 <button onClick={handlelinkedin} className="ui linkedin button">
                   <i className="linkedin icon"></i>
                   Linkedin
                 </button>
               </p>
+              
             </Grid.Column>
-            <Grid.Column width={5}>
-              <Header inverted as="h4" content="Leave us a Message!" />
-
-              <Form inverted>
-                <Form.Field>
-                  <label style={{ color: focused ? "red" : "" }}>Name</label>
-                  <input placeholder="First Name" />
-                </Form.Field>
-                <Form.Field>
-                  <label>Email</label>
-                  <input placeholder="Email Address" />
-                </Form.Field>
-                <Form.Field>
-                  <label>Message</label>
-                  <textarea rows="3"></textarea>
-                </Form.Field>
-                <Button type="submit">Submit</Button>
-              </Form>
-            </Grid.Column>
+           
           </Grid>
         </Container>
       </Segment>
