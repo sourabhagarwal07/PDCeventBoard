@@ -1,8 +1,7 @@
-import React, { createContext, Component, useState, useContext } from 'react';
-import axios from 'axios';
+import React, { createContext, useState } from 'react';
 
 const EventsContext = createContext();
-export const EventsConsumer = EventsContext.Consumer;
+// export const EventsConsumer = EventsContext.Consumer;
 
 export {EventsContext};
 

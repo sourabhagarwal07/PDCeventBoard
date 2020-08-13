@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   Segment,
   Image,
@@ -8,7 +8,6 @@ import {
   Modal,
   Icon,
 } from "semantic-ui-react";
-import { UserContext } from "../../common/context/UserProvider";
 import Axios from "axios";
 import useReactRouter from "use-react-router";
 
@@ -18,7 +17,13 @@ import useReactRouter from "use-react-router";
  *              manage project and delete project button.
  */
 
-const ProjectDetailedHeader = ({ id, path, project, props }) => {
+const ProjectDetailedHeader = ({
+  id,
+  path,
+  project,
+  userInfo,
+  appliedStudentsList,
+}) => {
   const eventImageStyle = {
     filter: "brightness(30%)",
   };
@@ -33,7 +38,6 @@ const ProjectDetailedHeader = ({ id, path, project, props }) => {
   };
 
   const { history } = useReactRouter();
-  const { userInfo, setUserInfo } = useContext(UserContext);
   const [modalOpen, setModalOpen] = useState(false);
 
   // set isDelete to true, this will remove the project from project list
@@ -45,12 +49,17 @@ const ProjectDetailedHeader = ({ id, path, project, props }) => {
     history.push("/project-list");
   };
 
+  // pass state to Creat Project, state includes Project Details
   const handleManage = () => {
     let path = {
       pathname: "/project/manage/" + id,
       state: project,
     };
     history.push(path);
+  };
+
+  const handleApply = () => {
+    history.push("/students/apply/" + id);
   };
 
   return (
@@ -75,9 +84,9 @@ const ProjectDetailedHeader = ({ id, path, project, props }) => {
           </Item.Group>
         </Segment>
       </Segment>
-
+      {/* For student, only show Apply button. For company and admin, show Manage and Delete button */}
       {userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
-        <Segment attached="bottom">
+        <Segment attached="bottom" clearing>
           <Button color="orange" onClick={handleManage}>
             Manage Project
           </Button>
@@ -109,7 +118,18 @@ const ProjectDetailedHeader = ({ id, path, project, props }) => {
             </Modal.Actions>
           </Modal>
         </Segment>
-      ) : null}
+      ) : (
+        <Segment attached="bottom" clearing>
+          {JSON.stringify(appliedStudentsList).indexOf(userInfo.user.email) ===
+          -1 ? (
+            <Button floated="right" color="green" onClick={handleApply}>
+              Apply
+            </Button>
+          ) : (
+            <Button disabled floated="right" color="orange" content="Applied" />
+          )}
+        </Segment>
+      )}
     </Segment.Group>
   );
 };

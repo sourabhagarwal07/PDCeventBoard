@@ -1,14 +1,6 @@
 import React, { Fragment } from "react";
 import { config } from "../../common/config/config";
-import {
-  Button,
-  Container,
-  Image,
-  Grid,
-  Segment,
-  Divider,
-  GridColumn,
-} from "semantic-ui-react";
+import { Button, Image, Grid } from "semantic-ui-react";
 
 const Signin = (props) => {
   let path = config();

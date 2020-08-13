@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Form,
@@ -6,152 +6,252 @@ import {
   Dropdown,
   TextArea,
   Checkbox,
+  Grid,
 } from "semantic-ui-react";
-import Axios from "axios";
-import { UserContext } from "../../common/context/UserProvider";
+import axios from "axios";
+import { EventsContext } from "../../common/context/EventContext";
 import { config } from "../../common/config/config";
+import CreateTicket from "./createTicket";
+import useReactRouter from "use-react-router";
+// import UploadFile from "./UploadFile";
 
-import Pizzly from 'pizzly-js';
-
-
-
-
-// const bearer = require("@bearer/node")
-
-// // Initialize the client
-// const client = bearer("YOUR-SECRET-KEY")
-
-// // Set up the Eventbrite Integration
-// const eventBrite = client.integration("eventbrite").auth('YOUR-AUTH-ID)
+/**
+ * @author @binjiasata
+ * @description Create a new project and show on Project List page.
+ *              Post the new project to server.
+ */
 
 const CreateEvent = (props) => {
-  const organization_id = 464741062423//463774934539; //463774934539;
+  const [time, setTime] = useState({
+    startDate:"",
+    endDate:"",
+  });
 
-  const token = '2SWITQPH72SPNCSRK7OW';
-  const pizzly = new Pizzly({ host: 'https://bearer0.herokuapp.com/auth/callback' }) // Initialize Pizzly
-  const eventbrite = pizzly.integration('eventbrite') // Replace with the API slugname
-  const url ="https://www.eventbriteapi.com/v3/organizations/464741062423/events/?token=2SWITQPH72SPNCSRK7OW";
-  eventbrite
-    .connect()
-    .then(({ authId }) => console.log('Sucessfully connected!', authId))
-    .catch(console.error)
+  // project information
+  const [event, setEvent] = useState({
+    name: {html: ""},
+    start: { timezone: "America/Toronto", utc: "" },
+    end: { timezone: "America/Toronto", utc: "" },
+    currency: "USD",
+  });
 
-  eventbrite
-    .auth('9b7367a0-d801-11ea-b4e8-c10a4f90a3b3') // Replace with the authId previously obtained
-    .post(`https://www.eventbriteapi.com/v3/organizations/${organization_id}/events/?token=${token}`, {
-      "name": {
-          "html": "My New Event"
-      },
-      "start":{
-          "timezone": "America/Los_Angeles",
-          "utc": "2019-12-01T02:00:00Z"
-      },
-      "end":{
-          "timezone": "America/Los_Angeles",
-          "utc": "2019-12-01T05:00:00Z"
-      },
-      "currency": "USD"
-    })//'/v3/organizations/464741062423/events/') // Replace with a valid endpoint of the API
-    .then(response => console.log(response))
-    .catch(console.error)
+  /**
+   * Category options:
+   * include Machine Learning, Web Development, Game Development for now.
+   */
+  const timeOptions = [
+    // { key: "12am", text: "12:00 AM", value: "00:00:00" },
+    // { key: "12.30am", text: "12:30 AM", value: "00:30:00" },
+    // { key: "1am", text: "1:00 AM", value: "01:00:00" },
+    // { key: "1.30am", text: "1:30 AM", value: "01:30:00" },
+    // { key: "2am", text: "2:00 AM", value: "02:00:00" },
+    // { key: "2.30am", text: "2:30 AM", value: "02:30:00" },
+    // { key: "3am", text: "3:00 AM", value: "03:00:00" },
+    // { key: "3.30am", text: "3:30 AM", value: "03:30:00" },
+    // { key: "4am", text: "4:00 AM", value: "04:00:00" },
+    // { key: "4.30am", text: "4:30 AM", value: "04:30:00" },
+    // { key: "5am", text: "5:00 AM", value: "05:00:00" },
+    // { key: "5.30am", text: "5:30 AM", value: "05:30:00" },
+    { key: "6am", text: "6:00 AM", value: "06:00:00" },
+    { key: "6.30am", text: "6:30 AM", value: "06:30:00" },
+    { key: "7am", text: "7:00 AM", value: "07:00:00" },
+    { key: "7.30am", text: "7:30 AM", value: "07:30:00" },
+    { key: "8am", text: "8:00 AM", value: "08:00:00" },
+    { key: "8.30am", text: "8:30 AM", value: "08:30:00" },
+    { key: "9am", text: "9:00 AM", value: "09:00:00" },
+    { key: "9.30am", text: "9:30 AM", value: "09:30:00" },
+    { key: "10am", text: "10:00 AM", value: "10:00:00" },
+    { key: "10.30am", text: "10:30 AM", value: "10:30:00" },
+    { key: "11am", text: "11:00 AM", value: "11:00:00" },
+    { key: "11.30am", text: "11:30 AM", value: "11:30:00" },
+    { key: "12pm", text: "12:00 PM", value: "12:00:00" },
+    { key: "12.30pm", text: "12:30 PM", value: "12:30:00" },
+    { key: "1pm", text: "1:00 PM", value: "13:00:00" },
+    { key: "1.30pm", text: "1:30 PM", value: "13:30:00" },
+    { key: "2pm", text: "2:00 PM", value: "14:00:00" },
+    { key: "2.30pm", text: "2:30 PM", value: "14:30:00" },
+    { key: "3pm", text: "3:00 PM", value: "15:00:00" },
+    { key: "3.30pm", text: "3:30 PM", value: "15:30:00" },
+    { key: "4pm", text: "4:00 PM", value: ":16:00:00" },
+    { key: "4.30pm", text: "4:30 PM", value: "16:30:00" },
+    { key: "5pm", text: "5:00 PM", value: "17:00:00" },
+    { key: "5.30pm", text: "5:30 PM", value: "17:30:00" },
+    { key: "6pm", text: "6:00 PM", value: "18:00:00" },
+    { key: "6.30pm", text: "6:30 PM", value: "18:30:00" },
+    { key: "7pm", text: "7:00 PM", value: "19:00:00" },
+    { key: "7.30pm", text: "7:30 PM", value: "19:30:00" },
+    { key: "8pm", text: "8:00 PM", value: "20:00:00" },
+    { key: "8.30pm", text: "8:30 PM", value: "20:30:00" },
+    { key: "9pm", text: "9:00 PM", value: "21:00:00" },
+    { key: "9.30pm", text: "9:30 PM", value: "21:30:00" },
+    { key: "10pm", text: "10:00 PM", value: "22:00:00" },
+    { key: "10.30pm", text: "10:30 PM", value: "22:30:00" },
+    { key: "11pm", text: "11:00 PM", value: "23:00:00" },
+    { key: "11.30pm", text: "11:30 PM", value: "23:30:00" },
+  ];
 
-  const [eventInfo, setEventInfo] = useState({
-    name: "",
-    start: "",
-    end: "",
-    currency: ""
-  })
+  // handle dropdown category
+  const handleStartTimeChange = (e, data) => {
+    setEvent({
+      ...event,
+      start:{ timezone: "America/Toronto", utc: time.startDate+"T"+data.value+"Z" },
+    })
+  };
 
-  //const handleSubmit
+  const handleEndTimeChange = (e, data) => {
+    setEvent({
+      ...event,
+      end: {timezone: "America/Toronto", utc: time.endDate+"T"+data.value+"Z"}
+    })
+  };
+  const { history } = useReactRouter();
+  // post project info to server
+  const handleFormSubmit = async (e) => {
+    
+    e.preventDefault();
+    const testdata = {
+      event: event
+    }
 
-  const handleFormChange = ({ target: { name, value } }) => {
-    setEventInfo({
-      ...eventInfo,
-      [name]: value,
+    console.log(testdata);
+    axios.post('https://www.eventbriteapi.com/v3/organizations/464741062423/events/?token=2SWITQPH72SPNCSRK7OW', testdata)
+    .then(response => { 
+        const path = {
+        pathname: "/create-ticket",
+        state: response.data.id
+      }
+      alert("Your event is saved and please fill up ticket information")
+      history.push(path);
+    })
+    .catch(error => {
+        console.log(error.response)
     });
   };
 
-  const handleFormSubmit = async (event) => {
-    await setEventInfo({
-      "name": {
-          "html": "My New Event"
-      },
-      "start":{
-          "timezone": "America/Los_Angeles",
-          "utc": "2019-12-01T02:00:00Z"
-      },
-      "end":{
-          "timezone": "America/Los_Angeles",
-          "utc": "2019-12-01T05:00:00Z"
-      },
-      "currency": "USD"
-    })
-
-    console.log(eventInfo);
-
-    //event.preventDefault();
-    // // if does not have hostPhotoURL, use a default one
-    // if (!info.hostPhotoURL) {
-    //   info.hostPhotoURL = "https://img.icons8.com/carbon-copy/2x/company.png";
-    // }
-    Axios.post(`https://www.eventbriteapi.com/v3/organizations/${organization_id}/events/?token=${token}`, 
-      eventInfo,
-      {headers: {'Authorization': 'Bearer' + token}, withCredentials: true})
-      .then((res) => {
-        //console.log(res);
-        alert("success create your event!")
-        props.history.push("/event");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  // when click cancel, go back to the project list page
+  const handleFormCancel = () => {
+    props.history.push("/events");
   };
+
+  // handle form field change
+  const handleFormChange = ({ target: { name, value } }) => {
+    if (name == "name") {
+      setEvent({
+        ...event,
+        name: {html: value }
+      });
+    } else {setEvent({
+        ...event,
+        [name]: value,
+      });
+    }
+  };
+
+  const handleTimeChange = ({ target: { name, value }}) => {
+    setTime({
+      ...time,
+      [name]: value
+    })
+  }
 
   return (
     <Segment>
-      <Form onSubmit={handleFormSubmit}>
+      <Form onSubmit={handleFormSubmit} autoComplete="off">
         <Form.Field>
-          <label>Event name</label>
-          <input 
+          <label>Event Title</label>
+          <input
             name="name"
-            value={eventInfo.name}
+            value={event.name.html}
             onChange={handleFormChange}
-            placeholder="Event name"
+            placeholder="Event Title"
           />
         </Form.Field>
+
         <Form.Field>
-          <label>Start time</label>
-          <input 
-            name="start"
-            value={eventInfo.start}
-            onChange={handleFormChange}
-            placeholder="Event name"
-          />
+          <Grid style={{ paddindBottom: "10px" }}>
+            <Grid.Column width={8}>
+              <label>Events Starts</label>
+              <input
+                name="startDate"
+                value={time.startDate}
+                onChange={handleTimeChange}
+                type="date"
+                placeholder="Start Date"
+              />
+            </Grid.Column>
+            <Grid.Column width={8}>
+              <label>Start Time</label>
+              <Dropdown id="selectStart"
+                onChange={handleStartTimeChange}
+                placeholder="select end time"
+                fluid
+                selection
+                options={timeOptions}
+              />
+            </Grid.Column>
+          </Grid>
+          <Grid>
+            <Grid.Column width={8}>
+              <label>Events Ends</label>
+              <input
+                name="endDate"
+                value={time.endDate}
+                onChange={handleTimeChange}
+                type="date"
+                placeholder="End Date"
+              />
+            </Grid.Column>
+            <Grid.Column width={8}>
+              <label>End Time</label>
+              <Dropdown
+                name={"endTime"}
+                onChange={handleEndTimeChange}
+                placeholder="select end time"
+                fluid
+                selection
+                options={timeOptions}
+              />
+            </Grid.Column>
+          </Grid>
         </Form.Field>
+
+        {/* <Form.Field>
+          <label>Hosted By</label>
+          <input
+            name="hostedBy"
+            value={info.hostedBy}
+            onChange={handleFormChange}
+            placeholder="Enter the name of company hosting"
+          />
+        </Form.Field> */}
+
+
+        {/* <Form.Field>
+          <label>Upload your logo</label>
+          <UploadFile info={info} setInfo={setInfo} />
+        </Form.Field> */}
+
         <Form.Field>
-          <label>End time</label>
-          <input 
-            name="end"
-            value={eventInfo.end}
+          <label>Desciption</label>
+          <TextArea
+            name="description"
+            rows={3}
+            value={event.description}
             onChange={handleFormChange}
-            placeholder="Event name"
+            placeholder="Enter the Desciption of the event"
           />
         </Form.Field>
-        <Form.Field>
-          <label>Event name</label>
-          <input 
-            name="name"
-            value={eventInfo.name}
-            onChange={handleFormChange}
-            placeholder="Event name"
-          />
-        </Form.Field>
+
         <Button positive type="submit">
-          Submit
+          Save and continue
+          {/* {state ? "Update" : "Submit"} */}
+        </Button>
+        <Button onClick={handleFormCancel} type="button">
+          Cancel
         </Button>
       </Form>
     </Segment>
-  )
-}
-
+  );
+};
 export default CreateEvent;
+// export {event_id};

@@ -1,4 +1,4 @@
-import { Container, Menu, Grid } from "semantic-ui-react";
+import { Container, Menu } from "semantic-ui-react";
 import React, { useEffect, useState, Fragment, useContext } from "react";
 import useReactRouter from "use-react-router";
 import Axios from "axios";

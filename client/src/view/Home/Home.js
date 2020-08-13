@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-import { Button, Container, Image, Grid, Segment,Divider } from "semantic-ui-react";
-import useReactRouter from "use-react-router";
+import { Image, Grid, Segment } from "semantic-ui-react";
 import "./Home.css";
 
 const Home = (props) => {
