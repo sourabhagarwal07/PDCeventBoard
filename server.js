@@ -17,10 +17,10 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 8080; //Step 1
 
-if (process.env.NODE_ENV === "production") {
+//if (process.env.NODE_ENV === "production") {
   console.log("dir name", __dirname);
   app.use("/", express.static(path.join(__dirname, "/client/build")));
-}
+//}
 
 app.all("*", function (req, res, next) {
   if (process.env.NODE_ENV != "production") {

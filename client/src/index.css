@@ -157,3 +157,12 @@ Grid {
 .dropzone--isActive {
   border: dashed 3px green;
 }
+.carousel {
+  width:600px;
+  height:400px;
+}
+.sliderimg{
+  width: 70%;
+  height: 80%;
+  object-fit: cover
+}
