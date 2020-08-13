@@ -65,7 +65,7 @@ const Routers = () => {
             />
             <Route
               exact
-              path="/create-tickets"
+              path="/create-ticket"
               component={CreateTicket}
             />
           </Container>

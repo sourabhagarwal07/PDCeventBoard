@@ -8,9 +8,12 @@ import {
 } from "semantic-ui-react";
 import axios from "axios";
 import { config } from "../../common/config/config";
-// import {event_id} from "./createEvent";
 
 const CreateTicket = (props) => {
+  //event id got from the response from create event page
+  const {state} = props.location;
+  console.log(state);
+  const event_id = state;
 
   const [ticket, setTicket] = useState({
     name:"General Entry",
@@ -24,7 +27,7 @@ const CreateTicket = (props) => {
     const ticket_data = {ticket_class: ticket};
 
     console.log(ticket_data);
-    axios.post(`https://www.eventbriteapi.com/v3/events/${props.event_id}/ticket_classes/?token=2SWITQPH72SPNCSRK7OW`, ticket_data)
+    axios.post(`https://www.eventbriteapi.com/v3/events/${event_id}/ticket_classes/?token=2SWITQPH72SPNCSRK7OW`, ticket_data)
     .then(response => { 
       console.log(response);
       alert("tickets information saved!")
@@ -32,15 +35,23 @@ const CreateTicket = (props) => {
     .catch(error => {
         console.log(error.response)
     });
-    return(
-      <Button>Show</Button>
-    )
   };
+
+  const publish = () => {
+    axios.post(`https://www.eventbriteapi.com/v3/events/${event_id}/publish/?token=2SWITQPH72SPNCSRK7OW`)
+    .then(response => { 
+      console.log(response);
+      alert("Event has been pushlished!")
+    })
+    .catch(error => {
+        console.log(error.response)
+    });
+  }
 
   const handleFormChange = ({ target: { name, value } }) => {
     setTicket({
-        ...ticket,
-        [name]: value,
+      ...ticket,
+      [name]: value,
     });
   }
 
@@ -68,6 +79,7 @@ const CreateTicket = (props) => {
         Cancel
       </Button>
     </Form>
+    <Button onClick={publish}>Publish</Button>
   </Segment>
   )
 }

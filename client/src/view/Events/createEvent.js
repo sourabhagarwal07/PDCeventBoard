@@ -12,6 +12,7 @@ import axios from "axios";
 import { EventsContext } from "../../common/context/EventContext";
 import { config } from "../../common/config/config";
 import CreateTicket from "./createTicket";
+import useReactRouter from "use-react-router";
 // import UploadFile from "./UploadFile";
 
 /**
@@ -26,8 +27,6 @@ const CreateEvent = (props) => {
     endDate:"",
   });
 
-  const [event_id, setEventId] = useState("");
-
   // project information
   const [event, setEvent] = useState({
     name: {html: ""},
@@ -41,18 +40,18 @@ const CreateEvent = (props) => {
    * include Machine Learning, Web Development, Game Development for now.
    */
   const timeOptions = [
-    { key: "12am", text: "12:00 AM", value: "00:00:00" },
-    { key: "12.30am", text: "12:30 AM", value: "00:30:00" },
-    { key: "1am", text: "1:00 AM", value: "01:00:00" },
-    { key: "1.30am", text: "1:30 AM", value: "01:30:00" },
-    { key: "2am", text: "2:00 AM", value: "02:00:00" },
-    { key: "2.30am", text: "2:30 AM", value: "02:30:00" },
-    { key: "3am", text: "3:00 AM", value: "03:00:00" },
-    { key: "3.30am", text: "3:30 AM", value: "03:30:00" },
-    { key: "4am", text: "4:00 AM", value: "04:00:00" },
-    { key: "4.30am", text: "4:30 AM", value: "04:30:00" },
-    { key: "5am", text: "5:00 AM", value: "05:00:00" },
-    { key: "5.30am", text: "5:30 AM", value: "05:30:00" },
+    // { key: "12am", text: "12:00 AM", value: "00:00:00" },
+    // { key: "12.30am", text: "12:30 AM", value: "00:30:00" },
+    // { key: "1am", text: "1:00 AM", value: "01:00:00" },
+    // { key: "1.30am", text: "1:30 AM", value: "01:30:00" },
+    // { key: "2am", text: "2:00 AM", value: "02:00:00" },
+    // { key: "2.30am", text: "2:30 AM", value: "02:30:00" },
+    // { key: "3am", text: "3:00 AM", value: "03:00:00" },
+    // { key: "3.30am", text: "3:30 AM", value: "03:30:00" },
+    // { key: "4am", text: "4:00 AM", value: "04:00:00" },
+    // { key: "4.30am", text: "4:30 AM", value: "04:30:00" },
+    // { key: "5am", text: "5:00 AM", value: "05:00:00" },
+    // { key: "5.30am", text: "5:30 AM", value: "05:30:00" },
     { key: "6am", text: "6:00 AM", value: "06:00:00" },
     { key: "6.30am", text: "6:30 AM", value: "06:30:00" },
     { key: "7am", text: "7:00 AM", value: "07:00:00" },
@@ -105,7 +104,7 @@ const CreateEvent = (props) => {
       end: {timezone: "America/Toronto", utc: time.endDate+"T"+data.value+"Z"}
     })
   };
-
+  const { history } = useReactRouter();
   // post project info to server
   const handleFormSubmit = async (e) => {
     
@@ -117,21 +116,16 @@ const CreateEvent = (props) => {
     console.log(testdata);
     axios.post('https://www.eventbriteapi.com/v3/organizations/464741062423/events/?token=2SWITQPH72SPNCSRK7OW', testdata)
     .then(response => { 
-      // console.log(response);
-      // console.log(response.data);
-      // console.log(response.data.id);
-      setEventId(response.data.id);
+        const path = {
+        pathname: "/create-ticket",
+        state: response.data.id
+      }
       alert("Your event is saved and please fill up ticket information")
+      history.push(path);
     })
-    .then(props.history.push("/create-tickets"))
     .catch(error => {
         console.log(error.response)
     });
-    console.log(event_id);
-    console.log("koo",event_id);
-
-    return (<CreateTicket event_id = {event_id}></CreateTicket>)
-    
   };
 
   // when click cancel, go back to the project list page
