@@ -59,7 +59,12 @@ const ProjectDetailedHeader = ({
   };
 
   const handleApply = () => {
-    history.push("/students/apply/" + id);
+    if (userInfo.authenticated) {
+      history.push("/students/apply/" + id);
+    } else {
+      alert("You need to login first!");
+      history.push("/signin");
+    }
   };
 
   return (
@@ -120,13 +125,15 @@ const ProjectDetailedHeader = ({
         </Segment>
       ) : (
         <Segment attached="bottom" clearing>
-          {JSON.stringify(appliedStudentsList).indexOf(userInfo.user.email) ===
-          -1 ? (
+          {/* use email to judge the student applied or not */}
+          {userInfo.user &&
+          JSON.stringify(appliedStudentsList).indexOf(userInfo.user.email) !==
+            -1 ? (
+            <Button disabled floated="right" color="orange" content="Applied" />
+          ) : (
             <Button floated="right" color="green" onClick={handleApply}>
               Apply
             </Button>
-          ) : (
-            <Button disabled floated="right" color="orange" content="Applied" />
           )}
         </Segment>
       )}

@@ -8,6 +8,7 @@ import {
   List,
   Button,
   Form,
+  Menu,
 } from "semantic-ui-react";
 
 const Footer = () => {
@@ -23,34 +24,39 @@ const Footer = () => {
   };
   return (
     <Fragment>
-      <Segment inverted color="blue" vertical className="footer">
-        <Container textAlign="center">
-          <Grid divided inverted stackable>
-            
-            <Grid.Column width={15}>
-              <Header inverted as="h4" content="FOLLOW US" />
-              
-              <p>
-                {" "}
-                <button onClick={handlefacebook} className="ui facebook button">
-                  <i className="facebook icon"></i>
-                  Facebook
-                </button>
-                <button onClick={handletwitter} className="ui twitter button">
-                  <i className="twitter icon"></i>
-                  Twitter
-                </button>
-                <button onClick={handlelinkedin} className="ui linkedin button">
-                  <i className="linkedin icon"></i>
-                  Linkedin
-                </button>
-              </p>
-              
-            </Grid.Column>
-           
-          </Grid>
-        </Container>
-      </Segment>
+      <Menu fixed="bottom">
+        <Segment inverted color="blue" vertical className="footer">
+          <Container textAlign="center">
+            <Grid divided inverted stackable>
+              <Grid.Column width={15}>
+                <Header inverted as="h4" content="FOLLOW US" />
+
+                <p>
+                  {" "}
+                  <button
+                    onClick={handlefacebook}
+                    className="ui facebook button"
+                  >
+                    <i className="facebook icon"></i>
+                    Facebook
+                  </button>
+                  <button onClick={handletwitter} className="ui twitter button">
+                    <i className="twitter icon"></i>
+                    Twitter
+                  </button>
+                  <button
+                    onClick={handlelinkedin}
+                    className="ui linkedin button"
+                  >
+                    <i className="linkedin icon"></i>
+                    Linkedin
+                  </button>
+                </p>
+              </Grid.Column>
+            </Grid>
+          </Container>
+        </Segment>
+      </Menu>
     </Fragment>
   );
 };

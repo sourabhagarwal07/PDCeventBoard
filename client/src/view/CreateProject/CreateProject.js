@@ -1,16 +1,10 @@
 import React, { useState, useContext } from "react";
-import {
-  Button,
-  Form,
-  Segment,
-  Dropdown,
-  TextArea,
-  Checkbox,
-} from "semantic-ui-react";
+import { Button, Form, Segment, Dropdown, Checkbox } from "semantic-ui-react";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 import UploadLogo from "./UploadLogo";
+import TextareaAutosize from "react-textarea-autosize";
 
 /**
  * @author @binjiasata
@@ -225,16 +219,14 @@ const CreateProject = (props) => {
           <UploadLogo info={info} setInfo={setInfo} />
         </Form.Field>
 
-        <Form.Field>
-          <label>Desciption</label>
-          <TextArea
-            name="description"
-            rows={3}
-            value={info.description}
-            onChange={handleFormChange}
-            placeholder="Enter the Desciption of the project"
-          />
-        </Form.Field>
+        <Form.Field
+          control={TextareaAutosize}
+          name="description"
+          label="Description"
+          placeholder="Enter the Desciption of the project"
+          onChange={handleFormChange}
+          value={info.description}
+        ></Form.Field>
 
         <Button positive type="submit">
           {state ? "Update" : "Submit"}

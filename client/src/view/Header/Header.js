@@ -66,16 +66,9 @@ const Header = (props) => {
     setActiveItem(name);
   };
 
-
-  
-
   const handleProjectList = (e, { name }) => {
-    if (userInfo.authenticated) {
-      history.push("/project-list");
-      setActiveItem(name);
-    } else {
-      alert("You need to login!");
-    }
+    history.push("/project-list");
+    setActiveItem(name);
   };
 
   // Get logged user info from backend
@@ -120,28 +113,43 @@ const Header = (props) => {
           </Menu.Item>
           {!userInfo.authenticated ||
           (userInfo.user && (userInfo.user.company || userInfo.user.admin)) ? (
-            <Menu.Item name="hirestudent"
-            active={activeItem === "hirestudent"}
-            onClick={handlehirestudent}>Hire Students</Menu.Item>
+            <Menu.Item
+              name="hirestudent"
+              active={activeItem === "hirestudent"}
+              onClick={handlehirestudent}
+            >
+              Hire Students
+            </Menu.Item>
           ) : (
             ""
           )}
 
           {!userInfo.authenticated ||
           (userInfo.user && !userInfo.user.company) ? (
-            <Menu.Item name="Student"
-            active={activeItem === "Student"}
-            onClick={handleStudent}>For Students</Menu.Item>
+            <Menu.Item
+              name="Student"
+              active={activeItem === "Student"}
+              onClick={handleStudent}
+            >
+              For Students
+            </Menu.Item>
           ) : (
             ""
           )}
-          <Menu.Item name="Alumni"
+          <Menu.Item
+            name="Alumni"
             active={activeItem === "Alumni"}
-            onClick={handleAlumni}>For Alumni</Menu.Item>
+            onClick={handleAlumni}
+          >
+            For Alumni
+          </Menu.Item>
           <Menu.Item
             name="Covid19"
             active={activeItem === "Covid19"}
-            onClick={handleCovid19}>Updates on COVID-19</Menu.Item>
+            onClick={handleCovid19}
+          >
+            Updates on COVID-19
+          </Menu.Item>
           <Menu.Item
             name="Events"
             active={activeItem === "Events"}
