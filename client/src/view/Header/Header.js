@@ -205,6 +205,9 @@ const Header = (props) => {
                width='thin'  
                inverted color="blue"            
                >
+      <Button  onClick={handleSideBarClick} color="blue">
+            <Icon name="close"/>
+      </Button>
         <Container>
           <Menu.Item
             name="home"
