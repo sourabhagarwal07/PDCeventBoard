@@ -124,8 +124,9 @@ const Header = (props) => {
 
   return (
     <Fragment color="blue">
-      <Menu fixed="top" inverted color="blue" hidden={menubarHidden}>
-        <Container>
+      {/* <Menu  inverted color="blue"> */}
+      <Menu fixed="top" inverted color="blue">
+        <Container inverted color="blue" hidden={menubarHidden}>
           <Menu.Item
             name="home"
             active={activeItem === "home"}
@@ -190,9 +191,9 @@ const Header = (props) => {
             <LogedOutMenu logIn={handleLogin} />
           )}
         </Container>
-      </Menu>
-      <div hidden={sidebarHidden}>
-      <Button  onClick={handleSideBarClick} fixed>
+      {/* </Menu> */}
+      <Container hidden={sidebarHidden}>
+      <Button  onClick={handleSideBarClick} color="blue">
             <Icon name="bars"/>
       </Button>
       <Sidebar visible={sideBarContentVisible}
@@ -201,7 +202,8 @@ const Header = (props) => {
                direction='left'
                icon='labeled'
                vertical
-               width='thin'              
+               width='thin'  
+               inverted color="blue"            
                >
         <Container>
           <Menu.Item
@@ -269,7 +271,8 @@ const Header = (props) => {
           )}
         </Container>
       </Sidebar>
-      </div>
+      </Container>
+      </Menu>
     </Fragment>
   );
 };
