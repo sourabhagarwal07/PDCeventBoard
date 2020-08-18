@@ -1,4 +1,4 @@
-import { Container, Menu } from "semantic-ui-react";
+import { Container, Menu, Sidebar, Button, Icon, Segment} from "semantic-ui-react";
 import React, { useEffect, useState, Fragment, useContext } from "react";
 import useReactRouter from "use-react-router";
 import Axios from "axios";
@@ -6,6 +6,7 @@ import LogedInMenu from "./Menus/LogedInMenu";
 import LogedOutMenu from "./Menus/LogedOutMenu";
 import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
+import { deviceType } from 'react-device-detect'
 
 /**
  * @author @binjiasata
@@ -18,6 +19,9 @@ const Header = (props) => {
   const [activeItem, setActiveItem] = useState("");
 
   const { userInfo, setUserInfo } = useContext(UserContext);
+  const [menubarHidden, setMenuBarVisibility] = useState(false);
+  const [sidebarHidden, setSideBarVisibility] = useState(true);
+  const [sideBarContentVisible, setSideBarContentVisibility] = useState(false);
 
   // path config http://localhost:8080/
   let path = config();
@@ -78,8 +82,28 @@ const Header = (props) => {
     }
   };
 
+  const handlemobileDesktopView =(device)=>{
+    console.log("device::",device);
+    if(device==="mobile"){
+      setMenuBarVisibility(true);
+      setSideBarVisibility(false);
+    }
+    else{
+      setMenuBarVisibility(false);
+      setSideBarVisibility(true);
+    }
+  }
+
+  const handleSideBarClick =()=>{
+    console.log("sideBarContentVisible::",sideBarContentVisible);
+      setSideBarContentVisibility(!sideBarContentVisible);
+  }
   // Get logged user info from backend
   useEffect(() => {
+    let device = deviceType;//
+    //"mobile";//comment afterwards for device detection
+    handlemobileDesktopView(device);
+
     Axios.get(path + "auth/login/success", {
       withCredentials: true,
     })
@@ -100,7 +124,7 @@ const Header = (props) => {
 
   return (
     <Fragment color="blue">
-      <Menu fixed="top" inverted color="blue">
+      <Menu fixed="top" inverted color="blue" hidden={menubarHidden}>
         <Container>
           <Menu.Item
             name="home"
@@ -167,6 +191,85 @@ const Header = (props) => {
           )}
         </Container>
       </Menu>
+      <div hidden={sidebarHidden}>
+      <Button  onClick={handleSideBarClick} fixed>
+            <Icon name="bars"/>
+      </Button>
+      <Sidebar visible={sideBarContentVisible}
+               as={Menu}
+               animation='slide along'
+               direction='left'
+               icon='labeled'
+               vertical
+               width='thin'              
+               >
+        <Container>
+          <Menu.Item
+            name="home"
+            active={activeItem === "home"}
+            as="a"
+            onClick={handleHome}
+            header
+          >
+            Professional Development Club
+          </Menu.Item>
+          <Menu.Item
+            name="OurTeam"
+            active={activeItem === "OurTeam"}
+            onClick={handleOurTeam}
+          >
+            Our Team
+          </Menu.Item>
+          {!userInfo.authenticated ||
+          (userInfo.user && (userInfo.user.company || userInfo.user.admin)) ? (
+            <Menu.Item name="hirestudent"
+            active={activeItem === "hirestudent"}
+            onClick={handlehirestudent}>Hire Students</Menu.Item>
+          ) : (
+            ""
+          )}
+
+          {!userInfo.authenticated ||
+          (userInfo.user && !userInfo.user.company) ? (
+            <Menu.Item name="Student"
+            active={activeItem === "Student"}
+            onClick={handleStudent}>For Students</Menu.Item>
+          ) : (
+            ""
+          )}
+          <Menu.Item name="Alumni"
+            active={activeItem === "Alumni"}
+            onClick={handleAlumni}>For Alumni</Menu.Item>
+          <Menu.Item
+            name="Covid19"
+            active={activeItem === "Covid19"}
+            onClick={handleCovid19}>Updates on COVID-19</Menu.Item>
+          <Menu.Item
+            name="Events"
+            active={activeItem === "Events"}
+            onClick={handleEvents}
+          >
+            Events
+          </Menu.Item>
+          <Menu.Item
+            name="projectList"
+            active={activeItem === "projectList"}
+            onClick={handleProjectList}
+          >
+            Project List
+          </Menu.Item>
+          {userInfo.authenticated ? (
+            <LogedInMenu
+              logOut={handleLogout}
+              username={userInfo.user.name}
+              userPicture={userInfo.user.picture}
+            />
+          ) : (
+            <LogedOutMenu logIn={handleLogin} />
+          )}
+        </Container>
+      </Sidebar>
+      </div>
     </Fragment>
   );
 };
