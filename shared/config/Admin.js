@@ -11,5 +11,6 @@ module.exports = {
     "yyang308@uottawa.ca",
     "pdasi056@uottawa.ca",
     "yliu538@uottawa.ca",
+    "lpeyton@uottawa.ca",
   ],
 };
