@@ -46,35 +46,42 @@ const Header = (props) => {
   const handleHome = (e, { name }) => {
     history.push("/");
     setActiveItem(name);
+    handleSideBarClick();
   };
 
   const handleOurTeam = (e, { name }) => {
     history.push("/OurTeam");
     setActiveItem(name);
+    handleSideBarClick();
   };
   const handleEvents = (e, { name }) => {
     history.push("/events");
     setActiveItem(name);
+    handleSideBarClick();
   };
 
   const handleStudent = (e, { name }) => {
     history.push("/student");
     setActiveItem(name);
+    handleSideBarClick();
   };
 
   const handlehirestudent = (e, { name }) => {
     history.push("/hirestudent");
     setActiveItem(name);
+    handleSideBarClick();
   };
 
   const handleAlumni = (e, { name }) => {
     history.push("/alumni");
     setActiveItem(name);
+    handleSideBarClick();
   };
 
   const handleCovid19 = (e, { name }) => {
     history.push("/covid");
     setActiveItem(name);
+    handleSideBarClick();
   };
 
   const handleProjectList = (e, { name }) => {
@@ -84,6 +91,7 @@ const Header = (props) => {
     } else {
       alert("You need to login!");
     }
+    handleSideBarClick();
   };
 
   const handlemobileDesktopView = (device) => {
@@ -209,7 +217,7 @@ const Header = (props) => {
             <LogedOutMenu logIn={handleLogin} />
           )}
         </Container>
-        {/* </Menu> */}
+        {/* Sidebar */}
         <Container hidden={sidebarHidden}>
           <Button onClick={handleSideBarClick} color="blue">
             <Icon name="bars" />
