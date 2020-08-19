@@ -37,6 +37,7 @@ const Header = (props) => {
   const handleLogin = () => {
     //window.open(path + "auth/login", "_self");
     history.push("/signin");
+    handleSideBarClick();
   };
 
   const handleLogout = () => {
