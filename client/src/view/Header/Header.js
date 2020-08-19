@@ -96,7 +96,7 @@ const Header = (props) => {
   };
 
   const handlemobileDesktopView = (device) => {
-    console.log("device::", device);
+    //console.log("device::", device);
     if (device === "mobile" || device === "tablet") {
       setMenuBarVisibility(true);
       setSideBarVisibility(false);
@@ -107,13 +107,12 @@ const Header = (props) => {
   };
 
   const handleSideBarClick = () => {
-    console.log("sideBarContentVisible::", sideBarContentVisible);
+    //console.log("sideBarContentVisible::", sideBarContentVisible);
     setSideBarContentVisibility(!sideBarContentVisible);
   };
   // Get logged user info from backend
   useEffect(() => {
     let device = deviceType; //
-    //"mobile";//comment afterwards for device detection
     handlemobileDesktopView(device);
 
     Axios.get(path + "auth/login/success", {
@@ -136,7 +135,6 @@ const Header = (props) => {
 
   return (
     <Fragment color="blue">
-      {/* <Menu  inverted color="blue"> */}
       <Menu fixed="top" inverted color="blue">
         <Container inverted color="blue" hidden={menubarHidden}>
           <Menu.Item
