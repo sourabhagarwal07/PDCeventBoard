@@ -37,7 +37,8 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "path": "^0.12.7",
-    "react-scripts": "^3.4.2",
+    "react-device-detect": "^1.13.1",
+    "react-scripts": "^3.4.3",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2"
   },
