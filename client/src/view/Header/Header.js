@@ -89,7 +89,6 @@ const Header = (props) => {
   const handlemobileDesktopView = (device) => {
     console.log("device::", device);
     if (device === "mobile" || device === "tablet") {
-      alert(device);
       setMenuBarVisibility(true);
       setSideBarVisibility(false);
     } else {
