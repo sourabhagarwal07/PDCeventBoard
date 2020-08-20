@@ -126,7 +126,9 @@ const ProjectDetailedHeader = ({
             </Modal.Actions>
           </Modal>
         </Segment>
-      ) : !userInfo.user.company ? (
+      ) : userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
+        ""
+      ) : (
         <Segment attached="bottom" clearing>
           {/* use email to judge the student applied or not */}
           {userInfo.user &&
@@ -139,8 +141,6 @@ const ProjectDetailedHeader = ({
             </Button>
           )}
         </Segment>
-      ) : (
-        ""
       )}
     </Segment.Group>
   );
