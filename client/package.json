@@ -17,6 +17,7 @@
     "moment": "^2.27.0",
     "pizzly-js": "^0.2.7",
     "react": "^16.13.1",
+    "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^5.7.2",
     "react-lines-ellipsis": "^0.14.1",
