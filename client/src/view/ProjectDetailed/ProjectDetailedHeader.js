@@ -90,7 +90,10 @@ const ProjectDetailedHeader = ({
         </Segment>
       </Segment>
       {/* For student, only show Apply button. For company and admin, show Manage and Delete button */}
-      {userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
+      {userInfo.user &&
+      (userInfo.user.company || userInfo.user.admin) &&
+      project.user &&
+      project.user[0].email === userInfo.user.email ? (
         <Segment attached="bottom" clearing>
           <Button color="orange" onClick={handleManage}>
             Manage Project
@@ -123,6 +126,8 @@ const ProjectDetailedHeader = ({
             </Modal.Actions>
           </Modal>
         </Segment>
+      ) : userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
+        ""
       ) : (
         <Segment attached="bottom" clearing>
           {/* use email to judge the student applied or not */}

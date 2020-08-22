@@ -56,8 +56,13 @@ const ProjectDeatiledPage = (props) => {
       </Grid.Column>
       <Grid.Column width={6}>
         <ProjectDetailedSidebar project={projectDetails} />
-        {userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
-          <ProjectDetailedAppliedStudents appliedStudentsList={appliedStudentsList} />
+        {userInfo.user &&
+        (userInfo.user.company || userInfo.user.admin) &&
+        projectDetails.user &&
+        projectDetails.user[0].email === userInfo.user.email ? (
+          <ProjectDetailedAppliedStudents
+            appliedStudentsList={appliedStudentsList}
+          />
         ) : (
           ""
         )}
