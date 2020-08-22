@@ -94,6 +94,7 @@ const CreateEvent = (props) => {
       end: {timezone: "America/Toronto", utc: time.endDate+"T"+data.value+"Z"}
     })
   };
+  
   const { history } = useReactRouter();
   // post project info to server
   const handleFormSubmit = async (e) => {
