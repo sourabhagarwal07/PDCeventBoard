@@ -41,23 +41,7 @@ const CreateEvent = (props) => {
     logo_id:"108521843"
   });
 
-  /**
-   * Category options:
-   * include Machine Learning, Web Development, Game Development for now.
-   */
   const timeOptions = [
-    // { key: "12am", text: "12:00 AM", value: "00:00:00" },
-    // { key: "12.30am", text: "12:30 AM", value: "00:30:00" },
-    // { key: "1am", text: "1:00 AM", value: "01:00:00" },
-    // { key: "1.30am", text: "1:30 AM", value: "01:30:00" },
-    // { key: "2am", text: "2:00 AM", value: "02:00:00" },
-    // { key: "2.30am", text: "2:30 AM", value: "02:30:00" },
-    // { key: "3am", text: "3:00 AM", value: "03:00:00" },
-    // { key: "3.30am", text: "3:30 AM", value: "03:30:00" },
-    // { key: "4am", text: "4:00 AM", value: "04:00:00" },
-    // { key: "4.30am", text: "4:30 AM", value: "04:30:00" },
-    // { key: "5am", text: "5:00 AM", value: "05:00:00" },
-    // { key: "5.30am", text: "5:30 AM", value: "05:30:00" },
     { key: "6am", text: "6:00 AM", value: "06:00:00" },
     { key: "6.30am", text: "6:30 AM", value: "06:30:00" },
     { key: "7am", text: "7:00 AM", value: "07:00:00" },

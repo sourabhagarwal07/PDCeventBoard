@@ -15,13 +15,13 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 
-const Bearer = require("@bearer/node-agent");
-Bearer.init({
-  secretKey: "app_e04e30106f9bf35da5d6051bd20962a2c939ca705198fe0001",
-  stripSensitiveData: true,
-}).then(() => {
-  console.log("Bearer Initialized!");
-});
+// const Bearer = require("@bearer/node-agent");
+// Bearer.init({
+//   secretKey: "app_e04e30106f9bf35da5d6051bd20962a2c939ca705198fe0001",
+//   stripSensitiveData: true,
+// }).then(() => {
+//   console.log("Bearer Initialized!");
+// });
 
 const app = express();
 

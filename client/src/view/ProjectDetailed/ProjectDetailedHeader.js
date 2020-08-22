@@ -59,7 +59,12 @@ const ProjectDetailedHeader = ({
   };
 
   const handleApply = () => {
-    history.push("/students/apply/" + id);
+    if (userInfo.authenticated) {
+      history.push("/students/apply/" + id);
+    } else {
+      alert("You need to login first!");
+      history.push("/signin");
+    }
   };
 
   return (
@@ -85,7 +90,10 @@ const ProjectDetailedHeader = ({
         </Segment>
       </Segment>
       {/* For student, only show Apply button. For company and admin, show Manage and Delete button */}
-      {userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
+      {userInfo.user &&
+      (userInfo.user.company || userInfo.user.admin) &&
+      project.user &&
+      project.user[0].email === userInfo.user.email ? (
         <Segment attached="bottom" clearing>
           <Button color="orange" onClick={handleManage}>
             Manage Project
@@ -118,15 +126,19 @@ const ProjectDetailedHeader = ({
             </Modal.Actions>
           </Modal>
         </Segment>
+      ) : userInfo.user && (userInfo.user.company || userInfo.user.admin) ? (
+        ""
       ) : (
         <Segment attached="bottom" clearing>
-          {JSON.stringify(appliedStudentsList).indexOf(userInfo.user.email) ===
-          -1 ? (
+          {/* use email to judge the student applied or not */}
+          {userInfo.user &&
+          JSON.stringify(appliedStudentsList).indexOf(userInfo.user.email) !==
+            -1 ? (
+            <Button disabled floated="right" color="orange" content="Applied" />
+          ) : (
             <Button floated="right" color="green" onClick={handleApply}>
               Apply
             </Button>
-          ) : (
-            <Button disabled floated="right" color="orange" content="Applied" />
           )}
         </Segment>
       )}

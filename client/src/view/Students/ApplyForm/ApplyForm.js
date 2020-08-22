@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
-import { Segment, Form, TextArea, Button } from "semantic-ui-react";
+import { Segment, Form, Button } from "semantic-ui-react";
 import Axios from "axios";
 import { config } from "../../../common/config/config";
 import UploadResume from "./UploadResume";
 import { UserContext } from "../../../common/context/UserProvider";
+import TextareaAutosize from "react-textarea-autosize";
 
 const ApplyForm = (props) => {
   const path = config();
@@ -32,7 +33,7 @@ const ApplyForm = (props) => {
       .catch((e) => {
         console.log(e);
       });
-      props.history.push("/project-list");
+    props.history.push("/project-list");
   };
 
   const handleFormChange = ({ target: { name, value } }) => {
@@ -75,18 +76,14 @@ const ApplyForm = (props) => {
           />
         </Form.Field>
 
-        <Form.Field>
-          <label>
-            Description explaining why you're interested in this project
-          </label>
-          <TextArea
-            name="description"
-            value={applyInfo.description}
-            onChange={handleFormChange}
-            rows={3}
-            placeholder="Enter your description"
-          />
-        </Form.Field>
+        <Form.Field
+          control={TextareaAutosize}
+          name="description"
+          label="Description explaining why you're interested in this project"
+          placeholder="Enter your description"
+          onChange={handleFormChange}
+          value={applyInfo.description}
+        ></Form.Field>
 
         <Form.Field>
           <label>Upload your resume</label>

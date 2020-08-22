@@ -17,8 +17,8 @@ const ProjectDetailedInfo = ({ project }) => {
           </Grid.Column>
           <Grid.Column width={15}>
             <span>
-              {project.startDate}
-              {project.expireDate ? "  To  " + project.expireDate : ""}
+              {project.postedOn}
+              {project.postedOn ? "  To  " + project.validUntil : ""}
             </span>
           </Grid.Column>
         </Grid>

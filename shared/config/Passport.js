@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // pass user.id to encrypt
-passport.serializeUser((user, done) => {
+passport.serializeUser((req, user, done) => {
   done(null, user);
 });
 

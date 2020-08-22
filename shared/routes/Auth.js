@@ -25,6 +25,7 @@ router.get(
   passport.authenticate("google", {
     failureRedirect: "/auth/failed",
     successRedirect: path,
+    failureFlash: true,
   })
 );
 
@@ -59,7 +60,7 @@ router.get("/logout", (req, res) => {
 router.get(
   "/linkedin",
   passport.authenticate("linkedin", {
-    scope: ["r_emailaddress", "r_liteprofile"],//,"r_fullprofile"],
+    scope: ["r_emailaddress", "r_liteprofile"], //,"r_fullprofile"],
     prompt: "select_account",
     state: "SOME STATE",
   }),
@@ -76,5 +77,6 @@ router.get(
     successRedirect: path,
   })
 );
+
 
 module.exports = router;
