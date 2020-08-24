@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Card, Image} from 'semantic-ui-react';
+import moment from 'moment';
 
 const EventCard = ({ event }) => {
   let { text } = event.description;
@@ -8,7 +9,7 @@ const EventCard = ({ event }) => {
   }
 
   const timeDisplay = (time) => {
-    console.log(time);
+
     //example: time = "2020-08-15T07:30:00"
     time = time.split("T");  // time = ["2020-08-15", "07:30:00"]
     let time0 = time[0].split("-"); // time0 = ["2020", "08", "15"];
@@ -22,6 +23,7 @@ const EventCard = ({ event }) => {
       }
     }
     let timeT = time1[0]+":"+time1[1]+" "+ampm;  //timeT="07:30 AM"
+   
     return time = timeD+" "+" "+timeT;
   }
 

@@ -8,6 +8,8 @@ const CreateTicket = (props) => {
   const { state } = props.location;
   console.log(state);
   const event_id = state;
+  // const status = state[1];
+  // console.log(status);
 
   const [isDisable, setDisable] = useState(true);
 

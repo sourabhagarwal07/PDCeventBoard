@@ -13,6 +13,8 @@ import { EventsContext } from "../../common/context/EventContext";
 import { config } from "../../common/config/config";
 import CreateTicket from "./createTicket";
 import useReactRouter from "use-react-router";
+import moment from 'moment';
+
 // import UploadFile from "./UploadFile";
 
 /**
@@ -82,18 +84,27 @@ const CreateEvent = (props) => {
 
   // handle dropdown category
   const handleStartTimeChange = (e, data) => {
+    let localTime = time.startDate + "T" + data.value;
+    let utcTime = moment(localTime).add(4, 'hours').format();
+    utcTime = utcTime.slice(0, 19);
+    console.log(utcTime);
     setEvent({
       ...event,
-      start:{ timezone: "America/Toronto", utc: time.startDate+"T"+data.value+"Z" },
+      start:{ timezone: "America/Toronto", utc: utcTime+"Z" },
     })
   };
 
   const handleEndTimeChange = (e, data) => {
+    let localTime = time.startDate + "T" + data.value;
+    let utcTime = moment(localTime).add(4, 'hours').format();
+    utcTime = utcTime.slice(0, 19);
+    console.log(utcTime);
     setEvent({
       ...event,
-      end: {timezone: "America/Toronto", utc: time.endDate+"T"+data.value+"Z"}
+      end: {timezone: "America/Toronto", utc: utcTime+"Z"}
     })
   };
+
   const { history } = useReactRouter();
   // post project info to server
   const handleFormSubmit = async (e) => {

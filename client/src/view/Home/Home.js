@@ -3,6 +3,8 @@ import { Image, Grid, Segment } from "semantic-ui-react";
 import "./Home.css";
 
 const Home = (props) => {
+  console.log(window.innerWidth);
+  console.log(window.innerHeight)
   return (
     <Fragment>
       <Segment placeholder>
