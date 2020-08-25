@@ -3,8 +3,9 @@ const User = require("../models/UserModel");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
-const keys = require("./Keys");
+//const keys = require("./Keys");
 const Admin = require("./Admin");
+require('dotenv').config()
 
 // for deploy
 let path = "/";
@@ -36,8 +37,8 @@ passport.deserializeUser((user, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
+      clientID: process.env.googleClientID,
+      clientSecret: process.env.googleClientSecret,
       callbackURL: path + "auth/login/callback",
     },
     (accessToken, refreshToken, profile, done) => {
@@ -103,8 +104,8 @@ passport.use(
 passport.use(
   new LinkedInStrategy(
     {
-      clientID: keys.linkedinClientID,
-      clientSecret: keys.linkedinClientSecret,
+      clientID: process.env.linkedinClientID,
+      clientSecret: process.env.linkedinClientSecret,
       callbackURL: path + "auth/linkedin/callback",
       scope: ["r_emailaddress", "r_liteprofile"],
     },

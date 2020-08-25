@@ -5,7 +5,7 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const passportSetup = require("./shared/config/Passport");
 const passport = require("passport");
-const keys = require("./shared/config/Keys");
+//const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
 const projectRoutes = require("./shared/routes/ProjectRoute");
 const studentRoutes = require("./shared/routes/StudentRoute");
@@ -14,6 +14,7 @@ const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+require('dotenv').config()
 
 // const Bearer = require("@bearer/node-agent");
 // Bearer.init({
@@ -55,7 +56,7 @@ app.all("*", function (req, res, next) {
 app.use(
   cookieSession({
     name: "session",
-    keys: [keys.cookieKey],
+    keys: [process.env.cookieKey],
     maxAge: 24 * 60 * 60 * 1000,
   })
 );

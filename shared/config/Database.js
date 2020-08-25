@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
-const keys = require("./Keys");
+//const keys = require("./Keys");
+require('dotenv').config()
 
 const config = {
   useNewUrlParser: true,
   useUnifiedTopology: true
 };
 
-mongoose.connect(keys.mongoURI, config, () => {
+mongoose.connect(process.env.mongoURI, config, () => {
   console.log("connected to mongo db");
 });
 
