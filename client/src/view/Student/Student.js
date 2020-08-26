@@ -27,9 +27,9 @@ const Student = (props) => {
           <a class="item" href="#/fswep/">
             Programs Recognized by FSWEP
           </a>
-          <a class="item" href="#/gng5299">
+          {/* <a class="item" href="#/gng5299">
             GNG5299 Project Proposal Form
-          </a>
+          </a> */}
           <a
             class="item"
             href="https://professionaldevclub.files.wordpress.com/2020/05/gng5902_proposal-template.docx"
