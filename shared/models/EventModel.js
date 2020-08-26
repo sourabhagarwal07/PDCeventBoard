@@ -7,9 +7,8 @@ const eventSchema = new Schema({
   end: String,
   currency: String,
   online_event: Boolean,
-  summary: String,
   description: String,
-  logo_id:String
+  ticketInfo: Object
 })
 
 const Event = mongoose.model("event", eventSchema);

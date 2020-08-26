@@ -38,7 +38,6 @@ const CreateEvent = (props) => {
     end: { timezone: "America/Toronto", utc: "" },
     currency: "USD",
     online_event: false,
-    summary:"",
     description: {html: ""},
     logo_id:"108521843"
   });
@@ -87,7 +86,6 @@ const CreateEvent = (props) => {
     let localTime = time.startDate + "T" + data.value;
     let utcTime = moment(localTime).add(4, 'hours').format();
     utcTime = utcTime.slice(0, 19);
-    console.log(utcTime);
     setEvent({
       ...event,
       start:{ timezone: "America/Toronto", utc: utcTime+"Z" },
@@ -95,10 +93,9 @@ const CreateEvent = (props) => {
   };
 
   const handleEndTimeChange = (e, data) => {
-    let localTime = time.startDate + "T" + data.value;
+    let localTime = time.endDate + "T" + data.value;
     let utcTime = moment(localTime).add(4, 'hours').format();
     utcTime = utcTime.slice(0, 19);
-    console.log(utcTime);
     setEvent({
       ...event,
       end: {timezone: "America/Toronto", utc: utcTime+"Z"}
@@ -115,11 +112,12 @@ const CreateEvent = (props) => {
     }
 
     console.log(testdata);
+    console.log(event);
     axios.post('https://www.eventbriteapi.com/v3/organizations/464741062423/events/?token=2SWITQPH72SPNCSRK7OW', testdata)
     .then(response => { 
         const path = {
         pathname: "/create-ticket",
-        state: response.data.id
+        state: [response.data.id, event]
       }
       console.log(response);
       alert("Your event is saved and please fill up ticket information")

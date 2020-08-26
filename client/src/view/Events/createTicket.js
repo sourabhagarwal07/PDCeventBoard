@@ -6,10 +6,20 @@ import { config } from "../../common/config/config";
 const CreateTicket = (props) => {
   //event id got from the response from create event page
   const { state } = props.location;
-  console.log(state);
-  const event_id = state;
-  // const status = state[1];
-  // console.log(status);
+  const path = config();
+  console.log(state); 
+  const event_id = state[0];
+  // console.log(state[1]);
+
+  const [event, setEvent] = useState({
+    name: state ? state[1].name.html : "",
+    start: state ? state[1].start.utc: "",
+    end: state ? state[1].end.utc: "",
+    currency: state ? state[1].currency : "",
+    online_event: state ? state[1].online_event: false,
+    description: state ? state[1].description.html : "",
+    ticketInfo: {}
+  });
 
   const [isDisable, setDisable] = useState(true);
 
@@ -23,6 +33,11 @@ const CreateTicket = (props) => {
     e.preventDefault();
 
     const ticket_data = { ticket_class: ticket };
+
+    setEvent({
+      ...event,
+      ticketInfo: ticket
+    })
 
     console.log(ticket_data);
     axios
@@ -41,6 +56,14 @@ const CreateTicket = (props) => {
   };
 
   const publish = () => {
+    console.log(event);
+    axios.post(path + "event", event)
+      .then((res) => {
+        res.send("stored data")
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     axios
       .post(
         `https://www.eventbriteapi.com/v3/events/${event_id}/publish/?token=2SWITQPH72SPNCSRK7OW`

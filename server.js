@@ -10,6 +10,7 @@ const authRoutes = require("./shared/routes/Auth");
 const projectRoutes = require("./shared/routes/ProjectRoute");
 const studentRoutes = require("./shared/routes/StudentRoute");
 const uploadRoutes = require("./shared/routes/Upload");
+const eventRoutes = require("./shared/routes/EventRoute")
 const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -87,5 +88,6 @@ app.use("/auth", authRoutes);
 app.use("/", projectRoutes);
 app.use("/student", studentRoutes);
 app.use("/file", uploadRoutes);
+app.use("/", eventRoutes);
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));

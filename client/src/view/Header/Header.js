@@ -15,6 +15,8 @@ import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 import { deviceType } from "react-device-detect";
 
+import { useWindowDimensions } from '../../common/context/WindowDimensionsProvider'
+
 /**
  * @author @binjiasata
  * @description This is the navbar, contains PDC icon, project list button,
@@ -22,6 +24,12 @@ import { deviceType } from "react-device-detect";
  *
  */
 const Header = (props) => {
+  // const { width } = useWindowDimensions();
+  // const [width, setWidth] = useState(window.innerWidth)
+  
+  const { width } = useWindowDimensions()
+  const breakpoint = 730;
+
   const { history } = useReactRouter();
   const [activeItem, setActiveItem] = useState("");
 
@@ -86,25 +94,34 @@ const Header = (props) => {
   };
 
   const handleProjectList = (e, { name }) => {
-    if (userInfo.authenticated) {
-      history.push("/project-list");
-      setActiveItem(name);
-    } else {
-      alert("You need to login!");
-    }
+    history.push("/project-list");
+    setActiveItem(name);
     handleSideBarClick();
   };
+  console.log(width);
 
-  const handlemobileDesktopView = (device) => {
+
+  const handlemobileDesktopView = (width) => {
     //console.log("device::", device);
-    if (device === "mobile" || device === "tablet") {
+
+
+    if(width < breakpoint) {
       setMenuBarVisibility(true);
       setSideBarVisibility(false);
     } else {
       setMenuBarVisibility(false);
       setSideBarVisibility(true);
     }
+    
+    // if (device === "mobile" || device === "tablet") {
+    //   setMenuBarVisibility(true);
+    //   setSideBarVisibility(false);
+    // } else {
+    //   setMenuBarVisibility(false);
+    //   setSideBarVisibility(true);
+    // }
   };
+
 
   const handleSideBarClick = () => {
     //console.log("sideBarContentVisible::", sideBarContentVisible);
@@ -112,8 +129,13 @@ const Header = (props) => {
   };
   // Get logged user info from backend
   useEffect(() => {
-    let device = deviceType; //
-    handlemobileDesktopView(device);
+    let device = deviceType; 
+    
+    // setWidth(window.innerWidth)
+
+    handlemobileDesktopView(width);
+    // handlemobileDesktopView(device);
+    // window.addEventListener('resize', handleResize)
 
     Axios.get(path + "auth/login/success", {
       withCredentials: true,
@@ -131,12 +153,12 @@ const Header = (props) => {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [width]);
 
   return (
-    <Fragment color="blue">
-      <Menu fixed="top" inverted color="blue">
-        <Container inverted color="blue" hidden={menubarHidden}>
+    <Fragment>
+      <Menu fixed="top" inverted>
+        <Container inverted="true" hidden={menubarHidden}>
           <Menu.Item
             name="home"
             active={activeItem === "home"}
