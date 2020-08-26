@@ -86,12 +86,12 @@ const Header = (props) => {
   };
 
   const handleProjectList = (e, { name }) => {
-    if (userInfo.authenticated) {
+    //if (userInfo.authenticated) {
       history.push("/project-list");
       setActiveItem(name);
-    } else {
-      alert("You need to login!");
-    }
+    // } else {
+    //   alert("You need to login!");
+    // }
     handleSideBarClick();
   };
 
