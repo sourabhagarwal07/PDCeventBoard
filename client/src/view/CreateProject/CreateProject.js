@@ -31,7 +31,7 @@ const CreateProject = (props) => {
     hostedBy: state
       ? state.hostedBy
       : user && user.admin
-      ? "EGS-PDC"
+      ? "GES-PDC"
       : user.company
       ? "Company Name"
       : "",

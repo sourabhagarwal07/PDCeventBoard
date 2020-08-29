@@ -1,6 +1,10 @@
 import React, { Fragment } from "react";
 import { config } from "../../common/config/config";
+<<<<<<< HEAD
 import {Divider,  Button, Image, Grid } from "semantic-ui-react";
+=======
+import { Button, Image, Grid, Divider } from "semantic-ui-react";
+>>>>>>> 8adb38a51b84af7edef50861c999113a35e77d18
 
 const Signin = (props) => {
   let path = config();
@@ -21,6 +25,7 @@ const Signin = (props) => {
   return (
     <Fragment>
       <Grid columns={2} stackable textAlign="center">
+      <Divider vertical>Or</Divider>
         <Grid.Column>
           <Image centered size="medium" src="/assets/student.png" />
           <h2>If you are a student, please log in with Google</h2>
