@@ -24,7 +24,7 @@ const Footer = () => {
   };
   return (
     <Fragment>
-      <Menu fixed="bottom">
+      <Menu>
         <Segment inverted color="blue" vertical className="footer">
           <Container textAlign="center">
             <Grid divided inverted stackable>
