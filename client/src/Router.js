@@ -52,7 +52,7 @@ const Routers = () => {
             <Route  exact path="/fswep" component={Fswep}/>
             <Route  exact path="/student-form" component={StudentForm}/>
             <Route  exact path="/resume-guidelines" component={ResumeGuidelines}/>
-            <Route  exact path="/gng5299" component={GNG5299}/>
+            <Route  exact path="/useful-links" component={GNG5299}/>
             <Route exact path="/hirestudent" component={HireStudent} />
             <Route exact path="/alumni" component={Alumni} />
             <Route exact path="/covid" component={Covid19}/>

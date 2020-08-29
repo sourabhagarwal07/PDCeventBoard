@@ -27,8 +27,8 @@ const Student = (props) => {
           <a class="item" href="#/fswep/">
             Programs Recognized by FSWEP
           </a>
-          <a class="item" href="#/gng5299">
-            GNG5299 Project Proposal Form
+          <a class="item" href="#/useful-links">
+          Useful University Resources for Newly Admitted Students
           </a>
           <a
             class="item"
