@@ -161,7 +161,7 @@ const Home = (props) => {
               <Image centered size="large" src="/assets/Ajay 2.jpg" />
               <h2>Ajay Modagi</h2>
               <h3>Project Manager</h3>
-              <p>atiwa061@uottawa.ca</p>
+              <p>amoda040@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
                   active={activeIndex === 6}
