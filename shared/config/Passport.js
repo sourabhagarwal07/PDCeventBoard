@@ -3,9 +3,10 @@ const User = require("../models/UserModel");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
+const OutlookStrategy = require("passport-outlook").Strategy;
 //const keys = require("./Keys");
 const Admin = require("./Admin");
-require('dotenv').config()
+require("dotenv").config();
 
 // for deploy
 let path = "/";
@@ -132,6 +133,32 @@ passport.use(
             done(null, newUser);
           });
         }
+      });
+    }
+  )
+);
+
+passport.use(
+  new OutlookStrategy(
+    {
+      clientID: '437c66d0-bc95-4949-9e48-4be5009c1adf',
+      clientSecret: 'yVL62sS74Ak8Sgq8-_IE~q_SX1_DoVVMZ~',
+      callbackURL: path + "auth/outlook/callback",
+      tenant: 'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
+      useCommonEndpoint: "https://login.microsoftonline.com/common"
+    },
+    function (accessToken, refreshToken, profile, done) {
+      var user = {
+        outlookId: profile.id,
+        name: profile.DisplayName,
+        email: profile.EmailAddress,
+        accessToken: accessToken,
+      };
+      if (refreshToken) user.refreshToken = refreshToken;
+      // if (profile.MailboxGuid) user.mailboxGuid = profile.MailboxGuid;
+      if (profile.Alias) user.alias = profile.Alias;  
+      User.findOrCreate(user, function (err, user) {
+        return done(err, user);
       });
     }
   )

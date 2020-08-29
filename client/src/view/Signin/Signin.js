@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { config } from "../../common/config/config";
-import { Button, Image, Grid } from "semantic-ui-react";
+import {Divider,  Button, Image, Grid } from "semantic-ui-react";
 
 const Signin = (props) => {
   let path = config();
@@ -14,6 +14,10 @@ const Signin = (props) => {
     window.open(path + "auth/linkedin", "_self");
   };
 
+  const handleOutlookLogin = () => {
+    window.open(path + "auth/outlook", "_self")
+  }
+
   return (
     <Fragment>
       <Grid columns={2} stackable textAlign="center">
@@ -23,6 +27,10 @@ const Signin = (props) => {
           <Button onClick={handleGoogleLogin}>
             <i className="google icon"></i>
             Sign in with Google
+          </Button>
+          Or
+          <Button onClick={handleOutlookLogin}>
+            Sign in with Outlook
           </Button>
         </Grid.Column>
         <Grid.Column>
