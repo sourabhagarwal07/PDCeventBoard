@@ -27,6 +27,7 @@ const CreateEvent = (props) => {
   const [time, setTime] = useState({
     startDate:"",
     endDate:"",
+    startTime:""
   });
 
   const [isOnline, setOnline] = useState(false);
@@ -86,6 +87,10 @@ const CreateEvent = (props) => {
     let localTime = time.startDate + "T" + data.value;
     let utcTime = moment(localTime).add(4, 'hours').format();
     utcTime = utcTime.slice(0, 19);
+    setTime({
+      ...time,
+      startTime: data.value
+    })
     setEvent({
       ...event,
       start:{ timezone: "America/Toronto", utc: utcTime+"Z" },
@@ -93,6 +98,14 @@ const CreateEvent = (props) => {
   };
 
   const handleEndTimeChange = (e, data) => {
+    console.log(time.endDate);
+    if(time.endDate < time.startDate || (time.endDate == time.startDate && time.startTime > data.value)){
+      alert("End time cannot before the start time!!");
+      setTime({
+        ...time,
+        endDate: ""
+      })
+    } 
     let localTime = time.endDate + "T" + data.value;
     let utcTime = moment(localTime).add(4, 'hours').format();
     utcTime = utcTime.slice(0, 19);
@@ -138,7 +151,7 @@ const CreateEvent = (props) => {
     if (name == "name" || name == "description") {
       setEvent({
         ...event,
-        [name]: {html: value }
+        [name]: { html: value }
       });
     } else {setEvent({
         ...event,
@@ -152,6 +165,21 @@ const CreateEvent = (props) => {
       ...time,
       [name]: value
     })
+    console.log(name, value);
+    if(name === "startDate"){
+      let currentDate = new Date();
+      // console.log("this is the startDate")
+      if(value.slice(0,4) < currentDate.getFullYear() || 
+        (value.slice(0,4) == currentDate.getFullYear() && value.slice(5,7) < currentDate.getMonth()+1) ||
+        (value.slice(0,4) == currentDate.getFullYear() && value.slice(5,7) == (currentDate.getMonth()+1) && value.slice(8,10) < currentDate.getUTCDate())){
+        alert("start Date cannot before current Date!!")
+        setTime({
+          ...time,
+          [name] : ""
+        })
+
+      } 
+    }
   }
 
   return (
