@@ -142,7 +142,7 @@ passport.use(
   new OutlookStrategy(
     {
       clientID: '437c66d0-bc95-4949-9e48-4be5009c1adf',
-      clientSecret: 'yVL62sS74Ak8Sgq8-_IE~q_SX1_DoVVMZ~',
+      clientSecret: 'taW.ba1_Dqx_CF73d60r.SjC0B_Ylf3Jc_',
       callbackURL: path + "auth/outlook/callback",
       tenant: 'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
       useCommonEndpoint: "https://login.microsoftonline.com/common"

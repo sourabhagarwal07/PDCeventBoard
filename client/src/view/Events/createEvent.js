@@ -40,6 +40,7 @@ const CreateEvent = (props) => {
     currency: "USD",
     online_event: false,
     description: {html: ""},
+    // logo:{id: "108521843", url: "https://ibb.co/rx2HPkG"}
     logo_id:"108521843"
   });
 
