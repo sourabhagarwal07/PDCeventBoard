@@ -1,3 +1,9 @@
+/**
+ * @author @yiyinzhang
+ * @description Create a new event and push it to eventbrite.
+ */
+
+ 
 import React, { useState, useContext, useEffect } from "react";
 import { Button, Form, Segment, Grid, Confirm } from "semantic-ui-react";
 import axios from "axios";

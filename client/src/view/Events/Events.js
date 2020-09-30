@@ -1,3 +1,8 @@
+/**
+ * @author @yiyinzhang
+ * @description Create a new event and push it to eventbrite.
+ */
+
 import React, { Fragment, useState, useEffect, useContext } from "react";
 
 import { Card, Dropdown } from "semantic-ui-react";
@@ -90,29 +95,6 @@ const Events = (props) => {
         selection
         options={eventsOptions}
       />
-      {/* <Dropdown
-        placeholder={placeholder}
-        fluid
-        selection
-        options={friendOptions}
-      >
-        <Dropdown.Menu>
-          <Fragment>
-            <Dropdown.Item
-              onClick={showPastEvent}
-              text="Past Events"
-              key="Past Events"
-              value="Past Events"
-            />
-            <Dropdown.Item onClick={showFutureEvent} text="Future Events" />
-          </Fragment>
-        </Dropdown.Menu>
-      </Dropdown> */}
-      {/* <SearchBox 
-        placeholder = ""
-        handleChange = {e => setSearchField(e.target.value)
-        }
-      /> */}
       <Card.Group itemsPerRow={columnNumber}>
         {filteredEvents === undefined
           ? null

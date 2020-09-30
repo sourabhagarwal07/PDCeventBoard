@@ -20,7 +20,7 @@ import ProjectDeatiledPage from "./view/ProjectDetailed/ProjectDeatiledPage";
 import Events from "./view/Events/Events";
 import CreateEvent from './view/Events/createEvent';
 import CreateTicket from './view/Events/createTicket';
-import UploadLogo from './view/Events/uploadLogo';
+import UploadLogo from './view/Events/logoUpload';
 
 import Admin from "./view/Admin/Admin";
 import { Container } from "semantic-ui-react";

@@ -1,3 +1,8 @@
+/**
+ * @author @yiyinzhang
+ * @description Create a new event and push it to eventbrite.
+ */
+
 import React, { useState } from "react";
 import {
   Button,
@@ -17,11 +22,7 @@ import moment from "moment";
 
 // import UploadFile from "./UploadFile";
 
-/**
- * @author @binjiasata
- * @description Create a new project and show on Project List page.
- *              Post the new project to server.
- */
+
 
 const CreateEvent = (props) => {
   const [time, setTime] = useState({
@@ -40,7 +41,6 @@ const CreateEvent = (props) => {
     currency: "USD",
     online_event: false,
     description: { html: "" },
-    // logo:{id: "108521843", url: "https://ibb.co/rx2HPkG"}
     logo_id: "108521843",
   });
 

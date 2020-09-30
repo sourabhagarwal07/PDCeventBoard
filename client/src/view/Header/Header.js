@@ -18,7 +18,7 @@ import { deviceType } from "react-device-detect";
 import { useWindowDimensions } from '../../common/context/WindowDimensionsProvider'
 
 /**
- * @author @binjiasata
+ * @author @binjiasata @yiyinzhang
  * @description This is the navbar, contains PDC icon, project list button,
  *              login menu or logout menu for now.
  *
