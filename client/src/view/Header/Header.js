@@ -98,6 +98,12 @@ const Header = (props) => {
     setActiveItem(name);
     handleSideBarClick();
   };
+
+  const handleFeedback = (e,{name})=>{
+    history.push("/feedback");
+    setActiveItem(name);
+    handleSideBarClick();
+  };
   console.log(width);
 
 
@@ -228,6 +234,13 @@ const Header = (props) => {
           >
             Project List
           </Menu.Item>
+          <Menu.Item
+            name="feedback"
+            active={activeItem === "feedback"}
+            onClick={handleFeedback}
+          >
+            Feedback
+          </Menu.Item>
           {userInfo.authenticated ? (
             <LogedInMenu
               logOut={handleLogout}
@@ -327,6 +340,13 @@ const Header = (props) => {
                 onClick={handleProjectList}
               >
                 Project List
+              </Menu.Item>
+              <Menu.Item
+                name="feedback"
+                active={activeItem === "feedback"}
+                onClick={handleFeedback}
+              >
+                Feedback
               </Menu.Item>
               {userInfo.authenticated ? (
                 <LogedInMenu

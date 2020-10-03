@@ -12,6 +12,7 @@ import HireStudent from "./view/HireStudent/HireStudent";
 import Alumni from "./view/Alumni/Alumni";
 import Covid19 from "./view/Covid19/Covid19";
 import OurTeam from "./view/OurTeam/OurTeam";
+import Feedback from "./view/Feedback/Feedback";
 import Header from "./view/Header/Header";
 import Footer from "./view/Footer/Footer";
 import Signin from "./view/Signin/Signin";
@@ -58,7 +59,7 @@ const Routers = () => {
             <Route exact path="/alumni" component={Alumni} />
             <Route exact path="/covid" component={Covid19}/>
             <Route exact path="/upload" component={UploadLogo} />
-
+            <Route exact path="/feedback" component={Feedback} />
             
             <Route exact path="/students/apply/:id" component={ApplyForm} />
             <Route
