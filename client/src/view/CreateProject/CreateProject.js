@@ -5,6 +5,8 @@ import { UserContext } from "../../common/context/UserProvider";
 import { config } from "../../common/config/config";
 import UploadLogo from "./UploadLogo";
 import TextareaAutosize from "react-textarea-autosize";
+import CreatableSelect from 'react-select/creatable';
+//import projectCategoryOptions from "../";
 
 /**
  * @author @binjiasata
@@ -49,6 +51,15 @@ const CreateProject = (props) => {
    * Category options:
    * include Machine Learning, Web Development, Game Development for now.
    */
+  const projectCategoryOptions = [
+    {
+      key: "machinelearning",
+      text: "Machine Learning",
+      value: "Machine Learning",
+    },
+    { key: "web", text: "Web Development", value: "Web Development" },
+    { key: "game", text: "Game Development", value: "Game Development" },
+  ];
   const categoryOptions = [
     {
       key: "machinelearning",
@@ -66,6 +77,16 @@ const CreateProject = (props) => {
       category: data.value,
     });
   };
+  const handleProjectCategoryChange=(e,data)=>{
+    // console.group('Value Changed');
+    // console.log(newValue);
+    // console.log(`action: ${data.action}`);
+    // console.groupEnd();
+    setInfo({
+      ...info,
+      category: data.value,
+    });
+  }
 
   // post project info to server
   const handleFormSubmit = (event) => {
@@ -202,7 +223,12 @@ const CreateProject = (props) => {
 
         <Form.Field>
           <label>Category</label>
-          <Dropdown
+          <CreatableSelect
+            isMulti
+            onChange={handleProjectCategoryChange}
+            options={projectCategoryOptions}
+          />
+          {/* <Dropdown
             name="category"
             placeholder="Category"
             fluid
@@ -211,7 +237,7 @@ const CreateProject = (props) => {
             onChange={handleCategoryChange}
             defaultValue={info.category}
             options={categoryOptions}
-          />
+          /> */}
         </Form.Field>
 
         <Form.Field>
