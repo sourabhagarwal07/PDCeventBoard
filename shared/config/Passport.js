@@ -3,10 +3,14 @@ const User = require("../models/UserModel");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
-const OutlookStrategy = require("passport-outlook").Strategy;
+const OutlookStrategy = require('passport-outlook').Strategy;
 //const keys = require("./Keys");
 const Admin = require("./Admin");
 require("dotenv").config();
+// var session = require('express-session');
+// var cookieParser = require('cookie-parser');
+// var bodyParser = require('body-parser');
+
 
 // for deploy
 let path = "/";
@@ -141,11 +145,14 @@ passport.use(
 passport.use(
   new OutlookStrategy(
     {
-      clientID: '437c66d0-bc95-4949-9e48-4be5009c1adf',
-      clientSecret: 'taW.ba1_Dqx_CF73d60r.SjC0B_Ylf3Jc_',
+      clientID: '7626403e-da94-417a-aadf-c66ca4a7a704',
+      // clientSecret: '_qwqw0-y6Rv6_Flqces2e4O7Ubs.Rmu4zO',
       callbackURL: path + "auth/outlook/callback",
-      tenant: 'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
-      useCommonEndpoint: "https://login.microsoftonline.com/common"
+      // tenant: 'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
+      // useCommonEndpoint: "https://login.microsoftonline.com/common",
+      state: true,
+      pkce: true,
+      enableProof: true,
     },
     function (accessToken, refreshToken, profile, done) {
       var user = {
@@ -155,7 +162,7 @@ passport.use(
         accessToken: accessToken,
       };
       if (refreshToken) user.refreshToken = refreshToken;
-      // if (profile.MailboxGuid) user.mailboxGuid = profile.MailboxGuid;
+      if (profile.MailboxGuid) user.mailboxGuid = profile.MailboxGuid;
       if (profile.Alias) user.alias = profile.Alias;  
       User.findOrCreate(user, function (err, user) {
         return done(err, user);

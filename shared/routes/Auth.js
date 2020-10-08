@@ -6,7 +6,7 @@ let user = {};
 let path = "/";
 if (process.env.NODE_ENV !== "production") {
   //for local setup
-  path = "http://localhost:3000";
+  path = "http://localhost:8080";
 }
 
 router.get(
@@ -82,20 +82,30 @@ router.get(
 router.get('/outlook',
   passport.authenticate('windowslive', {
     scope: [
+      'user.read',
+      'mailboxsettings.read',
       'openid',
-      'profile'
-      // 'offline_access',
-      // 'https://outlook.office.com/Mail.Read'
-    ]
+      'profile',
+      'offline_access',
+      // 'https://outlook.office.com/Mail.Read',
+      'https://graph.microsoft.com/mail.read',
+    ],
+    prompt: "select_account"
   })
 );
 
 router.get('/outlook/callback', 
-  passport.authenticate('windowslive', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
+  passport.authenticate('windowslive', { 
+  failureRedirect: "/auth/failed",
+  successRedirect: path,
+
+})
+);
+  // function(req, res) {
+  //   // Successful authentication, redirect home.
+
+    
+  // };
 
 
 module.exports = router;
