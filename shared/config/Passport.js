@@ -3,7 +3,7 @@ const User = require("../models/UserModel");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
-const OutlookStrategy = require("passport-outlook").Strategy;
+const OIDCStrategy  = require("passport-azure-ad").OIDCStrategy;
 //const keys = require("./Keys");
 const Admin = require("./Admin");
 require("dotenv").config();
@@ -138,28 +138,122 @@ passport.use(
   )
 );
 
+// passport.use(
+//   new OutlookStrategy(
+//     {
+//       clientID: '437c66d0-bc95-4949-9e48-4be5009c1adf',
+//       clientSecret: 'taW.ba1_Dqx_CF73d60r.SjC0B_Ylf3Jc_',
+//       callbackURL: path + "auth/outlook/callback",
+//       tenant: 'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
+//       useCommonEndpoint: "https://login.microsoftonline.com/common"
+//     },
+//     function (accessToken, refreshToken, profile, done) {
+//       var user = {
+//         outlookId: profile.id,
+//         name: profile.DisplayName,
+//         email: profile.EmailAddress,
+//         accessToken: accessToken,
+//       };
+//       if (refreshToken) user.refreshToken = refreshToken;
+//       // if (profile.MailboxGuid) user.mailboxGuid = profile.MailboxGuid;
+//       if (profile.Alias) user.alias = profile.Alias;  
+//       User.findOrCreate(user, function (err, user) {
+//         return done(err, user);
+//       });
+//     }
+//   )
+// );
+
 passport.use(
-  new OutlookStrategy(
+  new OIDCStrategy (
     {
-      clientID: '437c66d0-bc95-4949-9e48-4be5009c1adf',
-      clientSecret: 'taW.ba1_Dqx_CF73d60r.SjC0B_Ylf3Jc_',
-      callbackURL: path + "auth/outlook/callback",
-      tenant: 'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
-      useCommonEndpoint: "https://login.microsoftonline.com/common"
+      clientID: process.env.outlookclientID,
+      clientSecret: process.env.outlookclientSecret,
+      identityMetadata:"https://login.microsoftonline.com/common/.well-known/openid-configuration",
+      responseType: "code",
+      responseMode: "form_post",
+      redirectUrl: path+"auth/outlook/callback",
+      allowHttpForRedirectUrl :true,
+      validateIssuer :false,
+      passReqToCallback :true,
+      scope :['email', 'profile'],
     },
-    function (accessToken, refreshToken, profile, done) {
-      var user = {
-        outlookId: profile.id,
-        name: profile.DisplayName,
-        email: profile.EmailAddress,
-        accessToken: accessToken,
-      };
-      if (refreshToken) user.refreshToken = refreshToken;
-      // if (profile.MailboxGuid) user.mailboxGuid = profile.MailboxGuid;
-      if (profile.Alias) user.alias = profile.Alias;  
-      User.findOrCreate(user, function (err, user) {
-        return done(err, user);
-      });
+    (sub,profile, accessToken, refreshToken, done) =>{
+      if(sub){
+        console.log("sub:::::",sub);
+      }    
+      // if(profile){
+      //       console.log("profile:::::",profile);
+      //     }
+          // if(accessToken){
+          //   console.log("accessToken:::::",accessToken);
+          // }
+          if(refreshToken){
+            console.log("efreshToken:::::",refreshToken);
+          }
+          // if(done){
+          //   console.log("done:",done);
+          // }
+          // return"navp";
+          //const { sub: oid, displayName, upn, picture, hd } = refreshToken._json;
+          const { sub: oid, displayName, upn} = refreshToken._json;
+      // check the email is admin or not
+      const adminEmail = Admin.emails.find(
+        (adminEmail) => adminEmail === upn
+      );
+      if (adminEmail) {
+        const newUser = new User({
+          outlookId: oid,
+          name: displayName,
+          email: upn,
+          //picture: picture,
+          admin: true,
+        });
+
+        // Check if database has already had this user
+        User.findOneAndUpdate({ outlookId: outlookId }, { admin: true }).then(
+          (currentUser) => {
+            // if it has, don't save
+            if (currentUser) {
+              done(null, currentUser);
+            } else {
+              // if it does not, save the new user
+              newUser.save().then((newUser) => {
+                done(null, newUser);
+              });
+            }
+          }
+        );
+      } else //if (hd && hd == "uottawa.ca")
+       {
+        const newUser = new User({
+          outlookId: oid,
+          name: displayName,
+          email: upn,
+         // picture: picture,
+        });
+
+        // Check if database has already had this user
+        User.findOneAndUpdate(
+          { outlookId: oid },
+          { //picture: picture, 
+            name: displayName }
+        ).then((currentUser) => {
+          // if it has, don't save
+          if (currentUser) {
+            done(null, currentUser);
+          } else {
+            // if it does not, save the new user
+            newUser.save().then((newUser) => {
+              done(null, newUser);
+            });
+          }
+        });
+      }
+      //  else {
+      //   done(new Error("Invaild host domain!"));
+      // }
     }
-  )
-);
+    
+  ));
+ 
