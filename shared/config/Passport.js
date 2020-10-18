@@ -150,8 +150,9 @@ passport.use(
       redirectUrl: path+"auth/outlook/callback",
       allowHttpForRedirectUrl :true,
       validateIssuer :true,
+      issuer:process.env.OAUTH_ISSUER,
       passReqToCallback :false,
-      scope :process.env.OAUTH_SCOPES,
+      scope :process.env.OAUTH_SCOPES.split(' '),
     },
     signInComplete  
   ));
@@ -184,6 +185,7 @@ passport.use(
       //   // Add properties to profile
       //   profile['email'] = ouser.mail ? ouser.mail : ouser.userPrincipalName;
       // }
+      console.log("profile:::",profile);
       const {oid:outlookId, name, email, tid } = profile._json;
 
       // check the email is admin or not
@@ -219,7 +221,7 @@ passport.use(
           outlookId: outlookId,
           name: name,
           email: email,
-         // picture: picture,
+         // picture: picture,//forlater
         });
 
         // Check if database has already had this user
