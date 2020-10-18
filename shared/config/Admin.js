@@ -13,5 +13,7 @@ module.exports = {
     "lpeyton@uottawa.ca",
     "akoth101@uottawa.ca",
     "pdcuottawa@gmail.com",
+    "pdc.uottawa@gmail.com",
+    "navpreet.kaur172@Gmail.com"
   ],
 };
