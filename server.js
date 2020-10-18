@@ -5,7 +5,6 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const passportSetup = require("./shared/config/Passport");
 const passport = require("passport");
-//const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
 const projectRoutes = require("./shared/routes/ProjectRoute");
 const studentRoutes = require("./shared/routes/StudentRoute");

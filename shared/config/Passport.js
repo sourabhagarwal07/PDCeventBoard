@@ -145,7 +145,7 @@ passport.use(
       identityMetadata:"https://login.microsoftonline.com/common/.well-known/openid-configuration",
       responseType: "code",
       responseMode: "form_post",
-      redirectUrl: path+'auth/outlook/callback',
+      redirectUrl: path+"auth/outlook/callback",
       allowHttpForRedirectUrl :true,
       validateIssuer :false,
       passReqToCallback :true,
