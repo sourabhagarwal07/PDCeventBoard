@@ -151,7 +151,7 @@ passport.use(
       allowHttpForRedirectUrl :true,
       validateIssuer :false,
       passReqToCallback :false,
-      scope :process.env.OAUTH_SCOPES.split(' '),
+      scope :process.env.OAUTH_SCOPES,
     },
     signInComplete  
   ));
