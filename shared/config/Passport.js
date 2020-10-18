@@ -3,9 +3,10 @@ const User = require("../models/UserModel");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
-const OutlookStrategy = require("passport-outlook").Strategy;
-//const keys = require("./Keys");
+const OIDCStrategy  = require("passport-azure-ad").OIDCStrategy;
 const Admin = require("./Admin");
+//const graph = require('./outlookconfig/Graph');
+//const  { ClientCredentials, ResourceOwnerPassword, AuthorizationCode } = require('simple-oauth2');
 require("dotenv").config();
 
 // for deploy
@@ -139,27 +140,115 @@ passport.use(
 );
 
 passport.use(
-  new OutlookStrategy(
+  new OIDCStrategy (
     {
-      clientID: '437c66d0-bc95-4949-9e48-4be5009c1adf',
-      clientSecret: 'taW.ba1_Dqx_CF73d60r.SjC0B_Ylf3Jc_',
-      callbackURL: path + "auth/outlook/callback",
-      tenant: 'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
-      useCommonEndpoint: "https://login.microsoftonline.com/common"
+      clientID: process.env.OAUTH_clientID,
+      clientSecret: process.env.OAUTH_clientSecret,
+      identityMetadata:`${process.env.OAUTH_AUTHORITY}${process.env.OAUTH_ID_METADATA}`,
+      responseType: "code id_token",
+      responseMode: "form_post",
+      redirectUrl: path+"auth/outlook/callback",
+      allowHttpForRedirectUrl :true,
+      validateIssuer :false,
+      passReqToCallback :false,
+      scope :process.env.OAUTH_SCOPES.split(' '),
     },
-    function (accessToken, refreshToken, profile, done) {
-      var user = {
-        outlookId: profile.id,
-        name: profile.DisplayName,
-        email: profile.EmailAddress,
-        accessToken: accessToken,
-      };
-      if (refreshToken) user.refreshToken = refreshToken;
-      // if (profile.MailboxGuid) user.mailboxGuid = profile.MailboxGuid;
-      if (profile.Alias) user.alias = profile.Alias;  
-      User.findOrCreate(user, function (err, user) {
-        return done(err, user);
-      });
+    signInComplete  
+  ));
+
+  //commenting for now, maybe useful in future.
+  // Configure simple-oauth2
+  // const oauth2credentials = {
+  //   client: {
+  //     id: process.env.OAUTH_clientID,
+  //     secret: process.env.OAUTH_clientSecret
+  //   },
+  //   auth: {
+  //     tokenHost: process.env.OAUTH_AUTHORITY,
+  //     authorizePath: process.env.OAUTH_AUTHORIZE_ENDPOINT,
+  //     tokenPath: process.env.OAUTH_TOKEN_ENDPOINT
+  //   }
+  // }
+  // const oauth2 = new AuthorizationCode(oauth2credentials);
+
+  async function signInComplete(iss, sub, profile, accessToken, refreshToken, params, done) {
+    if (!profile.oid) {
+      return done(new Error("No OID found in user profile."));
     }
-  )
-);
+  
+    try{
+      //commenting graph for now.
+      // const ouser = await graph.getUserDetails(accessToken);
+      // if (ouser) {
+      //   console.log("USERRR:::",ouser);
+      //   // Add properties to profile
+      //   profile['email'] = ouser.mail ? ouser.mail : ouser.userPrincipalName;
+      // }
+      const { sub: oid, name, email, tid } = profile._json;
+
+      // check the email is admin or not
+      const adminEmail = Admin.emails.find(
+        (adminEmail) => adminEmail === email
+      );
+      if (adminEmail) {
+        const newUser = new User({
+          outlookId: oid,
+          name: name,
+          email: email,
+          //picture: picture,
+          admin: true,
+        });
+
+        // Check if database has already had this user
+        User.findOneAndUpdate({ outlookId: oid }, { admin: true }).then(
+          (currentUser) => {
+            // if it has, don't save
+            if (currentUser) {
+              done(null, currentUser);
+            } else {
+              // if it does not, save the new user
+              newUser.save().then((newUser) => {
+                done(null, newUser);
+              });
+            }
+          }
+        );
+      } else if (tid && tid == process.env.OAUTH_TID)
+       {
+        const newUser = new User({
+          outlookId: oid,
+          name: name,
+          email: email,
+         // picture: picture,
+        });
+
+        // Check if database has already had this user
+        User.findOneAndUpdate(
+          { outlookId: oid },
+          { //picture: picture, 
+            name: name }
+        ).then((currentUser) => {
+          // if it has, don't save
+          if (currentUser) {
+            done(null, currentUser);
+          } else {
+            // if it does not, save the new user
+            newUser.save().then((newUser) => {
+              done(null, newUser);
+            });
+          }
+        });
+      }
+       else {
+        done(new Error("Invaild host domain!"));
+      }
+    } catch (err) {
+      return done(err);
+    }
+    // Create a simple-oauth2 token from raw tokens, helpfull while using graphs.
+    //let oauthToken = oauth2.accessToken.create(params);
+    // Save the profile and tokens in user storage
+    //users[profile.oid] = { profile, oauthToken };
+    //return done(null, users[profile.oid]);
+}
+  
