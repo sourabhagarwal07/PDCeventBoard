@@ -184,7 +184,7 @@ passport.use(
       //   // Add properties to profile
       //   profile['email'] = ouser.mail ? ouser.mail : ouser.userPrincipalName;
       // }
-      const { sub: oid, name, email, tid } = profile._json;
+      const {oid:outlookId, name, email, tid } = profile._json;
 
       // check the email is admin or not
       const adminEmail = Admin.emails.find(
@@ -192,7 +192,7 @@ passport.use(
       );
       if (adminEmail) {
         const newUser = new User({
-          outlookId: oid,
+          outlookId: outlookId,
           name: name,
           email: email,
           //picture: picture,
@@ -200,7 +200,7 @@ passport.use(
         });
 
         // Check if database has already had this user
-        User.findOneAndUpdate({ outlookId: oid }, { admin: true }).then(
+        User.findOneAndUpdate({ outlookId: outlookId }, { admin: true }).then(
           (currentUser) => {
             // if it has, don't save
             if (currentUser) {
@@ -216,7 +216,7 @@ passport.use(
       } else if (tid && tid == process.env.OAUTH_TID)
        {
         const newUser = new User({
-          outlookId: oid,
+          outlookId: outlookId,
           name: name,
           email: email,
          // picture: picture,
@@ -224,7 +224,7 @@ passport.use(
 
         // Check if database has already had this user
         User.findOneAndUpdate(
-          { outlookId: oid },
+          { outlookId: outlookId },
           { //picture: picture, 
             name: name }
         ).then((currentUser) => {
