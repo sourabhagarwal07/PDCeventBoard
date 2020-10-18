@@ -219,7 +219,7 @@ passport.use(
           outlookId: outlookId,
           name: name,
           email: email,
-         // picture: picture,
+         // picture: picture,//forlater
         });
 
         // Check if database has already had this user
