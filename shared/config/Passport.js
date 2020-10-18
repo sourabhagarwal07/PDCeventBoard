@@ -5,7 +5,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
 const OIDCStrategy  = require("passport-azure-ad").OIDCStrategy;
 const Admin = require("./Admin");
-const { isConditionalExpression } = require("typescript");
 //const graph = require('./outlookconfig/Graph');
 //const  { ClientCredentials, ResourceOwnerPassword, AuthorizationCode } = require('simple-oauth2');
 require("dotenv").config();
@@ -151,7 +150,6 @@ passport.use(
       redirectUrl: path+"auth/outlook/callback",
       allowHttpForRedirectUrl :true,
       validateIssuer :true,
-      issuer:process.env.OAUTH_ISSUER,
       passReqToCallback :false,
       scope :process.env.OAUTH_SCOPES,
     },
@@ -186,7 +184,6 @@ passport.use(
       //   // Add properties to profile
       //   profile['email'] = ouser.mail ? ouser.mail : ouser.userPrincipalName;
       // }
-      console.log("profile:::",profile);
       const {oid:outlookId, name, email, tid } = profile._json;
 
       // check the email is admin or not
@@ -222,7 +219,7 @@ passport.use(
           outlookId: outlookId,
           name: name,
           email: email,
-         // picture: picture,//forlater
+         // picture: picture,
         });
 
         // Check if database has already had this user
