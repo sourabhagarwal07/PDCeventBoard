@@ -22,7 +22,7 @@ const Student = (props) => {
             Join Us
           </a>
           <a class="item" href="#/program-coordinators">
-            Program Coordinators for GES-PDC
+            Program Coordinators
           </a>
           <a class="item" href="#/create-form">
             Create or Activate Association
