@@ -180,6 +180,7 @@ passport.use(
   // const oauth2 = new AuthorizationCode(oauth2credentials);
 
   async function signInComplete(iss, sub, profile, accessToken, refreshToken, params, done) {
+    console.log("PROFILEEEE:::",profile);
     if (!profile.oid) {
       return done(new Error("No OID found in user profile."));
     }
