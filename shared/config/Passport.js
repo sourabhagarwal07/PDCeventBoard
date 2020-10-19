@@ -15,13 +15,6 @@ if (process.env.NODE_ENV !== "production") {
   //for local setup
   path = "http://localhost:8080/";
 }
-let oRedirectUri="";
-if (process.env.NODE_ENV !== "production") {
-  oRedirectUri = path+"auth/outlook/callback";
-}
-else{
-  oRedirectUri = process.env.OAUTH_REDIRECTURI;//+"auth/outlook/callback";
-}
 
 // pass user.id to encrypt
 passport.serializeUser((req, user, done) => {
@@ -32,16 +25,6 @@ passport.serializeUser((req, user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
-// passport.deserializeUser((id, done) => {
-//   console.log(id);
-//   User.findById(id)
-//     .then((user) => {
-//       done(null, user);
-//     })
-//     .catch((e) => {
-//       done(new Error("Failed to deserialize an user"));
-//     });
-// });
 
 passport.use(
   new GoogleStrategy(
@@ -154,12 +137,12 @@ passport.use(
       identityMetadata:`${process.env.OAUTH_AUTHORITY}${process.env.OAUTH_ID_METADATA}`,
       responseType: "code id_token",
       responseMode: "form_post",
-      redirectUrl: oRedirectUri,
+      redirectUrl: process.env.OAUTH_REDIRECTURI,
       allowHttpForRedirectUrl :true,
       validateIssuer :true,
       issuer:process.env.OAUTH_ISSUER,
       passReqToCallback :false,
-      scope :process.env.OAUTH_SCOPES.split(' '),
+      scope:process.env.OAUTH_SCOPES.split(' '),
     },
     signInComplete  
   ));

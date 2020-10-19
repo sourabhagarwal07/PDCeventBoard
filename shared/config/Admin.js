@@ -14,7 +14,7 @@ module.exports = {
     "lpeyton@uottawa.ca",
     "pdc.uottawa@gmail.com",
     "pdcuottawa@gmail.com",
-    "navpreet.kaur172@gmail.com",
-    "uottawa.pdc@outlook.com"
+    "navpreet.kaur172@gmail.com"
+    //for outlook you wont be able to add admins with any other email except the @uottawa.ca
   ],
 };
