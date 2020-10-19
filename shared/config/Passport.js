@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== "production") {
   oRedirectUri = path+"auth/outlook/callback";
 }
 else{
-  oRedirectUri = process.env.OAUTH_REDIRECTURI +"auth/outlook/callback";
+  oRedirectUri = process.env.OAUTH_REDIRECTURI;//+"auth/outlook/callback";
 }
 
 // pass user.id to encrypt
