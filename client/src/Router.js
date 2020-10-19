@@ -4,6 +4,7 @@ import CreateProject from "./view/CreateProject/CreateProject";
 import Home from "./view/Home/Home";
 import Student from "./view/Student/Student";
 import CreateForm from "./view/Student/CreateForm";
+import ProgramCoordinators from "./view/Student/ProgramCoordinators";
 import Fswep from "./view/Student/Fswep";
 import StudentForm from "./view/Student/StudentForm";
 import ResumeGuidelines from "./view/Student/ResumeGuidelines";
@@ -51,6 +52,7 @@ const Routers = () => {
             <Route exact path="/admin" component={Admin} />
             <Route  exact path="/student" component={Student}/>
             <Route  exact path="/create-form" component={CreateForm}/>
+            <Route  exact path="/program-coordinators" component={ProgramCoordinators}/>
             <Route  exact path="/fswep" component={Fswep}/>
             <Route  exact path="/student-form" component={StudentForm}/>
             <Route  exact path="/resume-guidelines" component={ResumeGuidelines}/>
