@@ -9,7 +9,7 @@ const ProgramCoordinators = (props) => {
   return (
     <Fragment>
       <h1 class="ui center aligned huge header">
-        Information about Program Coordinators for various disciplines
+        Information about PDC Student Representative for various disciplines
       </h1>
       <Card.Group itemsPerRow="4">
       <Card color='blue'>
