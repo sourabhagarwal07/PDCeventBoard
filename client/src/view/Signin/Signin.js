@@ -29,10 +29,10 @@ const Signin = (props) => {
             <i className="google icon"></i>
             Sign in with Google
           </Button>
-          {/* Or
+          Or
           <Button onClick={handleOutlookLogin}>
             Sign in with Outlook
-          </Button> */}
+          </Button>
         </Grid.Column>
         <Grid.Column>
           <Image centered size="medium" src="/assets/employer.png" />
