@@ -21,6 +21,7 @@ const Signin = (props) => {
   return (
     <Fragment>
       <Grid columns={2} stackable textAlign="center">
+      <Divider vertical>Or</Divider>
         <Grid.Column>
           <Image centered size="medium" src="/assets/student.png" />
           <h2>If you are a student, please log in with Google</h2>
@@ -28,10 +29,10 @@ const Signin = (props) => {
             <i className="google icon"></i>
             Sign in with Google
           </Button>
-          Or
+          {/* Or
           <Button onClick={handleOutlookLogin}>
             Sign in with Outlook
-          </Button>
+          </Button> */}
         </Grid.Column>
         <Grid.Column>
           <Image centered size="medium" src="/assets/employer.png" />
