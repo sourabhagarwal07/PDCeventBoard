@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Switch, Route } from "react-router-dom";
 import CreateProject from "./view/CreateProject/CreateProject";
+import DownloadUserInfo from "./view/Users/UserInfoListCsv";
 import Home from "./view/Home/Home";
 import Student from "./view/Student/Student";
 import CreateForm from "./view/Student/CreateForm";
@@ -47,6 +48,7 @@ const Routers = () => {
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/OurTeam" component={OurTeam} />
             <Route exact path="/create-project" component={CreateProject} />
+            <Route exact path="/download-user-list" component={DownloadUserInfo} />
             <Route exact path="/project/manage/:id" component={CreateProject} />
             <Route exact path="/events" component={Events} />
             <Route exact path="/admin" component={Admin} />

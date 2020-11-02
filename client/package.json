@@ -4,11 +4,11 @@
   "private": true,
   "dependencies": {
     "@bearer/node": "^2.2.0",
-    "@bearer/node-agent": "^3.2.3",
+    "@bearer/node-agent": "^3.3.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "antd": "^4.5.2",
+    "antd": "^4.7.3",
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
     "history": "^5.0.0",
@@ -17,6 +17,7 @@
     "moment": "^2.27.0",
     "pizzly-js": "^0.2.7",
     "react": "^16.13.1",
+    "react-csv": "^2.0.3",
     "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^5.7.2",
@@ -26,7 +27,7 @@
     "react-textarea-autosize": "^8.2.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
-    "typescript": "^4.0.3",
+    "typescript": "^4.0.5",
     "use-react-router": "^1.0.7"
   },
   "scripts": {

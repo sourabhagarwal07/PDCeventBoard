@@ -107,13 +107,13 @@ passport.use(
         linkedinId: linkedinId,
         email: emails[0].value,
         name: displayName,
-        picture: photos[0].value,
+        picture: photos.length>0 ? photos[0].value:'',
         company: true,
       });
 
       User.findOneAndUpdate(
         { linkedinId: linkedinId },
-        { picture: photos[0].value, name: displayName }
+        { picture: photos.length>0 ? photos[0].value:'', name: displayName }
       ).then((currentUser) => {
         // if it has, don't save
         if (currentUser) {
