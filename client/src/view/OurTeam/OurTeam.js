@@ -52,21 +52,23 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/Flora.jpg" />
-              <h2>Yi (Flora) Liu</h2>
+              <Image centered size="large" src="/assets/Ajay 2.jpg" />
+              <h2>Ajay Modagi</h2>
               <h3>Vice-President</h3>
-              <p>yliu538@uottawa.ca</p>
+              <p>amoda040@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
-                  active={activeIndex === 1}
-                  index={1}
+                  active={activeIndex === 6}
+                  index={6}
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios[1]}
+                  {bios[6]}
                 </Accordion.Title>
-                <Accordion.Content active={activeIndex === 1}>
-                  <p>Introduction 2</p>
+                <Accordion.Content active={activeIndex === 6}>
+                  <p>
+                  Introduction 8
+                  </p>
                 </Accordion.Content>
               </Accordion> */}
             </Grid.Column>
@@ -115,24 +117,22 @@ const Home = (props) => {
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column>
-              <Image centered size="large" src="/assets/Abhiram.jpg" />
-              <h2>Abhiram Kothapalli</h2>
-              <h3>Web Master and Developer</h3>
-              <p>akoth101@uottawa.ca</p>
+          <Grid.Column>
+              <Image centered size="large" src="/assets/Flora.jpg" />
+              <h2>Yi (Flora) Liu</h2>
+              <h3>Alumni Relation Coordinator</h3>
+              <p>yliu538@uottawa.ca</p>
               {/* <Accordion>
                 <Accordion.Title
-                  active={activeIndex === 4}
-                  index={4}
+                  active={activeIndex === 1}
+                  index={1}
                   onClick={handleClick}
                 >
                   <Icon name="dropdown" />
-                  {bios[4]}
+                  {bios[1]}
                 </Accordion.Title>
-                <Accordion.Content active={activeIndex === 4}>
-                  <p>
-                  Introduction 6
-                  </p>
+                <Accordion.Content active={activeIndex === 1}>
+                  <p>Introduction 2</p>
                 </Accordion.Content>
               </Accordion> */}
             </Grid.Column>
@@ -158,27 +158,6 @@ const Home = (props) => {
               </Accordion> */}
             </Grid.Column>
             <Grid.Column>
-              <Image centered size="large" src="/assets/Ajay 2.jpg" />
-              <h2>Ajay Modagi</h2>
-              <h3>Project Manager</h3>
-              <p>amoda040@uottawa.ca</p>
-              {/* <Accordion>
-                <Accordion.Title
-                  active={activeIndex === 6}
-                  index={6}
-                  onClick={handleClick}
-                >
-                  <Icon name="dropdown" />
-                  {bios[6]}
-                </Accordion.Title>
-                <Accordion.Content active={activeIndex === 6}>
-                  <p>
-                  Introduction 8
-                  </p>
-                </Accordion.Content>
-              </Accordion> */}
-            </Grid.Column>
-            <Grid.Column>
               <Image centered size="large" src="/assets/Simardeep.jpg" />
               <h2>Simardeep Singh</h2>
               <h3>Project Manager</h3>
@@ -195,6 +174,27 @@ const Home = (props) => {
                 <Accordion.Content active={activeIndex === 7}>
                   <p>
                   Introduction 9
+                  </p>
+                </Accordion.Content>
+              </Accordion> */}
+            </Grid.Column>
+            <Grid.Column>
+              <Image centered size="large" src="/assets/Abhiram.jpg" />
+              <h2>Abhiram Kothapalli</h2>
+              <h3>Web Master and Developer</h3>
+              <p>akoth101@uottawa.ca</p>
+              {/* <Accordion>
+                <Accordion.Title
+                  active={activeIndex === 4}
+                  index={4}
+                  onClick={handleClick}
+                >
+                  <Icon name="dropdown" />
+                  {bios[4]}
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex === 4}>
+                  <p>
+                  Introduction 6
                   </p>
                 </Accordion.Content>
               </Accordion> */}

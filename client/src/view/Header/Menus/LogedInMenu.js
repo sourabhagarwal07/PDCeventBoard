@@ -35,6 +35,14 @@ const LogedInMenu = ({ logOut, username, userPicture }) => {
               />
               <Dropdown.Item
                 onClick={() => {
+                  history.push("/download-user-list");
+                }}
+                text="Download User Information"
+                icon="download"
+              >
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
                   history.push("/company-dashboard");
                 }}
                 text="Dashboard"

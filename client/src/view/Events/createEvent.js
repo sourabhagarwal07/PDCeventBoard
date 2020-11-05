@@ -1,3 +1,8 @@
+/**
+ * @author @yiyinzhang
+ * @description Create a new event and push it to eventbrite.
+ */
+
 import React, { useState } from "react";
 import {
   Button,
@@ -13,35 +18,30 @@ import { EventsContext } from "../../common/context/EventContext";
 import { config } from "../../common/config/config";
 import CreateTicket from "./createTicket";
 import useReactRouter from "use-react-router";
-import moment from 'moment';
+import moment from "moment";
 
 // import UploadFile from "./UploadFile";
 
-/**
- * @author @binjiasata
- * @description Create a new project and show on Project List page.
- *              Post the new project to server.
- */
+
 
 const CreateEvent = (props) => {
   const [time, setTime] = useState({
-    startDate:"",
-    endDate:"",
-    startTime:""
+    startDate: "",
+    endDate: "",
+    startTime: "",
   });
 
   const [isOnline, setOnline] = useState(false);
 
   // project information
   const [event, setEvent] = useState({
-    name: {html: ""},
+    name: { html: "" },
     start: { timezone: "America/Toronto", utc: "" },
     end: { timezone: "America/Toronto", utc: "" },
     currency: "USD",
     online_event: false,
-    description: {html: ""},
-    // logo:{id: "108521843", url: "https://ibb.co/rx2HPkG"}
-    logo_id:"108521843"
+    description: { html: "" },
+    logo_id: "108521843",
   });
 
   const timeOptions = [
@@ -86,60 +86,66 @@ const CreateEvent = (props) => {
   // handle dropdown category
   const handleStartTimeChange = (e, data) => {
     let localTime = time.startDate + "T" + data.value;
-    let utcTime = moment(localTime).add(4, 'hours').format();
+    let utcTime = moment(localTime).add(4, "hours").format();
     utcTime = utcTime.slice(0, 19);
     setTime({
       ...time,
-      startTime: data.value
-    })
+      startTime: data.value,
+    });
     setEvent({
       ...event,
-      start:{ timezone: "America/Toronto", utc: utcTime+"Z" },
-    })
+      start: { timezone: "America/Toronto", utc: utcTime + "Z" },
+    });
   };
 
   const handleEndTimeChange = (e, data) => {
     console.log(time.endDate);
-    if(time.endDate < time.startDate || (time.endDate == time.startDate && time.startTime > data.value)){
+    if (
+      time.endDate < time.startDate ||
+      (time.endDate == time.startDate && time.startTime > data.value)
+    ) {
       alert("End time cannot before the start time!!");
       setTime({
         ...time,
-        endDate: ""
-      })
-    } 
+        endDate: "",
+      });
+    }
     let localTime = time.endDate + "T" + data.value;
-    let utcTime = moment(localTime).add(4, 'hours').format();
+    let utcTime = moment(localTime).add(4, "hours").format();
     utcTime = utcTime.slice(0, 19);
     setEvent({
       ...event,
-      end: {timezone: "America/Toronto", utc: utcTime+"Z"}
-    })
+      end: { timezone: "America/Toronto", utc: utcTime + "Z" },
+    });
   };
 
   const { history } = useReactRouter();
   // post project info to server
   const handleFormSubmit = async (e) => {
-    
     e.preventDefault();
     const testdata = {
-      event: event
-    }
+      event: event,
+    };
 
     console.log(testdata);
     console.log(event);
-    axios.post('https://www.eventbriteapi.com/v3/organizations/464741062423/events/?token=2SWITQPH72SPNCSRK7OW', testdata)
-    .then(response => { 
+    axios
+      .post(
+        "https://www.eventbriteapi.com/v3/organizations/464741062423/events/?token=2SWITQPH72SPNCSRK7OW",
+        testdata
+      )
+      .then((response) => {
         const path = {
-        pathname: "/create-ticket",
-        state: [response.data.id, event]
-      }
-      console.log(response);
-      alert("Your event is saved and please fill up ticket information")
-      history.push(path);
-    })
-    .catch(error => {
-        console.log(error.response)
-    });
+          pathname: "/create-ticket",
+          state: [response.data.id, event],
+        };
+        console.log(response);
+        alert("Your event is saved and please fill up ticket information");
+        history.push(path);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
 
   // when click cancel, go back to the project list page
@@ -152,36 +158,41 @@ const CreateEvent = (props) => {
     if (name == "name" || name == "description") {
       setEvent({
         ...event,
-        [name]: { html: value }
+        [name]: { html: value },
       });
-    } else {setEvent({
+    } else {
+      setEvent({
         ...event,
         [name]: value,
       });
     }
   };
 
-  const handleTimeChange = ({ target: { name, value }}) => {
+  const handleTimeChange = ({ target: { name, value } }) => {
     setTime({
       ...time,
-      [name]: value
-    })
+      [name]: value,
+    });
     console.log(name, value);
-    if(name === "startDate"){
+    if (name === "startDate") {
       let currentDate = new Date();
       // console.log("this is the startDate")
-      if(value.slice(0,4) < currentDate.getFullYear() || 
-        (value.slice(0,4) == currentDate.getFullYear() && value.slice(5,7) < currentDate.getMonth()+1) ||
-        (value.slice(0,4) == currentDate.getFullYear() && value.slice(5,7) == (currentDate.getMonth()+1) && value.slice(8,10) < currentDate.getUTCDate())){
-        alert("start Date cannot before current Date!!")
+      if (
+        value.slice(0, 4) < currentDate.getFullYear() ||
+        (value.slice(0, 4) == currentDate.getFullYear() &&
+          value.slice(5, 7) < currentDate.getMonth() + 1) ||
+        (value.slice(0, 4) == currentDate.getFullYear() &&
+          value.slice(5, 7) == currentDate.getMonth() + 1 &&
+          value.slice(8, 10) < currentDate.getUTCDate())
+      ) {
+        alert("start Date cannot before current Date!!");
         setTime({
           ...time,
-          [name] : ""
-        })
-
-      } 
+          [name]: "",
+        });
+      }
     }
-  }
+  };
 
   return (
     <Segment>
@@ -212,7 +223,8 @@ const CreateEvent = (props) => {
             </Grid.Column>
             <Grid.Column width={8}>
               <label>Start Time</label>
-              <Dropdown id="selectStart"
+              <Dropdown
+                id="selectStart"
                 onChange={handleStartTimeChange}
                 placeholder="select end time"
                 fluid
@@ -258,7 +270,6 @@ const CreateEvent = (props) => {
             placeholder="Enter the Event summary"
           />
         </Form.Field> */}
-
 
         <Form.Field>
           <Checkbox

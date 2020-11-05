@@ -18,7 +18,7 @@ import { deviceType } from "react-device-detect";
 import { useWindowDimensions } from '../../common/context/WindowDimensionsProvider'
 
 /**
- * @author @binjiasata
+ * @author @binjiasata @yiyinzhang
  * @description This is the navbar, contains PDC icon, project list button,
  *              login menu or logout menu for now.
  *
@@ -95,6 +95,12 @@ const Header = (props) => {
 
   const handleProjectList = (e, { name }) => {
     history.push("/project-list");
+    setActiveItem(name);
+    handleSideBarClick();
+  };
+
+  const handleFeedback = (e,{name})=>{
+    history.push("/feedback");
     setActiveItem(name);
     handleSideBarClick();
   };
@@ -228,6 +234,13 @@ const Header = (props) => {
           >
             Project List
           </Menu.Item>
+          <Menu.Item
+            name="feedback"
+            active={activeItem === "feedback"}
+            onClick={handleFeedback}
+          >
+            Feedback
+          </Menu.Item>
           {userInfo.authenticated ? (
             <LogedInMenu
               logOut={handleLogout}
@@ -327,6 +340,13 @@ const Header = (props) => {
                 onClick={handleProjectList}
               >
                 Project List
+              </Menu.Item>
+              <Menu.Item
+                name="feedback"
+                active={activeItem === "feedback"}
+                onClick={handleFeedback}
+              >
+                Feedback
               </Menu.Item>
               {userInfo.authenticated ? (
                 <LogedInMenu

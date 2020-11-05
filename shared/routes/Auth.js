@@ -77,8 +77,8 @@ router.get(
     successRedirect: path,
   })
 );
-//windowslive
 
+<<<<<<< HEAD
 router.get('/outlook',
   passport.authenticate('windowslive', {
     scope: [
@@ -107,5 +107,21 @@ router.get('/outlook/callback',
     
   // };
 
+=======
+//outlook
+router.get('/outlook', 
+  passport.authenticate('azuread-openidconnect', { failureRedirect: '/auth/failed' }),
+  function(req, res) {
+    console.log('Login outlook was called');
+    res.redirect(path);
+});
+ 
+router.post('/outlook/callback',
+  passport.authenticate('azuread-openidconnect', { failureRedirect: '/auth/failed' }),
+  function(req, res) { 
+    res.redirect(path);
+  });
+ 
+>>>>>>> 953565373350628e6dff6e6c8df5adb6d712cf1b
 
 module.exports = router;

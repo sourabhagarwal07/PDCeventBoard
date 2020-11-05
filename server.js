@@ -5,25 +5,18 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const passportSetup = require("./shared/config/Passport");
 const passport = require("passport");
-//const keys = require("./shared/config/Keys");
 const authRoutes = require("./shared/routes/Auth");
 const projectRoutes = require("./shared/routes/ProjectRoute");
 const studentRoutes = require("./shared/routes/StudentRoute");
 const uploadRoutes = require("./shared/routes/Upload");
 const eventRoutes = require("./shared/routes/EventRoute")
+const userRoutes = require("./shared/routes/UserRoute")
 const http = require("http");
 const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 require('dotenv').config()
 
-// const Bearer = require("@bearer/node-agent");
-// Bearer.init({
-//   secretKey: "app_e04e30106f9bf35da5d6051bd20962a2c939ca705198fe0001",
-//   stripSensitiveData: true,
-// }).then(() => {
-//   console.log("Bearer Initialized!");
-// });
 
 const app = express();
 
@@ -98,5 +91,6 @@ app.use("/", projectRoutes);
 app.use("/student", studentRoutes);
 app.use("/file", uploadRoutes);
 app.use("/", eventRoutes);
+app.use("/user", userRoutes);
 
 app.listen(PORT, () => console.log(`Server is starting at ${PORT}`));

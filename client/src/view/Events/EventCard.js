@@ -1,3 +1,8 @@
+/**
+ * @author @yiyinzhang
+ * @description Create a new event and push it to eventbrite.
+ */
+
 import React, { Fragment } from 'react';
 import { Card, Image} from 'semantic-ui-react';
 import moment from 'moment';
