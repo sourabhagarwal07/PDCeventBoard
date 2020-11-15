@@ -10,4 +10,14 @@ router.get("/completeuserlist", (req, res) => {
   });
 });
 
+router.get("/adminuserlist", (req, res) => {
+  User.find({ "admin": "true" },(error, data) => {
+    if (error) {
+      console.log(error);
+    }
+ 
+    res.send(data);
+  });
+});
+
 module.exports = router;

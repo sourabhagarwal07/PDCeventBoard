@@ -40,15 +40,15 @@ const ProjectDetailedHeader = ({
   const { history } = useReactRouter();
   const [modalOpen, setModalOpen] = useState(false);
 
-  // set isDelete to true, this will remove the project from project list
-  const handleDelete = () => {
+  const handleActiveStatus = () => {
     Axios.post(path + "project/delete/" + id, {
-      isDeleted: true,
+      isDeleted: !project.isDeleted,
     });
     setModalOpen(false);
-    history.push("/project-list");
+    history.push("/project-detail/" + id);
+    //remove this later after fixing bug# try returning data with latest project status changed.
+   window.location.reload(false);
   };
-
   // pass state to Creat Project, state includes Project Details
   const handleManage = () => {
     let path = {
@@ -96,31 +96,33 @@ const ProjectDetailedHeader = ({
       project.user[0].email === userInfo.user.email ? (
         <Segment attached="bottom" clearing>
           <Button color="orange" onClick={handleManage}>
-            Manage Project
+            Edit Project Details
           </Button>
           <Modal
             size="tiny"
             closeIcon
             open={modalOpen}
-            trigger={
-              <Button floated="right" color="red">
-                Delete Project
-              </Button>
-            }
+            trigger={project.isDeleted == true? (
+                  <Button floated="right" color="green" content="Activate"/>
+                ) : (
+                  <Button floated="right" color="red">
+                    Deactivate Project
+                  </Button>
+                )}
             onClose={() => setModalOpen(false)}
             onOpen={() => setModalOpen(true)}
           >
-            <Header icon="archive" content="Delete The Project" />
+            <Header icon="archive" content="Change project status" />
             <Modal.Content>
               <p>
-                <strong>Do you want to delete this project?</strong>
+                <strong>Are you sure you want to proceed?</strong>
               </p>
             </Modal.Content>
             <Modal.Actions>
               <Button color="red" onClick={() => setModalOpen(false)}>
                 <Icon name="remove" /> No
               </Button>
-              <Button color="green" onClick={handleDelete}>
+              <Button color="green" onClick={handleActiveStatus}>
                 <Icon name="checkmark" /> Yes
               </Button>
             </Modal.Actions>

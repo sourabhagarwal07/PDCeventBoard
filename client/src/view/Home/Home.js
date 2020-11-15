@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Image, Grid, Segment } from "semantic-ui-react";
+import { Image, Grid, Segment, Card } from "semantic-ui-react";
 import "./Home.css";
 
 const Home = (props) => {
@@ -50,7 +50,19 @@ const Home = (props) => {
           </Grid.Column>
         </Grid>
         </Segment>
-              
+        <Segment placeholder>
+          <h2 class="ui center aligned">
+          Our Collaborators and Partners
+          </h2><br/>
+        <Card.Group centered="true">
+          <Image centered size="large" size="small" src="/assets/ancwtlogo.jpg"></Image>
+          <Image centered size="large" size="small"  src="/assets/canbewell-logo.png"></Image>
+          <Image centered size="large" size="small"  src="/assets/city-of-ottawa-logo.jpg"></Image>
+          <Image centered size="large" size="small"  src="assets/create-best-logo.png"></Image>
+          <Image centered size="large" size="small"  src="/assets/FBSC-logo.png"></Image>
+          <Image centered size="large" size="small"  src="/assets/mitacs_colour.jpg"></Image>
+        </Card.Group>
+       </Segment>     
     </Fragment>
     
   );

@@ -38,8 +38,8 @@ router.post("/project/delete/:id", (req, res) => {
     if (error) {
       console.log(error);
     }
-    console.log(data);
-    res.send("deleted successfully");
+    //this data here is not received on front end immediately. need to fix this bug.
+    res.send(data);
   });
 });
 

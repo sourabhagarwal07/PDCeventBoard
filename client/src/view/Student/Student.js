@@ -30,6 +30,9 @@ const Student = (props) => {
           <a class="item" href="#/student-form">
             uOttawa Student Associations
           </a>
+          <a class="item" href="#/programs">
+          Program specific information
+          </a>
           <a class="item" href="#/fswep/">
             Programs Recognized by FSWEP
           </a>

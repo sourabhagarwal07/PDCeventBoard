@@ -9,6 +9,7 @@ import {
   Button,
   Form,
   Menu,
+  GridColumn,
 } from "semantic-ui-react";
 
 const Footer = () => {
@@ -28,7 +29,7 @@ const Footer = () => {
         <Segment inverted color="blue" vertical className="footer">
           <Container textAlign="center">
             <Grid divided inverted stackable>
-              <Grid.Column width={15}>
+              <Grid.Column width={8}>
                 <Header inverted as="h4" content="FOLLOW US" />
 
                 <p>
@@ -53,6 +54,9 @@ const Footer = () => {
                   </button>
                 </p>
               </Grid.Column>
+              <GridColumn  width={8} textAlign="center">
+              <a href="#/our-partners"><Header inverted as="h4" content="OUR PARTNERS"/></a>
+              </GridColumn>
             </Grid>
           </Container>
         </Segment>

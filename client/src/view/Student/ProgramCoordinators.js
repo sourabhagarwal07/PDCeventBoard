@@ -1,7 +1,5 @@
 import React, { Fragment } from "react";
 import {
-    Segment,
-    Item,
     Card
   } from "semantic-ui-react";
 
@@ -11,7 +9,7 @@ const ProgramCoordinators = (props) => {
       <h1 class="ui center aligned huge header">
         Information about PDC Student Representative for various disciplines
       </h1>
-      <Card.Group itemsPerRow="4">
+      <Card.Group centered="true">
       <Card color='blue'>
         <Card.Content>
         <Card.Header>Abdullah-Al-Mehedi</Card.Header>

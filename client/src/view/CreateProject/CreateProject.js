@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Form, Segment, Dropdown, Checkbox } from "semantic-ui-react";
 import Axios from "axios";
 import { UserContext } from "../../common/context/UserProvider";
@@ -20,6 +20,7 @@ const CreateProject = (props) => {
   const { user } = userInfo;
   const path = config();
   const [isDisable, setIsDisable] = useState(true);
+  const [adminUsers, setAdminUsers] = useState([]);
 
   // project information
   const [info, setInfo] = useState({
@@ -102,6 +103,38 @@ const CreateProject = (props) => {
       [name]: value,
     });
   };
+
+  const handleOwnerChange  = (e, data) => {
+    setInfo({
+      ...info,
+      user: data.value?data.value:user,
+    });
+  };
+
+  useEffect(() => {
+    Axios.get(path + "user/adminuserlist")
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        setAdminUsers(data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  },[null]);
+
+  const adminList = [
+  ];
+
+  adminUsers.map((admin)=>{
+    adminList.push(
+     {
+       key:admin._id,
+       value:admin,
+       text:admin.name
+     });
+ });
 
   return (
     <Segment>
@@ -189,7 +222,7 @@ const CreateProject = (props) => {
             placeholder="Required Skills"
           />
         </Form.Field> */}
-
+        <Form.Group widths="equal">
         <Form.Field>
           <label>Hosted By</label>
           <input
@@ -199,7 +232,18 @@ const CreateProject = (props) => {
             placeholder="Enter the name of company hosting"
           />
         </Form.Field>
-
+        <Form.Field>
+          <label>Project Owner</label>
+          <Dropdown
+            name="project owner"
+            placeholder="Project Owner"
+            fluid
+            selection
+            onChange={handleOwnerChange}
+            options={adminList}
+          />
+        </Form.Field>
+        </Form.Group>
         <Form.Field>
           <label>Category</label>
           <Dropdown

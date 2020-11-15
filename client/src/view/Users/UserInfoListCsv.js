@@ -25,7 +25,6 @@ const UserInfoListCsv =() => {
       })
       .then((data) => {
         setCompleteUsersList(data);
-        console.log("data::",data);
       })
       .catch((e) => {
         console.log(e);
